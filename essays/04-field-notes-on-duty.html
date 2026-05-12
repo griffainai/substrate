@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light only" />
+<meta name="supported-color-schemes" content="light" />
+<meta name="theme-color" content="#faf8f4" />
+<title>Field Notes — Installing the Architecture in a Co-Founded Company — Substrate</title>
+<meta name="description" content="Build log from On Duty, the fleet safety platform I am building with my stepdad as co-founder. Reading Room, Edition 04." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Substrate · Shared stylesheet · 2026 */
+
+:root {
+  color-scheme: light only;
+  --paper: #faf8f4;
+  --paper-warm: #f3efe7;
+  --paper-deep: #ebe6da;
+  --ink: #1a1815;
+  --ink-soft: #3a3631;
+  --ink-muted: #6e685e;
+  --rule: #d4cfc3;
+  --rule-soft: #e6e2d8;
+  --accent: #8b3a1f;
+  --accent-soft: #c9a47e;
+}
+@media (prefers-color-scheme: dark) { :root { color-scheme: light only; } }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; background: #faf8f4; }
+body {
+  background: #faf8f4 !important;
+  color: #1a1815 !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400; font-size: 17px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+::selection { background: rgba(139, 58, 31, 0.18); color: #1a1815; }
+
+/* NAV (shared) */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250, 248, 244, 0.92);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule-soft);
+}
+.nav-inner-wide {
+  max-width: 1100px; margin: 0 auto;
+  padding: 18px 40px;
+  display: flex; align-items: baseline; justify-content: space-between;
+}
+.nav-inner-narrow {
+  max-width: 760px; margin: 0 auto;
+  padding: 18px 40px;
+  display: flex; align-items: baseline; justify-content: space-between;
+}
+.nav-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 24px; font-weight: 500;
+  letter-spacing: -0.01em; color: var(--accent);
+  text-decoration: none;
+}
+.nav-mark-sub {
+  font-family: 'Inter', sans-serif; font-style: normal;
+  font-size: 13px; color: var(--ink-muted); font-weight: 400;
+  margin-left: 8px; letter-spacing: 0;
+}
+.nav-meta, .nav-back {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--ink-muted);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; transition: color 0.18s;
+}
+.nav-back:hover { color: var(--accent); }
+
+/* FOOTER (shared) */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 40px; background: var(--paper-warm);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--ink-muted);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.footer-inner-narrow { max-width: 760px; }
+.footer-inner a {
+  color: var(--ink-muted); text-decoration: none;
+  transition: color 0.18s;
+}
+.footer-inner a:hover { color: var(--accent); }
+
+/* ESSAY-SPECIFIC (single-column reading) */
+article { max-width: 760px; margin: 0 auto; padding: 96px 40px 60px; }
+.essay-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--ink-muted);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.essay-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-style: italic;
+  font-size: clamp(44px, 6vw, 68px);
+  line-height: 1.04; letter-spacing: -0.022em;
+  color: var(--ink); margin-bottom: 28px;
+}
+.essay-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 2.4vw, 26px);
+  font-style: italic; line-height: 1.45;
+  color: var(--ink-muted); margin-bottom: 56px;
+}
+.essay-divider {
+  border-top: 1px solid var(--rule);
+  margin-bottom: 48px;
+}
+article p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px; font-weight: 400; line-height: 1.65;
+  color: var(--ink-soft); margin-bottom: 24px;
+  letter-spacing: -0.002em;
+}
+article em { font-style: italic; color: var(--ink); }
+article strong { font-weight: 500; color: var(--ink); font-style: normal; }
+article h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-style: italic;
+  font-size: clamp(28px, 3.4vw, 36px);
+  line-height: 1.2; letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-top: 60px; margin-bottom: 24px;
+}
+article hr { border: none; border-top: 1px solid var(--rule-soft); margin: 48px 0; }
+
+.more-reading {
+  margin-top: 80px; padding: 44px;
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.more-reading-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--ink-muted);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.more-reading-list { list-style: none; }
+.more-reading-item {
+  padding: 20px 0; border-bottom: 1px solid var(--rule-soft);
+}
+.more-reading-item:last-child { border-bottom: none; padding-bottom: 0; }
+.more-reading-item a {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 24px;
+  color: var(--ink); text-decoration: none;
+  line-height: 1.25;
+  transition: color 0.18s;
+}
+.more-reading-item a:hover { color: var(--accent); }
+.more-reading-item-meta {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal; font-size: 10px;
+  color: var(--ink-muted); letter-spacing: 0.15em;
+  text-transform: uppercase; margin-top: 8px;
+}
+
+@media (max-width: 800px) {
+  .nav-inner-wide, .nav-inner-narrow { padding: 16px 24px; }
+  .nav-mark-sub { display: none; }
+  article { padding: 56px 24px 40px; }
+  article p { font-size: 19px; }
+  .essay-title { font-size: 38px; }
+  .essay-subtitle { font-size: 20px; }
+  .more-reading { padding: 28px; }
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+}
+
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner-narrow">
+      <a href="../index.html" class="nav-mark">Substrate <span class="nav-mark-sub">Practice of Jayden Forshee</span></a>
+      <a href="../index.html#reading-room" class="nav-back">← Reading Room</a>
+    </div>
+  </nav>
+
+  <article>
+    <div class="essay-meta">Reading Room · Edition 04 · 2026</div>
+    <h1 class="essay-title">Field Notes — Installing the Architecture in a Co-Founded Company</h1>
+    <p class="essay-subtitle">Build log from On Duty, the fleet safety platform I am building with my stepdad as co-founder.</p>
+    <div class="essay-divider"></div>
+
+    <p>On Duty is a B2B SaaS platform for fleet driver safety — coaching, compliance, and retention for companies that operate commercial vehicles. I co-founded it with my stepdad. He owns the sales and client side; I own the technical and architectural side. The company is in active development with mock data, four active tenants, and a pilot in progress with a commercial concrete operator running roughly ten drivers through the system.</p>
+
+    <p>This is a build log from the operating architecture I have been installing inside it for the last year. The methodology is the same one I install for clients. The reason I am publishing the build log in the Reading Room is that the question of <em>whether the methodology works in a real business environment with a real non-technical operator running it daily</em> has to be answered somewhere, and the most direct way to answer it is to show what the architecture looks like and what it has produced.</p>
+
+    <hr>
+
+    <h2>What the audit surfaced</h2>
+
+    <p>When I started installing the architecture, the stated picture of On Duty was <em>"a fleet safety SaaS platform."</em> That is the label. It is on the marketing materials. It is how the company is described at industry conferences. It is what an investor would expect to evaluate.</p>
+
+    <p>The audit found something different underneath.</p>
+
+    <p>What On Duty actually is — when you watch what the customers are responding to, what the pilot operator is paying attention to, what determines whether a tenant renews or churns — is a <strong>compliance and litigation defense product wearing safety language.</strong> Fleet operators do not buy safety platforms because they want their drivers to be safer in the abstract. They buy them because the legal exposure of operating commercial vehicles in the current US tort environment is catastrophic, and they need a documented system that demonstrates due diligence in the event of a nuclear verdict. The safety is real. The reason they pay for it is liability.</p>
+
+    <p>This sounds like a small distinction. It is not. The stated ontology — safety SaaS — implies that the most valuable output of the product is improved driver behavior. The actual ontology — compliance and litigation defense — implies that the most valuable output is a comprehensive, court-admissible audit trail. <em>Those are different products even though they look the same from the outside.</em> If we built the product around the stated ontology, we would optimize for driver coaching engagement metrics. If we built it around the actual ontology, we would optimize for the documentation, traceability, and defensibility of the system itself.</p>
+
+    <p>The architecture I installed reflects the corrected picture.</p>
+
+    <hr>
+
+    <h2>The shape of the install</h2>
+
+    <p>The workspace has eight top-level domains, each mapped to a specific function the company actually performs. I will describe them in shape only — the specifics of the routing logic, the context files, and the reference material are bespoke to On Duty and not the kind of detail a build log should expose. What is useful here is the structural pattern.</p>
+
+    <p><strong>Sales and outreach.</strong> The workspace used daily for prospect identification, outreach sequencing, and pipeline management. The architecture is calibrated to the specific buyer — operations directors and safety officers at fleet operators between $5M and $50M in revenue. Every output the system produces is calibrated to that buyer's specific vocabulary, decision criteria, and procurement process. The material it produces lands differently from generic sales copy because the architecture knows the buyer at a structural level.</p>
+
+    <p><strong>Compliance and audit preparation.</strong> This is the workspace that translates the actual ontology into operating output. When a tenant is preparing for a DOT audit or building documentation for legal defensibility, this workspace produces the artifacts they need in the format their auditors and attorneys expect. The corrected ontology is encoded directly into the routing logic — the system treats compliance documentation as the primary output, not as a side effect of safety coaching.</p>
+
+    <p><strong>Client success and retention.</strong> Onboarding new tenants, monitoring health scores, running the 30-day pilot framework, executing the renewal playbook. Each of these is its own stage with its own context, but they share a coherent picture of what success looks like inside On Duty — calibrated to the corrected ontology rather than the inherited one.</p>
+
+    <p><strong>Three other operational workspaces</strong> handle marketing content, internal operations, and the technical build itself. They mirror the same structural pattern: numbered folders for stages, plain markdown for context, reference material that captures industry knowledge in a form the AI can use.</p>
+
+    <p>The architecture is built on Interpretable Context Methodology. Every file is plain markdown. The whole system lives in a Git repository that can be cloned, edited, extended, and operated without my involvement. <strong>There is no platform to depend on. There is no proprietary configuration. There is no vendor lock-in.</strong></p>
+
+    <hr>
+
+    <h2>What is working</h2>
+
+    <p>A few patterns have surfaced over the last year of running the system.</p>
+
+    <p><strong>The non-technical operator pattern is real.</strong> My co-founder uses the architecture daily. He edits the markdown files himself when he notices something off. He has added two workspaces on his own that I did not build, by copying existing ones and modifying them. <strong>The system has grown beyond what I installed, in directions I did not anticipate, because the architecture was designed to be operable rather than dependent.</strong> This is the most important validation of the methodology, because it is the hardest thing for AI consulting to deliver. Most installs degrade or become dependent within six months. This one has compounded.</p>
+
+    <p><strong>The corrected ontology produced unexpected operational clarity.</strong> Once the workspace was built around compliance-and-litigation-defense rather than around safety-as-such, decisions that had been chronically slow started resolving quickly. Pricing conversations got easier because the value proposition was clearer. Sales calls converted faster because the messaging matched what the buyer actually wanted to hear. Product roadmap discussions stopped fragmenting because there was now a stable picture of what the company was prioritizing for. <strong>None of this was the architecture's direct output. It was the side effect of operating from the corrected frame daily.</strong></p>
+
+    <p><strong>The audit document keeps paying compound interest.</strong> When I wrote the audit, I treated it as a one-time artifact — a document that explained what I had surfaced so the install could be built against it. A year in, my co-founder still references it when he is making decisions that aren't covered by any workspace. The corrected ontology has become the foundation for how he reasons about the company, not just the foundation for what the system produces. <strong>The audit was the highest-leverage piece of work in the entire engagement, even though most of the visible output came from the install.</strong></p>
+
+    <hr>
+
+    <h2>What is not working</h2>
+
+    <p>A build log that only reports wins is marketing. Here is what is still rough.</p>
+
+    <p><strong>The CSV duplicate user issue is unresolved.</strong> When tenants upload driver lists, the deduplication logic has a known bug that creates duplicate user records in edge cases. This is a technical problem, not a methodological one, but it shows up here because it is the kind of friction the corrected ontology cannot fix. <em>Architecture can solve coordination problems. It cannot solve implementation bugs.</em> Distinguishing between those two has been a useful discipline.</p>
+
+    <p><strong>Email delivery from the platform to external recipients has been unreliable.</strong> Same category as the CSV problem. The architecture is sound; the technical execution at the platform layer has gaps that are being worked through.</p>
+
+    <p><strong>The non-technical operator has hit a ceiling on workspace creation.</strong> Existing workspaces extend well. New workspaces created from scratch — for a function the existing architecture didn't already cover — run into the limits of what the methodology can do for someone without technical training. <strong>The architecture is operable but not yet teachable, for the non-technical operator at this skill level.</strong> This is an open problem.</p>
+
+    <p><strong>The architecture has been revised twice.</strong> The audit was correct, but the install's first version did not fully reflect the corrected ontology — there were workspaces that, on six months of use, turned out to be calibrated to the stated picture rather than the actual one. Revising them required reopening the audit, refining the corrected ontology, and rebuilding three workspaces. <strong>The methodology is iterative in practice even when it appears clean on paper.</strong></p>
+
+    <hr>
+
+    <h2>What the build log is for</h2>
+
+    <p>The methodology works. The architecture has held up. The non-technical operator has been able to run and extend the system. The corrected ontology has produced compounding clarity over twelve months.</p>
+
+    <p>This is the evidence. The reason it is in the Reading Room is that anyone evaluating the practice can read it and see the work in motion — what the audit produces, what the install consists of, what the install does over time, where it is solid and where it is still being refined. Most AI consulting work is invisible after delivery. This one is open.</p>
+
+    <p>More Field Notes will follow as the build continues and as new things become worth reporting.</p>
+    
+    <div class="more-reading">
+      <div class="more-reading-eyebrow">— More from the Reading Room</div>
+      <ul class="more-reading-list">
+      <li class="more-reading-item">
+        <a href="01-the-ontology-of-a-business.html">The Ontology of a Business</a>
+        <span class="more-reading-item-meta">Edition 01 · On what your company actually is, underneath what you have been telling yourself it is.</span>
+      </li>
+      <li class="more-reading-item">
+        <a href="02-why-folder-structure-is-architecture.html">Why Folder Structure is Architecture</a>
+        <span class="more-reading-item-meta">Edition 02 · On Interpretable Context Methodology, and why the cleanest AI system is one that does not look like an AI system.</span>
+      </li>
+      <li class="more-reading-item">
+        <a href="03-strategy-is-downstream.html">Strategy is Downstream</a>
+        <span class="more-reading-item-meta">Edition 03 · On why most strategy fails, what it is downstream of, and the layer that has to be settled first.</span>
+      </li>
+      <li class="more-reading-item">
+        <a href="05-the-three-layers-of-a-business.html">The Three Layers of a Business</a>
+        <span class="more-reading-item-meta">Edition 05 · On why most strategy frameworks are missing the middle layer, and what changes when you name it.</span>
+      </li>
+      </ul>
+    </div>
+  </article>
+
+  <footer>
+    <div class="footer-inner footer-inner-narrow">
+      <div>Substrate · Practice of Jayden Forshee · 2026</div>
+      <div><a href="mailto:jaydiorforshee@gmail.com">jaydiorforshee@gmail.com</a></div>
+    </div>
+  </footer>
+
+</body>
+</html>
