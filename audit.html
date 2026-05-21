@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="theme-color" content="#faf8f4" />
+<title>Substrate Audit — Find the layer your business is actually running from</title>
+<meta name="description" content="A free self-conducted ontological audit. Six questions. One honest report about what layer your business is actually running from." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #faf8f4;
+    --paper-warm: #f3efe7;
+    --paper-deep: #ebe6da;
+    --ink: #1a1815;
+    --ink-soft: #3a3631;
+    --ink-muted: #6e685e;
+    --rule: #d4cfc3;
+    --rule-soft: #e6e2d8;
+    --accent: #8b3a1f;
+    --accent-soft: #c9a47e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; background: var(--paper); }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(250,248,244,0.93);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .nav-inner {
+    max-width: 900px; margin: 0 auto;
+    padding: 18px 40px;
+    display: flex; align-items: baseline; justify-content: space-between;
+  }
+  .nav-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; transition: color 0.18s;
+  }
+  .nav-back:hover { color: var(--accent); }
+  .nav-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 22px; font-weight: 500;
+    color: var(--accent); text-decoration: none;
+  }
+  .nav-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.12em; text-transform: uppercase;
+  }
+
+  /* LAYOUT */
+  .audit-wrap { max-width: 900px; margin: 0 auto; padding: 0 40px; }
+
+  /* HERO */
+  .audit-hero { padding: 80px 0 60px; border-bottom: 1px solid var(--rule-soft); }
+  .audit-hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.22em; color: var(--ink-muted); margin-bottom: 24px;
+  }
+  .audit-hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-weight: 400;
+    font-size: clamp(40px, 7vw, 72px);
+    line-height: 0.95; letter-spacing: -0.03em;
+    color: var(--accent); margin-bottom: 32px;
+  }
+  .audit-hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.5vw, 26px);
+    color: var(--ink); line-height: 1.45;
+    max-width: 700px; margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+  .audit-hero-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 19px;
+    color: var(--ink-soft); line-height: 1.6;
+    max-width: 640px;
+  }
+  .audit-hero-meta {
+    margin-top: 36px;
+    padding-top: 28px;
+    border-top: 1px solid var(--rule);
+    display: flex; gap: 40px; flex-wrap: wrap;
+  }
+  .audit-hero-stat {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.14em; text-transform: uppercase; line-height: 1.8;
+  }
+  .audit-hero-stat strong {
+    display: block; font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 22px; font-weight: 400;
+    color: var(--ink); letter-spacing: -0.01em; line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  /* PROGRESS */
+  .audit-progress { padding: 32px 0 0; }
+  .progress-bar-wrap {
+    height: 2px; background: var(--rule-soft); border-radius: 2px; margin-bottom: 16px;
+  }
+  .progress-bar-fill {
+    height: 100%; background: var(--accent); border-radius: 2px;
+    transition: width 0.4s ease;
+  }
+  .progress-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.16em; text-transform: uppercase;
+  }
+
+  /* STEP */
+  .audit-steps { padding: 48px 0; }
+  .audit-step { display: none; }
+  .audit-step.active { display: block; animation: stepIn 0.3s ease; }
+
+  @keyframes stepIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--accent);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .step-question {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400; font-size: clamp(26px, 3.5vw, 36px);
+    line-height: 1.15; letter-spacing: -0.018em;
+    color: var(--ink); margin-bottom: 14px; max-width: 760px;
+  }
+  .step-hint {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 18px;
+    color: var(--ink-muted); line-height: 1.55;
+    max-width: 640px; margin-bottom: 28px;
+  }
+  .step-optional {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--ink-muted);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-bottom: 8px; display: block;
+  }
+
+  textarea {
+    width: 100%; min-height: 160px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-radius: 4px; padding: 20px 24px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px; line-height: 1.6;
+    color: var(--ink); resize: vertical;
+    transition: border-color 0.18s;
+    outline: none;
+    -webkit-appearance: none;
+  }
+  textarea::placeholder { color: var(--ink-muted); font-style: italic; }
+  textarea:focus { border-color: var(--accent); background: var(--paper); }
+
+  /* STEP CONTROLS */
+  .step-controls {
+    display: flex; align-items: center;
+    gap: 16px; margin-top: 28px;
+  }
+  .btn-next {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 14px 28px;
+    background: var(--accent); color: var(--paper);
+    border: none; border-radius: 2px;
+    cursor: pointer; transition: opacity 0.18s;
+  }
+  .btn-next:hover { opacity: 0.85; }
+  .btn-back {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-muted); background: none; border: none;
+    cursor: pointer; padding: 8px 4px; transition: color 0.18s;
+  }
+  .btn-back:hover { color: var(--ink); }
+  .btn-generate {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 16px 36px;
+    background: var(--ink); color: var(--paper);
+    border: none; border-radius: 2px;
+    cursor: pointer; transition: opacity 0.18s;
+  }
+  .btn-generate:hover { opacity: 0.85; }
+
+  /* REPORT */
+  .audit-report { display: none; padding: 64px 0 100px; }
+  .audit-report.visible { display: block; animation: stepIn 0.5s ease; }
+
+  .report-header { margin-bottom: 56px; padding-bottom: 40px; border-bottom: 1px solid var(--rule); }
+  .report-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 16px;
+  }
+  .report-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-weight: 400;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 0.95; letter-spacing: -0.03em;
+    color: var(--ink); margin-bottom: 20px;
+  }
+  .report-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.12em; text-transform: uppercase; line-height: 1.8;
+  }
+
+  /* FRACTURE BLOCK */
+  .fracture-block {
+    margin-bottom: 48px;
+    padding: 40px 44px;
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 4px;
+  }
+  .fracture-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent-soft); margin-bottom: 16px;
+  }
+  .fracture-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-weight: 400;
+    font-size: clamp(28px, 4vw, 40px);
+    line-height: 1.1; letter-spacing: -0.02em;
+    color: var(--paper); margin-bottom: 20px;
+  }
+  .fracture-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px; line-height: 1.65;
+    color: rgba(250,248,244,0.85); margin-bottom: 0;
+  }
+
+  /* SURFACES */
+  .report-surfaces { margin-bottom: 48px; }
+  .report-surfaces-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px;
+  }
+  .surface-item {
+    padding: 28px 0; border-bottom: 1px solid var(--rule-soft);
+  }
+  .surface-item:first-of-type { padding-top: 0; }
+  .surface-item:last-of-type { border-bottom: none; }
+  .surface-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--accent);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .surface-q {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 16px; color: var(--ink-muted);
+    margin-bottom: 10px; line-height: 1.4;
+  }
+  .surface-a {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; color: var(--ink-soft); line-height: 1.6;
+    max-width: 720px;
+  }
+  .surface-empty {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    font-style: normal; opacity: 0.6;
+  }
+
+  /* IMPLICATION */
+  .implication-block {
+    margin-bottom: 48px;
+    padding: 36px 40px;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+  }
+  .implication-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--accent);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 14px;
+  }
+  .implication-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; line-height: 1.6; color: var(--ink-soft);
+  }
+  .implication-text em { font-style: italic; color: var(--ink); }
+
+  /* CONVERSION */
+  .report-cta {
+    padding: 48px 0 0;
+    border-top: 1px solid var(--rule);
+  }
+  .report-cta-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .report-cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400; font-size: clamp(26px, 3.5vw, 36px);
+    line-height: 1.15; letter-spacing: -0.018em;
+    color: var(--ink); max-width: 680px; margin-bottom: 20px;
+  }
+  .report-cta-title em { font-style: italic; color: var(--accent); }
+  .report-cta-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 20px;
+    color: var(--ink-soft); line-height: 1.6;
+    max-width: 640px; margin-bottom: 32px;
+  }
+  .report-cta-actions {
+    display: flex; gap: 16px; flex-wrap: wrap; align-items: center;
+  }
+  .btn-email {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 14px 28px;
+    background: var(--accent); color: var(--paper);
+    border-radius: 2px; text-decoration: none;
+    transition: opacity 0.18s;
+  }
+  .btn-email:hover { opacity: 0.85; }
+  .btn-print {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-muted); background: none;
+    border: 1px solid var(--rule); border-radius: 2px;
+    padding: 14px 22px; cursor: pointer; transition: all 0.18s;
+  }
+  .btn-print:hover { border-color: var(--ink-muted); color: var(--ink); }
+
+  /* FOOTER */
+  .audit-footer {
+    border-top: 1px solid var(--rule); padding: 32px 40px;
+    background: var(--paper-warm);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 12px;
+  }
+  .audit-footer a { color: var(--ink-muted); text-decoration: none; transition: color 0.18s; }
+  .audit-footer a:hover { color: var(--accent); }
+
+  /* RESPONSIVE */
+  @media (max-width: 680px) {
+    .audit-wrap { padding: 0 20px; }
+    .nav-inner { padding: 15px 20px; }
+    .audit-hero { padding: 60px 0 44px; }
+    .audit-steps { padding: 36px 0; }
+    .fracture-block { padding: 28px 24px; }
+    .implication-block { padding: 24px 22px; }
+    .audit-footer { flex-direction: column; gap: 8px; padding: 24px 20px; }
+    .report-cta-actions { flex-direction: column; align-items: flex-start; }
+    .audit-hero-meta { gap: 24px; }
+  }
+
+  @media print {
+    .nav, .audit-hero, .audit-steps, .audit-footer,
+    .btn-print, .btn-email, .report-cta-actions { display: none !important; }
+    .audit-report { padding: 0; }
+    .fracture-block { background: #f3efe7 !important; color: #1a1815 !important; -webkit-print-color-adjust: exact; }
+    .fracture-name, .fracture-desc { color: #1a1815 !important; }
+    .fracture-label { color: #8b3a1f !important; }
+    body { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-back">← Substrate</a>
+    <a href="index.html" class="nav-mark">Substrate</a>
+    <div class="nav-tag">Free Audit</div>
+  </div>
+</nav>
+
+<div class="audit-wrap">
+
+  <!-- HERO -->
+  <div class="audit-hero">
+    <div class="audit-hero-eyebrow">— Substrate Audit · Self-Conducted</div>
+    <div class="audit-hero-title">Find your substrate.</div>
+    <p class="audit-hero-sub">Six questions. One honest reading of the layer your business is actually running from.</p>
+    <p class="audit-hero-body">Most strategy fails because it's applied to the wrong picture of the business. This audit is designed to surface that picture — the implicit theory you've been operating from, and where it has drifted from what the company actually is.</p>
+    <div class="audit-hero-meta">
+      <div class="audit-hero-stat"><strong>Six</strong>Questions</div>
+      <div class="audit-hero-stat"><strong>~10 min</strong>To complete</div>
+      <div class="audit-hero-stat"><strong>Free</strong>No email required</div>
+      <div class="audit-hero-stat"><strong>Yours</strong>Nothing is stored</div>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="audit-progress" id="progressWrap">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">Question 1 of 6</div>
+  </div>
+
+  <!-- STEPS -->
+  <div class="audit-steps" id="auditSteps">
+
+    <!-- Q1 -->
+    <div class="audit-step active" id="step-0">
+      <div class="step-num">Question 01 of 06</div>
+      <div class="step-question">What is your business?</div>
+      <p class="step-hint">Not what it does. Not what it sells. Not how it is positioned. What it <em>is</em> — at the foundational level. What category of thing exists when you point at this company. One or two sentences that would still be true if you removed everything about product, market, and revenue.</p>
+      <textarea id="q1" placeholder="This business is..."></textarea>
+      <div class="step-controls">
+        <button class="btn-next" onclick="nextStep()">Continue →</button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="audit-step" id="step-1">
+      <div class="step-num">Question 02 of 06</div>
+      <div class="step-question">What did you think this would be when you started? What is it now?</div>
+      <p class="step-hint">Describe both sides honestly. Don't reconcile them. Don't explain why the gap is fine. Just name what you thought it was going to be, and name what it has actually become.</p>
+      <textarea id="q2" placeholder="When I started, I thought... What it actually is now..."></textarea>
+      <div class="step-controls">
+        <button class="btn-next" onclick="nextStep()">Continue →</button>
+        <button class="btn-back" onclick="prevStep()">← Back</button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="audit-step" id="step-2">
+      <div class="step-num">Question 03 of 06</div>
+      <div class="step-question">What is your customer actually buying?</div>
+      <p class="step-hint">Not what you sell them. Not what is on the invoice. What do they experience themselves as getting? If they described this purchase to a friend — not your product, but what they got from it — what would they say?</p>
+      <textarea id="q3" placeholder="They experience themselves as buying..."></textarea>
+      <div class="step-controls">
+        <button class="btn-next" onclick="nextStep()">Continue →</button>
+        <button class="btn-back" onclick="prevStep()">← Back</button>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="audit-step" id="step-3">
+      <div class="step-num">Question 04 of 06</div>
+      <div class="step-question">Where do your decisions diverge from what your stated strategy would predict?</div>
+      <p class="step-hint">Give a specific example of a real decision you made — something you actually did — that you couldn't fully explain using the public story about what your company is. A hire, a pivot, a product, a client you took or passed on.</p>
+      <textarea id="q4" placeholder="We decided to... even though our stated direction says..."></textarea>
+      <div class="step-controls">
+        <button class="btn-next" onclick="nextStep()">Continue →</button>
+        <button class="btn-back" onclick="prevStep()">← Back</button>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="audit-step" id="step-4">
+      <div class="step-num">Question 05 of 06</div>
+      <div class="step-question">What is your company doing that you privately know is wrong?</div>
+      <p class="step-hint">Not an operational mistake. Something structural — a direction you're moving, a positioning you're holding, a hire you made, a story you're still telling — that doesn't fit what the business has actually become. The thing you've been carrying without naming it.</p>
+      <textarea id="q5" placeholder="If I'm being honest..."></textarea>
+      <div class="step-controls">
+        <button class="btn-next" onclick="nextStep()">Continue →</button>
+        <button class="btn-back" onclick="prevStep()">← Back</button>
+      </div>
+    </div>
+
+    <!-- Q6 (optional) -->
+    <div class="audit-step" id="step-5">
+      <div class="step-num">Question 06 of 06</div>
+      <div class="step-question">If you had no memory of what this company was supposed to be, and you observed it for a week — what would you say it is?</div>
+      <p class="step-hint">Remove every story you've told about the company. Remove the pitch, the brand, the founding narrative. Describe only what you see happening — the work, the relationships, the exchanges, the decisions. What does an outside observer conclude?</p>
+      <span class="step-optional">Optional — leave blank if nothing surfaces</span>
+      <textarea id="q6" placeholder="An outside observer would describe this company as..."></textarea>
+      <div class="step-controls">
+        <button class="btn-generate" onclick="generateReport()">Generate my audit report →</button>
+        <button class="btn-back" onclick="prevStep()">← Back</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- REPORT -->
+  <div class="audit-report" id="auditReport">
+
+    <div class="report-header">
+      <div class="report-eyebrow">— Substrate Audit · Your Reading</div>
+      <div class="report-title" id="reportTitle">Your Substrate Reading</div>
+      <div class="report-meta" id="reportMeta"></div>
+    </div>
+
+    <div class="fracture-block" id="fractureBlock">
+      <div class="fracture-label" id="fractureLabel"></div>
+      <div class="fracture-name" id="fractureName"></div>
+      <div class="fracture-desc" id="fractureDesc"></div>
+    </div>
+
+    <div class="report-surfaces">
+      <div class="report-surfaces-title">— What you surfaced, by layer</div>
+
+      <div class="surface-item">
+        <div class="surface-label">Founder Surface · What the business is</div>
+        <div class="surface-q">What is your business?</div>
+        <div class="surface-a" id="r1"></div>
+      </div>
+
+      <div class="surface-item">
+        <div class="surface-label">Identity Surface · The drift</div>
+        <div class="surface-q">What it was supposed to be vs. what it is now</div>
+        <div class="surface-a" id="r2"></div>
+      </div>
+
+      <div class="surface-item">
+        <div class="surface-label">Customer Surface · What they're actually buying</div>
+        <div class="surface-q">What your customer experiences themselves as getting</div>
+        <div class="surface-a" id="r3"></div>
+      </div>
+
+      <div class="surface-item">
+        <div class="surface-label">Decision Surface · Where the frame slips</div>
+        <div class="surface-q">Where your decisions diverge from your stated strategy</div>
+        <div class="surface-a" id="r4"></div>
+      </div>
+
+      <div class="surface-item">
+        <div class="surface-label">Hidden Surface · The unnamed weight</div>
+        <div class="surface-q">What you privately know is wrong</div>
+        <div class="surface-a" id="r5"></div>
+      </div>
+
+      <div class="surface-item" id="r6wrap">
+        <div class="surface-label">Observer Surface · The outside eye</div>
+        <div class="surface-q">What an observer would say the company actually is</div>
+        <div class="surface-a" id="r6"></div>
+      </div>
+
+    </div>
+
+    <div class="implication-block">
+      <div class="implication-label">— Structural Implication</div>
+      <div class="implication-text" id="implicationText"></div>
+    </div>
+
+    <div class="report-cta">
+      <div class="report-cta-eyebrow">— What comes next</div>
+      <div class="report-cta-title">This is what a <em>self-conducted audit</em> surfaces. The things you already knew but hadn't named yet.</div>
+      <p class="report-cta-body">The full ontological audit is different. It surfaces what you don't know you don't know — the places where the company's actual behavior contradicts your theory of it, in ways you can't see because you're inside the system. That takes three or four conversations and an outside eye. If reading your audit above has surfaced something you've been carrying without language for, the right next step is a short conversation.</p>
+      <div class="report-cta-actions">
+        <a href="mailto:jaydiorforshee@gmail.com?subject=Substrate%20Audit%20—%20Conversation" class="btn-email">Write to me →</a>
+        <button class="btn-print" onclick="window.print()">Print this report</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="audit-footer">
+  <div>Substrate · Jayden Forshee · 2026</div>
+  <div><a href="index.html">← Back to the practice</a></div>
+  <div><a href="mailto:jaydiorforshee@gmail.com">jaydiorforshee@gmail.com</a></div>
+</div>
+
+<script>
+  let currentStep = 0;
+  const totalSteps = 6;
+
+  function wordCount(str) {
+    return str.trim().split(/\s+/).filter(Boolean).length;
+  }
+
+  function updateProgress() {
+    const pct = (currentStep / totalSteps) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressLabel').textContent =
+      currentStep < totalSteps
+        ? 'Question ' + (currentStep + 1) + ' of ' + totalSteps
+        : 'Complete';
+  }
+
+  function showStep(n) {
+    document.querySelectorAll('.audit-step').forEach((el, i) => {
+      el.classList.toggle('active', i === n);
+    });
+    updateProgress();
+    window.scrollTo({ top: document.getElementById('progressWrap').offsetTop - 80, behavior: 'smooth' });
+  }
+
+  function nextStep() {
+    if (currentStep < totalSteps - 1) {
+      currentStep++;
+      showStep(currentStep);
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 0) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  function generateReport() {
+    const q1 = document.getElementById('q1').value.trim();
+    const q2 = document.getElementById('q2').value.trim();
+    const q3 = document.getElementById('q3').value.trim();
+    const q4 = document.getElementById('q4').value.trim();
+    const q5 = document.getElementById('q5').value.trim();
+    const q6 = document.getElementById('q6').value.trim();
+
+    const w1 = wordCount(q1), w2 = wordCount(q2), w3 = wordCount(q3);
+    const w4 = wordCount(q4), w5 = wordCount(q5), w6 = wordCount(q6);
+
+    // FRACTURE DETECTION
+    // Pattern 1: The Unnamed Weight — Q5 is the longest, most specific answer
+    // Pattern 2: The Drifted Frame — Q2 is long, showing a big gap
+    // Pattern 3: The Hidden Product — Q3 diverges meaningfully from Q1
+    // Pattern 4: The Honest Observer — Q6 contradicts Q1 (observer sees something different)
+
+    let fractureType, fractureTitle, fractureDesc, implication;
+
+    const q5Dominant = w5 >= w1 && w5 >= w2 && w5 >= w3 && w5 > 25;
+    const q2Dominant = w2 > (w1 * 1.4) && w2 > 35;
+    const q6ContradictQ1 = q6.length > 40 && w6 > 20;
+
+    if (q5Dominant) {
+      fractureTitle = 'The Unnamed Weight';
+      fractureDesc = 'The most specific and detailed answer you gave was to the question about what you privately know is wrong. This is almost always the most important signal in a structural audit. The company is organized around something it has already outgrown — a frame, a story, a positioning — and the weight of not naming it is accumulating. Every operational decision made on top of an unexamined foundation deepens the cost of eventually correcting it. The fracture lives here.';
+      implication = 'An AI operating architecture installed before this is named will encode the problem into the operational layer. The system will run correctly — and in the wrong direction. <em>The audit has to start with what you privately know before anything else is built.</em> What you wrote in answer five is the beginning of the ontological document, not an aside to it.';
+
+    } else if (q6ContradictQ1) {
+      fractureTitle = 'The Gap Between Telling and Seeing';
+      fractureDesc = 'You described your business one way at the start, and described it differently when you removed every story you had been telling about it. That gap — between the narrated company and the observed company — is where the fracture lives. The business you are operating is not the business you are running. Most of your strategic decisions are being made against the narrated version. The actual version has a different substrate.';
+      implication = 'When an operating architecture is built to serve the narrated company rather than the observed one, it accelerates the narrative while the real business continues to operate from a different frame. <em>The workspace has to be built against what the observer would describe — not what the founder has been saying.</em>';
+
+    } else if (q2Dominant) {
+      fractureTitle = 'The Drifted Frame';
+      fractureDesc = 'The most significant signal in your audit is the distance between what you thought this would be and what it has actually become. The company has moved — and the frame it is still operating from has not moved with it. The inherited theory may be years behind the actual business. Strategy, hiring, and team structure may all still be calibrated to the original picture, not the current one. The drift is invisible from inside because the language of the original frame is still in use.';
+      implication = 'Installing an operating architecture into a drifted frame materializes the drift permanently. The workspace will encode the original theory — including the parts that no longer apply — into the daily operating layer of the business. <em>The corrected frame has to be surfaced and written down before any architecture is built against it.</em>';
+
+    } else {
+      fractureTitle = 'The Hidden Product';
+      fractureDesc = 'The pattern across your answers suggests a gap between what you describe your company as and what your customer experiences themselves as buying. The real value you deliver may be adjacent to — or meaningfully different from — the value you are organized to deliver. This is one of the most common and most expensive structural mismatches: the company is efficient at delivering what it says it sells, while the customer keeps coming back for something else entirely.';
+      implication = 'An operating architecture built around the stated product — rather than the product the customer is actually buying — will optimize for the wrong exchange. <em>The gap between what is sold and what is bought has to be closed at the ontological level before the architecture is designed.</em> Otherwise the system runs correctly against the wrong frame.';
+    }
+
+    // POPULATE REPORT
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+
+    document.getElementById('reportTitle').textContent = 'Your Substrate Reading';
+    document.getElementById('reportMeta').innerHTML =
+      'Conducted ' + dateStr + ' · Self-audit · Substrate practice of Jayden Forshee';
+
+    document.getElementById('fractureLabel').textContent = '— Primary fracture pattern';
+    document.getElementById('fractureName').textContent = fractureTitle;
+    document.getElementById('fractureDesc').textContent = fractureDesc;
+
+    const fill = (id, val) => {
+      const el = document.getElementById(id);
+      if (val && val.trim()) {
+        el.textContent = val;
+      } else {
+        el.innerHTML = '<span class="surface-empty">Not answered</span>';
+      }
+    };
+
+    fill('r1', q1); fill('r2', q2); fill('r3', q3);
+    fill('r4', q4); fill('r5', q5);
+
+    if (q6.trim()) {
+      fill('r6', q6);
+      document.getElementById('r6wrap').style.display = 'block';
+    } else {
+      document.getElementById('r6wrap').style.display = 'none';
+    }
+
+    document.getElementById('implicationText').innerHTML = implication;
+
+    // SHOW REPORT
+    document.getElementById('auditSteps').style.display = 'none';
+    document.getElementById('progressWrap').style.display = 'none';
+    const report = document.getElementById('auditReport');
+    report.classList.add('visible');
+
+    currentStep = totalSteps;
+    updateProgress();
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Init
+  showStep(0);
+</script>
+
+</body>
+</html>
