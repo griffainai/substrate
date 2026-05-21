@@ -363,6 +363,105 @@
   }
   .btn-secondary:hover { border-color: var(--ink-muted); color: var(--ink); }
 
+  /* LOADING STATE */
+  .audit-loading { padding: 80px 0 100px; }
+  .loading-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px;
+  }
+  .loading-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-weight: 400;
+    font-size: clamp(36px, 5vw, 60px);
+    line-height: 0.95; letter-spacing: -0.03em;
+    color: var(--accent); margin-bottom: 40px;
+  }
+  .loading-bar-wrap {
+    height: 1px; background: var(--rule-soft); max-width: 480px; margin-bottom: 28px;
+  }
+  .loading-bar-fill {
+    height: 100%; background: var(--accent); width: 0%; transition: width 0.7s ease;
+  }
+  .loading-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 19px;
+    color: var(--ink-muted); line-height: 1.6; max-width: 480px;
+  }
+
+  /* SUBSTRATE READING (inside fracture block) */
+  .substrate-reading {
+    display: none; margin-top: 22px; padding-top: 20px;
+    border-top: 1px solid rgba(250,248,244,0.14);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; line-height: 1.65;
+    color: rgba(250,248,244,0.72);
+  }
+  .substrate-reading.visible { display: block; }
+  .substrate-reading-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent-soft); margin-bottom: 10px;
+  }
+
+  /* SIGNAL ANNOTATION */
+  .signal-annotation {
+    display: none; margin-top: 14px;
+    padding: 14px 18px 14px 16px;
+    background: var(--paper-deep);
+    border-left: 2px solid var(--accent-soft);
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 17px;
+    color: var(--ink-soft); line-height: 1.55;
+  }
+  .signal-annotation.visible { display: block; }
+  .signal-annotation-label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 8px; color: var(--accent);
+    letter-spacing: 0.22em; text-transform: uppercase;
+    font-style: normal; margin-bottom: 6px;
+  }
+
+  /* URGENCY */
+  .urgency-row {
+    display: none; margin-top: 24px; padding-top: 20px;
+    border-top: 1px solid var(--rule-soft);
+    align-items: center; gap: 12px;
+  }
+  .urgency-row.visible { display: flex; }
+  .urgency-label-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--ink-muted);
+    letter-spacing: 0.18em; text-transform: uppercase;
+  }
+  .urgency-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 20px;
+  }
+  .urgency-chip.low { background: var(--paper-deep); color: var(--ink-muted); }
+  .urgency-chip.medium { background: rgba(139,58,31,0.1); color: var(--accent); border: 1px solid rgba(139,58,31,0.25); }
+  .urgency-chip.high { background: rgba(139,58,31,0.18); color: var(--accent); border: 1px solid var(--accent); }
+  .urgency-chip.critical { background: var(--accent); color: var(--paper); }
+
+  /* NEXT STEP */
+  .next-step-block {
+    display: none; margin-top: 20px;
+    padding: 22px 26px; background: var(--paper-deep); border-radius: 4px;
+  }
+  .next-step-block.visible { display: block; }
+  .next-step-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; color: var(--accent);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 10px;
+  }
+  .next-step-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; line-height: 1.5; color: var(--ink);
+  }
+
   /* FOOTER */
   .audit-footer {
     border-top: 1px solid var(--rule); padding: 32px 40px;
@@ -511,6 +610,14 @@
 
   </div>
 
+  <!-- LOADING -->
+  <div class="audit-loading" id="auditLoading" style="display:none;">
+    <div class="loading-eyebrow">— Substrate is reading</div>
+    <div class="loading-title">Finding your substrate.</div>
+    <div class="loading-bar-wrap"><div class="loading-bar-fill" id="loadingBar"></div></div>
+    <p class="loading-body">Six answers. One precise reading. This takes a moment — the analysis is thorough.</p>
+  </div>
+
   <!-- REPORT -->
   <div class="audit-report" id="auditReport">
 
@@ -524,6 +631,7 @@
       <div class="fracture-label" id="fractureLabel"></div>
       <div class="fracture-name" id="fractureName"></div>
       <div class="fracture-desc" id="fractureDesc"></div>
+      <div class="substrate-reading" id="substrateReading"></div>
     </div>
 
     <div class="report-surfaces">
@@ -533,36 +641,42 @@
         <div class="surface-label">Founder Surface · What the business is</div>
         <div class="surface-q">What is your business?</div>
         <div class="surface-a" id="r1"></div>
+        <div class="signal-annotation" id="sig1"><span class="signal-annotation-label">— Reading</span><span id="sig1text"></span></div>
       </div>
 
       <div class="surface-item">
         <div class="surface-label">Identity Surface · The drift</div>
         <div class="surface-q">What it was supposed to be vs. what it is now</div>
         <div class="surface-a" id="r2"></div>
+        <div class="signal-annotation" id="sig2"><span class="signal-annotation-label">— Reading</span><span id="sig2text"></span></div>
       </div>
 
       <div class="surface-item">
         <div class="surface-label">Customer Surface · What they're actually buying</div>
         <div class="surface-q">What your customer experiences themselves as getting</div>
         <div class="surface-a" id="r3"></div>
+        <div class="signal-annotation" id="sig3"><span class="signal-annotation-label">— Reading</span><span id="sig3text"></span></div>
       </div>
 
       <div class="surface-item">
         <div class="surface-label">Decision Surface · Where the frame slips</div>
         <div class="surface-q">Where your decisions diverge from your stated strategy</div>
         <div class="surface-a" id="r4"></div>
+        <div class="signal-annotation" id="sig4"><span class="signal-annotation-label">— Reading</span><span id="sig4text"></span></div>
       </div>
 
       <div class="surface-item">
         <div class="surface-label">Hidden Surface · The unnamed weight</div>
         <div class="surface-q">What you privately know is wrong</div>
         <div class="surface-a" id="r5"></div>
+        <div class="signal-annotation" id="sig5"><span class="signal-annotation-label">— Reading</span><span id="sig5text"></span></div>
       </div>
 
       <div class="surface-item" id="r6wrap">
         <div class="surface-label">Observer Surface · The outside eye</div>
         <div class="surface-q">What an observer would say the company actually is</div>
         <div class="surface-a" id="r6"></div>
+        <div class="signal-annotation" id="sig6"><span class="signal-annotation-label">— Reading</span><span id="sig6text"></span></div>
       </div>
 
     </div>
@@ -570,6 +684,14 @@
     <div class="implication-block">
       <div class="implication-label">— Structural Implication</div>
       <div class="implication-text" id="implicationText"></div>
+      <div class="urgency-row" id="urgencyRow">
+        <span class="urgency-label-text">Correction urgency —</span>
+        <span id="urgencyValue"></span>
+      </div>
+      <div class="next-step-block" id="nextStepBlock">
+        <div class="next-step-label">— First action before anything else is built</div>
+        <div class="next-step-text" id="nextStepText"></div>
+      </div>
     </div>
 
     <div class="report-cta">
@@ -636,7 +758,7 @@
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
   }
 
-  function generateReport() {
+  async function generateReport() {
     const q1 = document.getElementById('q1').value.trim();
     const q2 = document.getElementById('q2').value.trim();
     const q3 = document.getElementById('q3').value.trim();
@@ -644,54 +766,94 @@
     const q5 = document.getElementById('q5').value.trim();
     const q6 = document.getElementById('q6').value.trim();
 
+    // Hide steps, show loading
+    document.getElementById('auditSteps').style.display = 'none';
+    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('auditLoading').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Animate loading bar
+    const bar = document.getElementById('loadingBar');
+    let progress = 0;
+    const loadInterval = setInterval(() => {
+      progress = Math.min(progress + (Math.random() * 6 + 2), 88);
+      bar.style.width = progress + '%';
+    }, 350);
+
+    let analysis = null;
+    try {
+      const res = await fetch('/api/analyze', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ q1, q2, q3, q4, q5, q6 })
+      });
+      if (res.ok) analysis = await res.json();
+    } catch (e) {
+      // API unavailable — fall back to local detection
+    }
+
+    clearInterval(loadInterval);
+    bar.style.width = '100%';
+    await new Promise(r => setTimeout(r, 500));
+    document.getElementById('auditLoading').style.display = 'none';
+
+    populateReport(q1, q2, q3, q4, q5, q6, analysis);
+  }
+
+  function populateReport(q1, q2, q3, q4, q5, q6, analysis) {
     const w1 = wordCount(q1), w2 = wordCount(q2), w3 = wordCount(q3);
-    const w4 = wordCount(q4), w5 = wordCount(q5), w6 = wordCount(q6);
+    const w5 = wordCount(q5), w6 = wordCount(q6);
 
-    // FRACTURE DETECTION
-    // Pattern 1: The Unnamed Weight — Q5 is the longest, most specific answer
-    // Pattern 2: The Drifted Frame — Q2 is long, showing a big gap
-    // Pattern 3: The Hidden Product — Q3 diverges meaningfully from Q1
-    // Pattern 4: The Honest Observer — Q6 contradicts Q1 (observer sees something different)
-
-    let fractureType, fractureTitle, fractureDesc, implication;
-
+    // Fallback fracture detection
+    let fractureTitle, fractureDesc, implication;
     const q5Dominant = w5 >= w1 && w5 >= w2 && w5 >= w3 && w5 > 25;
     const q2Dominant = w2 > (w1 * 1.4) && w2 > 35;
     const q6ContradictQ1 = q6.length > 40 && w6 > 20;
 
     if (q5Dominant) {
       fractureTitle = 'The Unnamed Weight';
-      fractureDesc = 'The most specific and detailed answer you gave was to the question about what you privately know is wrong. This is almost always the most important signal in a structural audit. The company is organized around something it has already outgrown — a frame, a story, a positioning — and the weight of not naming it is accumulating. Every operational decision made on top of an unexamined foundation deepens the cost of eventually correcting it. The fracture lives here.';
-      implication = 'An AI operating architecture installed before this is named will encode the problem into the operational layer. The system will run correctly — and in the wrong direction. <em>The audit has to start with what you privately know before anything else is built.</em> What you wrote in answer five is the beginning of the ontological document, not an aside to it.';
-
+      fractureDesc = 'The most specific and detailed answer you gave was to the question about what you privately know is wrong. This is almost always the most important signal in a structural audit. The company is organized around something it has already outgrown — a frame, a story, a positioning — and the weight of not naming it is accumulating. Every operational decision made on top of an unexamined foundation deepens the cost of eventually correcting it.';
+      implication = 'An AI operating architecture installed before this is named will encode the problem into the operational layer. The system will run correctly — and in the wrong direction. <em>The audit has to start with what you privately know before anything else is built.</em>';
     } else if (q6ContradictQ1) {
       fractureTitle = 'The Gap Between Telling and Seeing';
-      fractureDesc = 'You described your business one way at the start, and described it differently when you removed every story you had been telling about it. That gap — between the narrated company and the observed company — is where the fracture lives. The business you are operating is not the business you are running. Most of your strategic decisions are being made against the narrated version. The actual version has a different substrate.';
-      implication = 'When an operating architecture is built to serve the narrated company rather than the observed one, it accelerates the narrative while the real business continues to operate from a different frame. <em>The workspace has to be built against what the observer would describe — not what the founder has been saying.</em>';
-
+      fractureDesc = 'You described your business one way at the start, and described it differently when you removed every story you had been telling about it. That gap — between the narrated company and the observed company — is where the fracture lives. The business you are operating is not the business you are running.';
+      implication = 'When an operating architecture is built to serve the narrated company rather than the observed one, it accelerates the narrative while the real business continues to operate from a different frame. <em>The workspace has to be built against what the observer would describe.</em>';
     } else if (q2Dominant) {
       fractureTitle = 'The Drifted Frame';
-      fractureDesc = 'The most significant signal in your audit is the distance between what you thought this would be and what it has actually become. The company has moved — and the frame it is still operating from has not moved with it. The inherited theory may be years behind the actual business. Strategy, hiring, and team structure may all still be calibrated to the original picture, not the current one. The drift is invisible from inside because the language of the original frame is still in use.';
-      implication = 'Installing an operating architecture into a drifted frame materializes the drift permanently. The workspace will encode the original theory — including the parts that no longer apply — into the daily operating layer of the business. <em>The corrected frame has to be surfaced and written down before any architecture is built against it.</em>';
-
+      fractureDesc = 'The most significant signal in your audit is the distance between what you thought this would be and what it has actually become. The company has moved — and the frame it is still operating from has not moved with it. Strategy, hiring, and structure may all still be calibrated to the original picture.';
+      implication = 'Installing an operating architecture into a drifted frame materializes the drift permanently. <em>The corrected frame has to be surfaced and written down before any architecture is built against it.</em>';
     } else {
       fractureTitle = 'The Hidden Product';
-      fractureDesc = 'The pattern across your answers suggests a gap between what you describe your company as and what your customer experiences themselves as buying. The real value you deliver may be adjacent to — or meaningfully different from — the value you are organized to deliver. This is one of the most common and most expensive structural mismatches: the company is efficient at delivering what it says it sells, while the customer keeps coming back for something else entirely.';
-      implication = 'An operating architecture built around the stated product — rather than the product the customer is actually buying — will optimize for the wrong exchange. <em>The gap between what is sold and what is bought has to be closed at the ontological level before the architecture is designed.</em> Otherwise the system runs correctly against the wrong frame.';
+      fractureDesc = 'The pattern across your answers suggests a gap between what you describe your company as and what your customer experiences themselves as buying. The company is efficient at delivering what it says it sells, while the customer keeps coming back for something else entirely.';
+      implication = 'An operating architecture built around the stated product rather than the product the customer is actually buying will optimize for the wrong exchange. <em>The gap has to be closed at the ontological level before the architecture is designed.</em>';
     }
 
-    // POPULATE REPORT
+    // Override with AI analysis where available
+    if (analysis && !analysis.error) {
+      if (analysis.fractureTitle) fractureTitle = analysis.fractureTitle;
+      if (analysis.fractureDesc) fractureDesc = analysis.fractureDesc;
+      if (analysis.implication) implication = analysis.implication;
+    }
+
+    // Header
     const now = new Date();
     const dateStr = now.toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
-
     document.getElementById('reportTitle').textContent = 'Your Substrate Reading';
     document.getElementById('reportMeta').innerHTML =
       'Conducted ' + dateStr + ' · Self-audit · Substrate practice of Jayden Forshee';
 
+    // Fracture block
     document.getElementById('fractureLabel').textContent = '— Primary fracture pattern';
     document.getElementById('fractureName').textContent = fractureTitle;
     document.getElementById('fractureDesc').textContent = fractureDesc;
 
+    if (analysis && analysis.substrateReading) {
+      const srEl = document.getElementById('substrateReading');
+      srEl.innerHTML = '<span class="substrate-reading-label">— What is actually running</span>' + escapeHtml(analysis.substrateReading);
+      srEl.classList.add('visible');
+    }
+
+    // Surface answers
     const fill = (id, val) => {
       const el = document.getElementById(id);
       if (val && val.trim()) {
@@ -700,10 +862,8 @@
         el.innerHTML = '<span class="surface-empty">Not answered</span>';
       }
     };
-
     fill('r1', q1); fill('r2', q2); fill('r3', q3);
     fill('r4', q4); fill('r5', q5);
-
     if (q6.trim()) {
       fill('r6', q6);
       document.getElementById('r6wrap').style.display = 'block';
@@ -711,17 +871,45 @@
       document.getElementById('r6wrap').style.display = 'none';
     }
 
+    // Signal annotations (AI only)
+    if (analysis && !analysis.error) {
+      const sigs = [
+        ['sig1', 'sig1text', analysis.founderSignal],
+        ['sig2', 'sig2text', analysis.driftSignal],
+        ['sig3', 'sig3text', analysis.customerSignal],
+        ['sig4', 'sig4text', analysis.decisionSignal],
+        ['sig5', 'sig5text', analysis.hiddenSignal],
+        ['sig6', 'sig6text', analysis.observerSignal]
+      ];
+      sigs.forEach(([wrapId, textId, text]) => {
+        if (text && document.getElementById(wrapId)) {
+          document.getElementById(textId).textContent = text;
+          document.getElementById(wrapId).classList.add('visible');
+        }
+      });
+    }
+
+    // Implication
     document.getElementById('implicationText').innerHTML = implication;
 
-    // SHOW REPORT
-    document.getElementById('auditSteps').style.display = 'none';
-    document.getElementById('progressWrap').style.display = 'none';
-    const report = document.getElementById('auditReport');
-    report.classList.add('visible');
+    // Urgency
+    if (analysis && analysis.urgency) {
+      const row = document.getElementById('urgencyRow');
+      document.getElementById('urgencyValue').innerHTML =
+        '<span class="urgency-chip ' + analysis.urgency + '">' + analysis.urgency + '</span>';
+      row.classList.add('visible');
+    }
 
+    // Next step
+    if (analysis && analysis.nextStep) {
+      document.getElementById('nextStepText').textContent = analysis.nextStep;
+      document.getElementById('nextStepBlock').classList.add('visible');
+    }
+
+    // Show report
+    document.getElementById('auditReport').classList.add('visible');
     currentStep = totalSteps;
     updateProgress();
-
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -741,21 +929,36 @@
     const implication = document.getElementById('implicationText').innerText;
     const reportMeta = document.getElementById('reportMeta').textContent;
 
+    const sigText = (id) => {
+      const el = document.getElementById(id);
+      return el && el.classList.contains('visible') ? '\nReading: ' + document.getElementById(id + 'text').textContent : '';
+    };
+    const substrateEl = document.getElementById('substrateReading');
+    const substrateText = substrateEl && substrateEl.classList.contains('visible')
+      ? '\nACTUAL SUBSTRATE\n' + substrateEl.innerText.replace('— What is actually running\n','') + '\n\n'
+      : '';
+    const urgencyEl = document.getElementById('urgencyValue');
+    const urgencyText = urgencyEl && urgencyEl.textContent ? '\nCorrection urgency: ' + urgencyEl.textContent + '\n' : '';
+    const nsEl = document.getElementById('nextStepText');
+    const nextStepText = nsEl && nsEl.textContent ? '\nFIRST ACTION\n' + nsEl.textContent + '\n' : '';
+
     let text = 'SUBSTRATE AUDIT — YOUR READING\n' + reportMeta + '\n\n';
     text += 'PRIMARY FRACTURE PATTERN: ' + fractureName + '\n';
-    text += fractureDesc + '\n\n';
+    text += fractureDesc + '\n';
+    text += substrateText;
     text += '— What you surfaced, by layer\n\n';
-    text += 'FOUNDER SURFACE — What the business is\n' + r1 + '\n\n';
-    text += 'IDENTITY SURFACE — The drift\n' + r2 + '\n\n';
-    text += 'CUSTOMER SURFACE — What they\'re actually buying\n' + r3 + '\n\n';
-    text += 'DECISION SURFACE — Where the frame slips\n' + r4 + '\n\n';
-    text += 'HIDDEN SURFACE — The unnamed weight\n' + r5 + '\n\n';
+    text += 'FOUNDER SURFACE — What the business is\n' + r1 + sigText('sig1') + '\n\n';
+    text += 'IDENTITY SURFACE — The drift\n' + r2 + sigText('sig2') + '\n\n';
+    text += 'CUSTOMER SURFACE — What they\'re actually buying\n' + r3 + sigText('sig3') + '\n\n';
+    text += 'DECISION SURFACE — Where the frame slips\n' + r4 + sigText('sig4') + '\n\n';
+    text += 'HIDDEN SURFACE — The unnamed weight\n' + r5 + sigText('sig5') + '\n\n';
     if (r6wrap.style.display !== 'none') {
       const r6 = document.getElementById('r6').textContent;
-      text += 'OBSERVER SURFACE — The outside eye\n' + r6 + '\n\n';
+      text += 'OBSERVER SURFACE — The outside eye\n' + r6 + sigText('sig6') + '\n\n';
     }
-    text += 'STRUCTURAL IMPLICATION\n' + implication + '\n\n';
-    text += '---\nGenerated by Substrate Audit · jaydenforshee.com';
+    text += 'STRUCTURAL IMPLICATION\n' + implication;
+    text += urgencyText + nextStepText;
+    text += '\n---\nGenerated by Substrate Audit · jaydenforshee.com';
 
     navigator.clipboard.writeText(text).then(() => {
       const btn = document.getElementById('btnCopy');
