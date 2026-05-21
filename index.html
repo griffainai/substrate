@@ -4,10 +4,9 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="color-scheme" content="light only" />
-<meta name="supported-color-schemes" content="light" />
 <meta name="theme-color" content="#faf8f4" />
 <title>Substrate — Practice of Jayden Forshee</title>
-<meta name="description" content="Substrate. A working practice. I read businesses at their structural layer and install the AI operating architecture that lets them run from what they actually are. Built on Interpretable Context Methodology." />
+<meta name="description" content="Substrate. I read businesses at the layer underneath their strategy and install the AI operating architecture that lets them run from what they actually are." />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,10 +27,6 @@
     --accent-soft: #c9a47e;
   }
 
-  @media (prefers-color-scheme: dark) {
-    :root { color-scheme: light only; }
-  }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; background: #faf8f4; }
 
@@ -43,21 +38,16 @@
     font-size: 17px;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
-  ::selection {
-    background: rgba(139, 58, 31, 0.18);
-    color: #1a1815;
-  }
+  ::selection { background: rgba(139,58,31,0.18); color: #1a1815; }
 
-  /* ============ NAV ============ */
+  /* NAV */
   .nav {
     position: sticky; top: 0; z-index: 100;
-    background: rgba(250, 248, 244, 0.92);
+    background: rgba(250,248,244,0.93);
     backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--rule-soft);
   }
   .nav-inner {
@@ -67,738 +57,483 @@
   }
   .nav-mark {
     font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 24px;
-    font-weight: 500;
-    letter-spacing: -0.01em;
-    color: var(--accent);
+    font-style: italic; font-size: 24px; font-weight: 500;
+    letter-spacing: -0.01em; color: var(--accent);
+    text-decoration: none;
   }
-  .nav-mark-sub {
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-size: 13px;
-    color: var(--ink-muted);
-    font-weight: 400;
-    margin-left: 8px;
-    letter-spacing: 0;
+  .nav-links {
+    display: flex; gap: 28px; align-items: baseline;
   }
+  .nav-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    text-decoration: none; transition: color 0.18s;
+  }
+  .nav-link:hover { color: var(--accent); }
   .nav-meta {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.1em; text-transform: uppercase;
   }
 
-  /* ============ LAYOUT ============ */
+  /* LAYOUT */
   main { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
   section { padding: 96px 0; border-bottom: 1px solid var(--rule-soft); }
   section:last-of-type { border-bottom: none; }
 
-  /* ============ MASTHEAD ============ */
-  .masthead { padding: 140px 0 120px; }
+  /* MASTHEAD */
+  .masthead { padding: 140px 0 110px; border-bottom: 1px solid var(--rule-soft); }
   .masthead-eyebrow {
     font-family: 'JetBrains Mono', monospace;
     font-size: 11px; text-transform: uppercase;
-    letter-spacing: 0.2em; color: var(--ink-muted);
-    margin-bottom: 28px;
+    letter-spacing: 0.2em; color: var(--ink-muted); margin-bottom: 28px;
   }
   .practice-mark {
     font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 400;
+    font-style: italic; font-weight: 400;
     font-size: clamp(72px, 11vw, 156px);
-    line-height: 0.88;
-    letter-spacing: -0.035em;
-    color: var(--accent);
-    margin-bottom: 56px;
+    line-height: 0.88; letter-spacing: -0.035em;
+    color: var(--accent); margin-bottom: 48px;
   }
   .masthead-title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 400;
-    font-size: clamp(36px, 5.2vw, 58px);
-    line-height: 1.08;
-    letter-spacing: -0.022em;
-    color: var(--ink);
-    max-width: 920px;
-    margin-bottom: 48px;
+    font-size: clamp(28px, 4vw, 48px);
+    line-height: 1.12; letter-spacing: -0.02em;
+    color: var(--ink); max-width: 880px; margin-bottom: 24px;
   }
-  .masthead-title em {
-    font-style: italic;
-    color: var(--accent);
-  }
-  .masthead-meta {
-    display: grid;
-    grid-template-columns: 1fr 200px;
-    gap: 64px;
-    align-items: end;
-    padding-top: 36px;
-    border-top: 1px solid var(--rule);
-  }
-  .masthead-subtitle {
+  .masthead-title em { font-style: italic; color: var(--accent); }
+  .masthead-authority {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    line-height: 1.5;
-    color: var(--ink-soft);
     font-style: italic;
-    max-width: 680px;
+    font-size: clamp(18px, 2vw, 22px);
+    color: var(--ink-soft); max-width: 680px;
+    margin-bottom: 48px; line-height: 1.55;
+    padding-left: 20px;
+    border-left: 2px solid var(--accent);
   }
-  .masthead-byline {
+  .masthead-mnemonic {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 44px;
+  }
+  .mnemonic-word {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    line-height: 1.8;
-    text-align: right;
+    font-size: 11px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ink-muted);
+  }
+  .mnemonic-word.lit { color: var(--accent); }
+  .mnemonic-sep { color: var(--rule); font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .masthead-foot {
+    display: flex; align-items: center; gap: 48px;
+    padding-top: 32px; border-top: 1px solid var(--rule);
+    flex-wrap: wrap;
+  }
+  .masthead-status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.9;
+  }
+  .status-dot {
+    display: inline-block; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    margin-right: 7px; vertical-align: middle;
   }
 
-  /* ============ SECTION HEADERS ============ */
+  /* SECTION HEADERS */
   .section-header {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 56px;
-    margin-bottom: 56px;
-    align-items: start;
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 56px; margin-bottom: 52px; align-items: start;
   }
   .section-num {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-muted);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding-top: 14px;
+    font-size: 11px; color: var(--ink-muted);
+    letter-spacing: 0.2em; text-transform: uppercase; padding-top: 14px;
   }
   .section-title {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-size: clamp(32px, 4vw, 44px);
-    line-height: 1.15;
-    letter-spacing: -0.018em;
-    color: var(--ink);
-    max-width: 800px;
+    font-weight: 400; font-size: clamp(30px, 3.8vw, 44px);
+    line-height: 1.15; letter-spacing: -0.018em;
+    color: var(--ink); max-width: 800px;
   }
-  .section-title em {
-    font-style: italic;
-    color: var(--accent);
-  }
+  .section-title em { font-style: italic; color: var(--accent); }
 
-  /* ============ BODY CONTENT GRID ============ */
+  /* BODY GRID */
   .body-grid {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 56px;
-    align-items: start;
+    display: grid; grid-template-columns: 180px 1fr;
+    gap: 56px; align-items: start;
   }
   .body-content { max-width: 720px; }
   .body-content p {
     font-family: 'Cormorant Garamond', serif;
     font-size: clamp(19px, 2vw, 22px);
     font-weight: 400; line-height: 1.6;
-    color: var(--ink-soft);
-    margin-bottom: 26px;
-    letter-spacing: -0.002em;
+    color: var(--ink-soft); margin-bottom: 26px; letter-spacing: -0.002em;
   }
   .body-content p:last-child { margin-bottom: 0; }
-  .body-content em {
-    font-style: italic;
-    color: var(--ink);
-  }
-  .body-content strong {
-    font-weight: 500;
-    color: var(--ink);
-    font-style: normal;
-  }
+  .body-content em { font-style: italic; color: var(--ink); }
+  .body-content strong { font-weight: 500; color: var(--ink); font-style: normal; }
   .body-content .lead {
-    font-size: clamp(22px, 2.4vw, 26px);
-    color: var(--ink);
-    line-height: 1.5;
+    font-size: clamp(22px, 2.4vw, 26px); color: var(--ink); line-height: 1.5;
   }
-
   .body-content h3 {
     font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 26px;
-    color: var(--ink);
-    margin-top: 44px;
-    margin-bottom: 16px;
-    letter-spacing: -0.01em;
+    font-style: italic; font-weight: 500; font-size: 26px;
+    color: var(--ink); margin-top: 44px; margin-bottom: 16px; letter-spacing: -0.01em;
   }
   .body-content h3:first-child { margin-top: 0; }
 
-  /* ============ PHASE / LIST ITEMS ============ */
-  .phase-list {
-    list-style: none;
-    counter-reset: phase;
-    margin-top: 8px;
+  /* PROCESS FOLDERS */
+  .process-wrap { position: relative; }
+  .process-stack { display: flex; flex-direction: column; gap: 4px; }
+  .process-folder {
+    position: relative;
+    padding: 44px 110px 44px 52px;
+    clip-path: polygon(0 0, calc(100% - 88px) 0, 100% 100%, 0 100%);
+    display: grid; grid-template-columns: 76px 1fr;
+    gap: 40px; align-items: start;
   }
-  .phase-item {
-    counter-increment: phase;
-    padding: 36px 0;
-    border-top: 1px solid var(--rule-soft);
-    display: grid;
-    grid-template-columns: 70px 1fr;
-    gap: 28px;
-    align-items: start;
+  .process-folder::after {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 22px; height: 22px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    opacity: 0.22;
   }
-  .phase-item:last-child {
-    border-bottom: 1px solid var(--rule-soft);
+  .process-folder--audit  { background: var(--paper-deep); color: var(--ink); }
+  .process-folder--install { background: var(--accent); color: var(--paper); }
+  .process-folder--handoff { background: var(--ink); color: var(--paper); }
+  .process-folder-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 56px; line-height: 1;
+    opacity: 0.28; padding-top: 2px;
   }
-  .phase-num {
+  .process-folder-content h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-weight: 400;
+    font-size: clamp(26px, 3.2vw, 38px);
+    line-height: 1.1; margin-bottom: 14px; letter-spacing: -0.02em;
+  }
+  .process-folder--audit .process-folder-content h3 { color: var(--ink); }
+  .process-folder-content p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; line-height: 1.6; opacity: 0.82; max-width: 600px;
+  }
+  .process-folder--audit .process-folder-content p { opacity: 1; color: var(--ink-soft); }
+  .process-stack-label {
+    position: absolute; right: -12px; top: 50%;
+    transform: translateY(-50%) rotate(90deg);
     font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-muted);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding-top: 6px;
+    font-size: 8px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--ink-muted); white-space: nowrap; opacity: 0.55;
   }
-  .phase-num::before {
-    content: counter(phase, decimal-leading-zero);
-    display: block;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 32px;
-    color: var(--accent);
-    letter-spacing: 0;
-    text-transform: none;
-    margin-bottom: 6px;
-    line-height: 1;
-  }
-  .phase-content h4 {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 24px;
-    color: var(--ink);
-    margin-bottom: 12px;
-    letter-spacing: -0.01em;
-  }
-  .phase-content p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 19px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    margin-bottom: 14px;
-  }
-  .phase-content p:last-child { margin-bottom: 0; }
-  .phase-content em { font-style: italic; color: var(--ink); }
 
-  /* ============ ICM PREVIEW BOX ============ */
+  /* WORK LIST */
+  .work-list {
+    border: 1px solid var(--rule); border-radius: 4px;
+    overflow: hidden; margin-top: 8px;
+  }
+  .work-item {
+    padding: 36px 44px; border-bottom: 1px solid var(--rule-soft);
+    display: grid; grid-template-columns: 72px 1fr 120px;
+    gap: 36px; align-items: start; background: var(--paper);
+    transition: background 0.18s;
+  }
+  .work-item:last-child { border-bottom: none; }
+  .work-item:hover { background: var(--paper-warm); }
+  .work-item--open { opacity: 0.48; }
+  .work-item--open:hover { opacity: 0.65; background: var(--paper); }
+  .work-item-index {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.15em; text-transform: uppercase; padding-top: 6px;
+  }
+  .work-status {
+    display: inline-block; font-family: 'JetBrains Mono', monospace;
+    font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 2px; margin-bottom: 10px;
+  }
+  .work-status--active { color: var(--accent); border: 1px solid var(--accent); }
+  .work-status--open   { color: var(--ink-muted); border: 1px solid var(--rule); }
+  .work-item-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 26px; color: var(--ink);
+    line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 10px;
+  }
+  .work-item-desc {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; color: var(--ink-soft); line-height: 1.55;
+  }
+  .work-item-link {
+    display: inline-block; margin-top: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--accent);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-decoration: none; border-bottom: 1px solid var(--accent-soft);
+    transition: border-color 0.18s;
+  }
+  .work-item-link:hover { border-bottom-color: var(--accent); }
+  .work-item-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    line-height: 1.9; text-align: right; padding-top: 6px;
+  }
+
+  /* ICM PREVIEW */
   .icm-preview {
-    margin-top: 8px;
-    background: var(--paper-warm);
-    border: 1px solid var(--rule);
-    padding: 44px 48px;
-    border-radius: 4px;
+    margin-top: 8px; background: var(--paper-warm);
+    border: 1px solid var(--rule); padding: 44px 48px; border-radius: 4px;
   }
   .icm-preview-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--ink-muted);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-muted); letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 16px;
   }
   .icm-preview-title {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-style: italic;
-    font-size: 30px;
-    line-height: 1.2;
-    color: var(--ink);
-    margin-bottom: 24px;
-    letter-spacing: -0.015em;
+    font-weight: 400; font-style: italic; font-size: 30px;
+    line-height: 1.2; color: var(--ink); margin-bottom: 24px; letter-spacing: -0.015em;
   }
   .icm-preview-authors {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-muted);
-    letter-spacing: 0.05em;
-    margin-bottom: 28px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--rule-soft);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-muted); letter-spacing: 0.05em; margin-bottom: 28px;
+    padding-bottom: 24px; border-bottom: 1px solid var(--rule-soft);
   }
   .icm-preview-body p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    line-height: 1.55;
-    color: var(--ink-soft);
-    margin-bottom: 18px;
+    font-size: 18px; line-height: 1.55; color: var(--ink-soft); margin-bottom: 18px;
   }
   .icm-preview-body em { font-style: italic; color: var(--ink); }
   .icm-preview-cta {
-    margin-top: 24px;
-    padding-top: 24px;
-    border-top: 1px solid var(--rule-soft);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    flex-wrap: wrap;
+    margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--rule-soft);
+    display: flex; align-items: center;
+    justify-content: space-between; gap: 24px; flex-wrap: wrap;
   }
   .icm-preview-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 14px 22px;
-    border: 1px solid var(--accent);
-    border-radius: 2px;
-    transition: all 0.18s ease;
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--accent); text-decoration: none;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 14px 22px; border: 1px solid var(--accent);
+    border-radius: 2px; transition: all 0.18s ease;
   }
-  .icm-preview-link:hover {
-    background: var(--accent);
-    color: var(--paper);
-  }
+  .icm-preview-link:hover { background: var(--accent); color: var(--paper); }
   .icm-preview-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--ink-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-muted); letter-spacing: 0.08em; text-transform: uppercase;
   }
 
-  /* ============ CONTACT / END ============ */
-  .ending {
-    padding: 110px 0 130px;
-    text-align: left;
-    max-width: 720px;
-    margin: 0 auto;
-  }
-  .ending-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-muted);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 28px;
-  }
-  .ending-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-size: clamp(34px, 4.5vw, 48px);
-    line-height: 1.12;
-    letter-spacing: -0.018em;
-    color: var(--ink);
-    margin-bottom: 32px;
-  }
-  .ending-title em { font-style: italic; color: var(--accent); }
-  .ending-body {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 21px;
-    line-height: 1.6;
-    color: var(--ink-soft);
-    margin-bottom: 36px;
-    font-style: italic;
-  }
-  .ending-contact {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 13px;
-    color: var(--ink);
-    letter-spacing: 0.05em;
-  }
-  .ending-contact a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid var(--accent-soft);
-    transition: border-color 0.18s;
-  }
-  .ending-contact a:hover {
-    border-bottom-color: var(--accent);
-  }
-
-  /* ============ FOOTER ============ */
-  footer {
-    border-top: 1px solid var(--rule);
-    padding: 40px 40px;
-    background: var(--paper-warm);
-  }
-  .footer-inner {
-    max-width: 1100px; margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 11px;
-    color: var(--ink-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .footer-inner a {
-    color: var(--ink-muted);
-    text-decoration: none;
-    transition: color 0.18s;
-  }
-  .footer-inner a:hover { color: var(--accent); }
-
-  /* ============ REVEAL ANIMATION ============ */
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ============ READING ROOM (more-reading on main page) ============ */
+  /* READING ROOM */
   .more-reading {
-    margin-top: 8px;
-    background: var(--paper-warm);
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    padding: 44px 48px;
+    background: var(--paper-warm); border: 1px solid var(--rule);
+    border-radius: 4px; padding: 44px 48px; margin-top: 28px;
+  }
+  .more-reading-eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-muted); letter-spacing: 0.2em;
+    text-transform: uppercase; margin-bottom: 18px;
   }
   .more-reading-list { list-style: none; }
-  .more-reading-item {
-    padding: 22px 0;
-    border-bottom: 1px solid var(--rule-soft);
-  }
+  .more-reading-item { padding: 22px 0; border-bottom: 1px solid var(--rule-soft); }
   .more-reading-item:first-child { padding-top: 6px; }
   .more-reading-item:last-child { border-bottom: none; padding-bottom: 6px; }
   .more-reading-item a {
-    display: block;
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 26px;
-    color: var(--ink);
-    text-decoration: none;
-    line-height: 1.22;
-    letter-spacing: -0.01em;
-    transition: color 0.18s;
+    display: block; font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-weight: 500; font-size: 26px;
+    color: var(--ink); text-decoration: none;
+    line-height: 1.22; letter-spacing: -0.01em; transition: color 0.18s;
   }
   .more-reading-item a:hover { color: var(--accent); }
   .more-reading-item-meta {
-    display: block;
-    font-family: 'JetBrains Mono', monospace;
-    font-style: normal;
-    font-size: 10px;
-    color: var(--ink-muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-top: 10px;
-    line-height: 1.5;
+    display: block; font-family: 'JetBrains Mono', monospace;
+    font-style: normal; font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.12em; text-transform: uppercase; margin-top: 10px; line-height: 1.5;
   }
 
-  /* ============ ABOUT SECTION ============ */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 56px;
-    align-items: start;
-  }
-  .about-photo-col {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 220px 1fr; gap: 56px; align-items: start; }
+  .about-photo-col { display: flex; flex-direction: column; gap: 20px; }
   .about-photo {
-    width: 220px;
-    height: 330px;
-    background: var(--paper-warm);
-    border: 1px solid var(--rule);
-    border-radius: 2px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 220px; height: 330px;
+    background: var(--paper-warm); border: 1px solid var(--rule);
+    border-radius: 2px; overflow: hidden;
   }
-  .about-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 30%;
-    display: block;
-  }
-  .about-photo-placeholder {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--ink-muted);
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 16px;
-    line-height: 1.6;
-  }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
   .about-caption {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--ink-muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    line-height: 1.7;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-muted); letter-spacing: 0.12em;
+    text-transform: uppercase; line-height: 1.7;
   }
   .about-bio { max-width: 720px; }
   .about-bio h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 500;
-    font-size: 26px;
-    color: var(--ink);
-    margin-top: 36px;
-    margin-bottom: 14px;
-    letter-spacing: -0.01em;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-weight: 500; font-size: 26px; color: var(--ink);
+    margin-top: 36px; margin-bottom: 14px; letter-spacing: -0.01em;
   }
   .about-bio h3:first-child { margin-top: 0; }
   .about-bio p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(19px, 2vw, 22px);
-    font-weight: 400; line-height: 1.6;
-    color: var(--ink-soft);
-    margin-bottom: 22px;
-    letter-spacing: -0.002em;
+    font-size: clamp(19px, 2vw, 22px); line-height: 1.6;
+    color: var(--ink-soft); margin-bottom: 22px; letter-spacing: -0.002em;
   }
   .about-bio em { font-style: italic; color: var(--ink); }
   .about-bio strong { font-weight: 500; color: var(--ink); font-style: normal; }
-
-  .about-links {
-    margin-top: 40px;
-    padding-top: 32px;
-    border-top: 1px solid var(--rule-soft);
-  }
+  .about-links { margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--rule-soft); }
   .about-links-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--ink-muted);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 18px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-muted); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 18px;
   }
-  .about-links-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px 24px;
-  }
+  .about-links-list { list-style: none; display: flex; flex-wrap: wrap; gap: 14px 24px; }
   .about-links-list a {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    color: var(--ink);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 8px 14px;
-    border: 1px solid var(--rule);
-    border-radius: 2px;
-    transition: all 0.18s ease;
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    color: var(--ink); letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; padding: 8px 14px; border: 1px solid var(--rule);
+    border-radius: 2px; transition: all 0.18s ease;
   }
-  .about-links-list a:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
+  .about-links-list a:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ============ CONTACT SECTION ============ */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 56px;
-    align-items: start;
-  }
+  /* CONTACT */
   .contact-body { max-width: 720px; }
   .contact-body p {
     font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(19px, 2vw, 22px);
-    line-height: 1.6;
-    color: var(--ink-soft);
-    margin-bottom: 24px;
-    letter-spacing: -0.002em;
+    font-size: clamp(19px, 2vw, 22px); line-height: 1.6;
+    color: var(--ink-soft); margin-bottom: 24px; letter-spacing: -0.002em;
   }
   .contact-body em { font-style: italic; color: var(--ink); }
   .contact-methods {
-    margin-top: 36px;
-    padding: 36px 40px;
-    background: var(--paper-warm);
-    border: 1px solid var(--rule);
-    border-radius: 4px;
+    margin-top: 36px; padding: 36px 40px;
+    background: var(--paper-warm); border: 1px solid var(--rule); border-radius: 4px;
   }
   .contact-method {
-    padding: 16px 0;
-    border-bottom: 1px solid var(--rule-soft);
-    display: grid;
-    grid-template-columns: 120px 1fr;
-    gap: 24px;
-    align-items: baseline;
+    padding: 16px 0; border-bottom: 1px solid var(--rule-soft);
+    display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: baseline;
   }
   .contact-method:first-child { padding-top: 4px; }
   .contact-method:last-child { border-bottom: none; padding-bottom: 4px; }
   .contact-method-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--ink-muted);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-muted); letter-spacing: 0.18em; text-transform: uppercase;
   }
   .contact-method-value {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 22px;
-    color: var(--ink);
-    line-height: 1.4;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 22px; color: var(--ink); line-height: 1.4;
   }
   .contact-method-value a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid var(--accent-soft);
-    transition: border-color 0.18s;
+    color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid var(--accent-soft); transition: border-color 0.18s;
   }
-  .contact-method-value a:hover {
-    border-bottom-color: var(--accent);
-  }
+  .contact-method-value a:hover { border-bottom-color: var(--accent); }
   .contact-note {
-    font-family: 'JetBrains Mono', monospace;
-    font-style: normal;
-    font-size: 10px;
-    color: var(--ink-muted);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-top: 6px;
-    line-height: 1.6;
+    font-family: 'JetBrains Mono', monospace; font-style: normal;
+    font-size: 10px; color: var(--ink-muted); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-top: 6px; line-height: 1.6;
   }
 
-  /* ============ CASE STUDY OFFER ============ */
+  /* CASE STUDY OFFER */
   .case-study-offer {
-    margin-top: 56px;
-    padding: 44px 48px;
-    background: var(--paper-warm);
-    border: 1px solid var(--rule);
-    border-left: 3px solid var(--accent);
-    border-radius: 4px;
-    position: relative;
+    margin-top: 56px; padding: 44px 48px;
+    background: var(--paper-warm); border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent); border-radius: 4px;
   }
   .case-study-offer-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 10px;
-    color: var(--accent);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    margin-bottom: 20px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--accent); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px;
   }
   .case-study-offer h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 400;
-    font-style: italic;
-    font-size: clamp(28px, 3.4vw, 36px);
-    line-height: 1.15;
-    letter-spacing: -0.015em;
-    color: var(--ink);
-    margin-bottom: 24px;
+    font-family: 'Cormorant Garamond', serif; font-weight: 400; font-style: italic;
+    font-size: clamp(26px, 3.2vw, 34px); line-height: 1.15;
+    letter-spacing: -0.015em; color: var(--ink); margin-bottom: 24px;
   }
-  .case-study-offer h3 em {
-    color: var(--accent);
-    font-style: italic;
-  }
+  .case-study-offer h3 em { color: var(--accent); font-style: italic; }
   .case-study-offer p {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 19px;
-    line-height: 1.6;
-    color: var(--ink-soft);
-    margin-bottom: 20px;
-    letter-spacing: -0.002em;
+    font-family: 'Cormorant Garamond', serif; font-size: 19px;
+    line-height: 1.6; color: var(--ink-soft); margin-bottom: 20px; letter-spacing: -0.002em;
   }
   .case-study-offer p:last-of-type { margin-bottom: 0; }
   .case-study-offer em { font-style: italic; color: var(--ink); }
   .case-study-offer strong { font-weight: 500; color: var(--ink); font-style: normal; }
-  .case-study-offer-list {
-    list-style: none;
-    margin: 24px 0;
-    padding-left: 0;
-  }
+  .case-study-offer-list { list-style: none; margin: 24px 0; }
   .case-study-offer-list li {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    line-height: 1.5;
-    color: var(--ink-soft);
-    margin-bottom: 14px;
-    padding-left: 24px;
-    position: relative;
+    font-family: 'Cormorant Garamond', serif; font-size: 18px;
+    line-height: 1.5; color: var(--ink-soft);
+    margin-bottom: 14px; padding-left: 24px; position: relative;
   }
-  .case-study-offer-list li:before {
-    content: "—";
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-  }
+  .case-study-offer-list li:before { content: "—"; position: absolute; left: 0; color: var(--accent); }
   .case-study-offer-cta {
-    margin-top: 32px;
-    padding-top: 28px;
-    border-top: 1px solid var(--rule-soft);
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink-muted);
+    margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--rule-soft);
+    font-family: 'JetBrains Mono', monospace; font-size: 12px;
+    letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-muted);
   }
   .case-study-offer-cta a {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid var(--accent-soft);
-    transition: opacity 0.18s;
+    color: var(--accent); text-decoration: none;
+    border-bottom: 1px solid var(--accent-soft); transition: opacity 0.18s;
   }
   .case-study-offer-cta a:hover { opacity: 0.7; }
 
-  /* ============ RESPONSIVE — TABLET ============ */
+  /* FOOTER */
+  footer { border-top: 1px solid var(--rule); padding: 40px; background: var(--paper-warm); }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--ink-muted); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .footer-inner a { color: var(--ink-muted); text-decoration: none; transition: color 0.18s; }
+  .footer-inner a:hover { color: var(--accent); }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE — TABLET */
   @media (max-width: 960px) {
     .section-header { grid-template-columns: 140px 1fr; gap: 40px; }
     .body-grid { grid-template-columns: 140px 1fr; gap: 40px; }
-    .contact-grid { grid-template-columns: 140px 1fr; gap: 40px; }
+    .work-item { grid-template-columns: 60px 1fr; gap: 24px; }
+    .work-item-meta { display: none; }
   }
 
-  /* ============ RESPONSIVE — MOBILE ============ */
+  /* RESPONSIVE — MOBILE */
   @media (max-width: 680px) {
     .nav-inner { padding: 15px 20px; }
-    .nav-mark-sub { display: none; }
+    .nav-links { display: none; }
     .nav-mark { font-size: 20px; }
-
     main { padding: 0 20px; }
-
     .masthead { padding: 72px 0 60px; }
-    .masthead-title { font-size: clamp(28px, 7.5vw, 44px); }
-    .masthead-subtitle { font-size: 18px; }
-    .masthead-meta { grid-template-columns: 1fr; gap: 24px; }
-    .masthead-byline { text-align: left; }
-
+    .masthead-foot { flex-direction: column; gap: 16px; }
     section { padding: 56px 0; }
-
     .section-header { grid-template-columns: 1fr; gap: 14px; margin-bottom: 36px; }
     .body-grid { grid-template-columns: 1fr; gap: 0; }
     .body-grid > .section-num:first-child { display: none; }
     .section-num { padding-top: 0; }
-
-    .phase-item { grid-template-columns: 1fr; gap: 10px; }
-
+    .process-folder {
+      grid-template-columns: 56px 1fr; gap: 20px;
+      padding: 32px 56px 32px 28px;
+      clip-path: polygon(0 0, calc(100% - 44px) 0, 100% 100%, 0 100%);
+    }
+    .process-folder-num { font-size: 40px; }
+    .process-folder-content h3 { font-size: 24px; }
+    .process-folder-content p { font-size: 16px; }
+    .process-stack-label { display: none; }
+    .work-item { grid-template-columns: 1fr; gap: 10px; padding: 28px 22px; }
     .icm-preview { padding: 28px 22px; }
     .icm-preview-title { font-size: 22px; }
     .icm-preview-cta { flex-direction: column; align-items: flex-start; }
-
     .more-reading { padding: 24px 20px; }
     .more-reading-item a { font-size: 21px; }
-
     .about-grid { grid-template-columns: 1fr; gap: 28px; }
     .about-photo { width: 100%; max-width: 300px; height: 340px; }
-
-    .contact-grid { grid-template-columns: 1fr; gap: 24px; }
     .contact-methods { padding: 20px; }
     .contact-method { grid-template-columns: 1fr; gap: 4px; padding: 16px 0; }
     .contact-method-value { font-size: 19px; }
-
     .case-study-offer { padding: 28px 22px; margin-top: 40px; }
-    .case-study-offer h3 { font-size: 24px; }
-
     .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
-    .ending { padding: 60px 0 80px; }
+    .masthead-mnemonic { gap: 10px; }
   }
 
-  /* ============ RESPONSIVE — SMALL MOBILE ============ */
+  /* RESPONSIVE — SMALL MOBILE */
   @media (max-width: 400px) {
     main { padding: 0 16px; }
     .nav-inner { padding: 14px 16px; }
@@ -810,413 +545,400 @@
     .case-study-offer { padding: 22px 16px; }
   }
 
-  /* ============ DESKTOP WIDE ============ */
+  /* DESKTOP WIDE */
   @media (min-width: 1200px) {
     .section-header { grid-template-columns: 220px 1fr; gap: 80px; }
     .body-grid { grid-template-columns: 220px 1fr; gap: 80px; }
-    .contact-grid { grid-template-columns: 220px 1fr; gap: 80px; }
     .masthead { padding: 160px 0 140px; }
   }
 </style>
 </head>
 <body>
 
-  <nav class="nav">
-    <div class="nav-inner">
-      <div class="nav-mark">Substrate <span class="nav-mark-sub">Practice of Jayden Forshee</span></div>
-      <div class="nav-meta">Est. 2026</div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-mark">Substrate</a>
+    <div class="nav-links">
+      <a href="#process" class="nav-link">The Work</a>
+      <a href="#selected-work" class="nav-link">Selected Work</a>
+      <a href="#reading-room" class="nav-link">Reading Room</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
     </div>
-  </nav>
+    <div class="nav-meta">Est. 2026</div>
+  </div>
+</nav>
 
-  <main>
+<main>
 
-  <!-- MASTHEAD -->
-  <header class="masthead">
-    <div class="masthead-eyebrow">— A working practice</div>
-    <div class="practice-mark">Substrate</div>
-    <h1 class="masthead-title">
-      I work with founders at the structural layer of their business — and install the AI operating architecture that lets it <em>run from what it actually is.</em>
-    </h1>
-    <div class="masthead-meta">
-      <p class="masthead-subtitle">
-        Substrate is the practice of reading a company at its underlying structure, then building the operating system that materializes the corrected picture. Built on Interpretable Context Methodology. Engagements by introduction or inquiry.
-      </p>
-      <div class="masthead-byline">
-        Currently open<br>
-        Limited engagements
-      </div>
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-eyebrow">— A working practice</div>
+  <div class="practice-mark">Substrate</div>
+  <h1 class="masthead-title">
+    I read businesses at the layer underneath their strategy — and install the AI operating architecture that lets them <em>run from what they actually are.</em>
+  </h1>
+  <p class="masthead-authority">
+    Every investment you make downstream of a misread substrate makes the correction more expensive.
+  </p>
+  <div class="masthead-mnemonic">
+    <span class="mnemonic-word lit">Substrate</span>
+    <span class="mnemonic-sep">·</span>
+    <span class="mnemonic-word">Experience</span>
+    <span class="mnemonic-sep">·</span>
+    <span class="mnemonic-word">Strategy</span>
+  </div>
+  <div class="masthead-foot">
+    <div class="masthead-status">
+      <span class="status-dot"></span>Currently open — limited engagements<br>
+      Dallas, Texas · Working with founders globally
     </div>
-  </header>
+  </div>
+</header>
 
-  <!-- I. THE PREMISE -->
-  <section>
-    <div class="section-header">
-      <div class="section-num">§ I — The Premise</div>
-      <h2 class="section-title">Strategy is downstream of <em>what your company actually is.</em></h2>
-    </div>
-    <div class="body-grid">
-      <div class="section-num"></div>
-      <div class="body-content reveal">
-        <p class="lead">Every business runs on an implicit theory of itself. What it is. What exists inside it. What the customer is buying. What is primary and what is secondary. The founder almost never wrote this down. The team inherited it through observation. The customer experiences it as either coherence or friction.</p>
-        <p>Most strategy work, most operations work, most consulting work, sits on top of this layer without ever touching it. The assumption is that the layer is settled — that everyone already agrees on what the company is, and the only remaining questions are tactical. Strategy becomes how to grow what you have. Operations becomes how to run what you have more efficiently.</p>
-        <p>But the layer is rarely settled. The founder's theory of the company drifts as the company changes. The team operates from a different theory because they see the daily work, not the original vision. The customer is buying something the company doesn't quite know it's selling. Three different theories of the same business, each partially true, none of them complete, and nobody making the gap visible.</p>
-        <p>Strategy applied to the wrong picture compounds in the wrong direction. Operations that runs on the wrong frame becomes a more efficient version of work the business should not be doing. <em>Every tactical investment downstream of a fractured substrate makes the fracture more expensive to fix.</em></p>
-        <p>This practice works that layer first.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- II. WHAT I CALL THE SUBSTRATE -->
-  <section>
-    <div class="section-header">
-      <div class="section-num">§ II — The Substrate</div>
-      <h2 class="section-title">The substrate is the layer the business is <em>actually running from</em> — not the layer it says it is.</h2>
-    </div>
-    <div class="body-grid">
-      <div class="section-num"></div>
-      <div class="body-content reveal">
-        <p>In computing, the substrate is the layer the applications run on. In biology, the substrate is what the organism grows in. In chemistry, it is the surface the reaction takes place on. Across every serious field, the word means the same thing: <em>the layer underneath that makes everything above it possible.</em></p>
-        <p>A business has a substrate too. It is not the org chart. It is not the pitch deck. It is not the marketing site. It is the structural reality those things sit on top of — what the company actually is when you strip away how it has been described, and what it is becoming when you watch it move under pressure.</p>
-        <p>The substrate is visible if you know how to read it. It is what the founder describes in private when nobody is judging. It is the workaround the operators built because the official process doesn't work. It is what the customer says they bought when they describe the purchase to a friend. It is the work the team actually does when the work that was supposed to get done turns out to be the wrong work.</p>
-        <p>Three or four conversations into a business and the substrate starts to surface. Not as a single sentence, but as a shape. A pattern. The thing the company keeps trying to become every time it makes a decision, even when nobody has named it yet. Reading that pattern is what an audit is.</p>
-        <p>Once the substrate is visible, the work becomes obvious. The architecture installs on top of what is actually there, not on top of the inherited theory. The team begins operating from the corrected picture daily. <em>The business stops fighting itself.</em></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- III. THE WORK -->
-  <section>
-    <div class="section-header">
-      <div class="section-num">§ III — The Work</div>
-      <h2 class="section-title">One process. Three phases. <em>The same engagement</em> whether you are at half a million or thirty.</h2>
-    </div>
-    <div class="body-grid">
-      <div class="section-num"></div>
-      <div class="body-content reveal">
-        <p>The work is a single engagement, not a menu. The audit and the install are not separable — the install only works if the audit is correct, and the audit is only worth running if you intend to do something about it. What scales between businesses is not the offer. It is the stakes. The same seeing applied to a solo operator is the same seeing applied to a thirty-million-dollar founder. The price reflects what the correction is worth at that scale.</p>
-
-        <ol class="phase-list">
-          <li class="phase-item">
-            <div class="phase-num">Audit</div>
-            <div class="phase-content">
-              <h4>I read the company at the structural level.</h4>
-              <p>Extended conversation with the founder. Interviews with the operators. Review of customer conversations and feedback where it exists. I am not running a diagnostic. I am reading the company across three surfaces — founder, team, customer — and listening for the divergences between them. The gaps between what the company says it is, what its decisions reveal it to be, what the team experiences it as, and what the customer is actually buying.</p>
-              <p>The audit produces a written articulation of the company's underlying structure — what is sound, what is fractured, and where leverage is leaking. For many founders, this document alone is the most valuable artifact of the engagement. It is often the first time they have seen their own company clearly.</p>
+<!-- § I — THE WORK (folder stack) -->
+<section id="process">
+  <div class="section-header">
+    <div class="section-num">§ I — The Work</div>
+    <h2 class="section-title">One process. Three phases. <em>The same engagement</em> whether you are at half a million or thirty.</h2>
+  </div>
+  <div class="body-grid">
+    <div class="section-num"></div>
+    <div style="max-width:880px;">
+      <p style="font-family:'Cormorant Garamond',serif;font-size:clamp(19px,2vw,22px);color:var(--ink-soft);line-height:1.6;margin-bottom:40px;letter-spacing:-0.002em;">The audit and the install are not separable. The install only works if the audit is correct. The audit is only worth running if you intend to act on it. What scales between businesses is not the offer — it is the stakes. The price reflects what the correction is worth at the scale you operate.</p>
+      <div class="process-wrap reveal">
+        <div class="process-stack">
+          <div class="process-folder process-folder--audit">
+            <div class="process-folder-num">01</div>
+            <div class="process-folder-content">
+              <h3>Audit</h3>
+              <p>Extended conversations with the founder. Interviews with the operators. Review of customer feedback where it exists. I am reading three surfaces simultaneously — listening for the divergences between what the company says it is, what its decisions reveal, and what the team actually experiences. The audit produces the first honest picture of the company's real structure.</p>
             </div>
+          </div>
+          <div class="process-folder process-folder--install">
+            <div class="process-folder-num">02</div>
+            <div class="process-folder-content">
+              <h3>Install</h3>
+              <p>I build the AI operating architecture mapped to what the audit surfaces — not to the inherited org chart. Folder-based, plain markdown, version-controlled. Built on Interpretable Context Methodology. Delivered as a Git repository the company owns outright. No proprietary platform. No license fees. No lock-in.</p>
+            </div>
+          </div>
+          <div class="process-folder process-folder--handoff">
+            <div class="process-folder-num">03</div>
+            <div class="process-folder-content">
+              <h3>Handoff</h3>
+              <p>A live training session. A written playbook. Seven days of post-install support. The architecture is built to be left — if the install is correct, you won't need me afterward. That is the test of whether the work was real.</p>
+            </div>
+          </div>
+        </div>
+        <div class="process-stack-label">Structural Reading · ICM Architecture</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § II — THE PREMISE -->
+<section>
+  <div class="section-header">
+    <div class="section-num">§ II — The Premise</div>
+    <h2 class="section-title">Strategy is downstream of <em>what your company actually is.</em></h2>
+  </div>
+  <div class="body-grid">
+    <div class="section-num"></div>
+    <div class="body-content reveal">
+      <p class="lead">Every business runs on an implicit theory of itself. What it is. What exists inside it. What the customer is actually buying. The founder almost never wrote this down. The team inherited it through observation. The customer experiences it as coherence or friction.</p>
+      <p>Most strategy work, most operations work, most consulting work, sits on top of this layer without ever touching it. The assumption is that the layer is settled — that everyone already agrees on what the company is, and the only remaining questions are tactical.</p>
+      <p>But the layer is rarely settled. The founder's theory of the company drifts as the company changes. The team operates from a different theory because they see the daily work, not the original vision. The customer is buying something the company doesn't quite know it's selling. Three different theories of the same business, each partially true, none complete, and nobody making the gap visible.</p>
+      <p><em>Strategy applied to the wrong picture compounds in the wrong direction.</em> This practice works that layer first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- § III — SELECTED WORK -->
+<section id="selected-work">
+  <div class="section-header">
+    <div class="section-num">§ III — Selected Work</div>
+    <h2 class="section-title">Engagements in progress <em>and documented.</em></h2>
+  </div>
+  <div class="body-grid">
+    <div class="section-num"></div>
+    <div style="max-width:880px;" class="reveal">
+      <div class="work-list">
+        <div class="work-item">
+          <div class="work-item-index">01</div>
+          <div class="work-item-body">
+            <div class="work-status work-status--active">Documented</div>
+            <div class="work-item-title">On Duty — AI Operating Architecture</div>
+            <div class="work-item-desc">Full audit of a two-founder co-built fleet safety platform. Structural reading of the founder-operator relationship and decision layer. ICM-based workspace architecture installed with role-specific context, routing layer, and build log documentation.</div>
+            <a href="essays/04-field-notes-on-duty.html" class="work-item-link">Read the field notes →</a>
+          </div>
+          <div class="work-item-meta">2026<br>Dallas, TX<br>Co-founded venture</div>
+        </div>
+        <div class="work-item work-item--open">
+          <div class="work-item-index">02</div>
+          <div class="work-item-body">
+            <div class="work-status work-status--open">Open</div>
+            <div class="work-item-title">Zero-fee case study engagement</div>
+            <div class="work-item-desc">One of three available zero-fee engagements — full audit, install, and handoff in exchange for documentation rights. Real work at the same standard as a paid engagement.</div>
+          </div>
+          <div class="work-item-meta">2026<br>Available now</div>
+        </div>
+        <div class="work-item work-item--open">
+          <div class="work-item-index">03</div>
+          <div class="work-item-body">
+            <div class="work-status work-status--open">Open</div>
+            <div class="work-item-title">Zero-fee case study engagement</div>
+            <div class="work-item-desc">One of three available zero-fee engagements — full audit, install, and handoff in exchange for documentation rights. Real work at the same standard as a paid engagement.</div>
+          </div>
+          <div class="work-item-meta">2026<br>Available now</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § IV — THE METHODOLOGY -->
+<section>
+  <div class="section-header">
+    <div class="section-num">§ IV — The Methodology</div>
+    <h2 class="section-title">The architecture is built on <em>Interpretable Context Methodology.</em></h2>
+  </div>
+  <div class="body-grid">
+    <div class="section-num"></div>
+    <div class="body-content reveal">
+      <p>The technical foundation of every install comes from a published methodology called Interpretable Context Methodology — ICM. Formalized in a 2026 paper applying fifty years of Unix engineering principles to the problem of orchestrating AI agents.</p>
+      <p>The methodology's central claim is structural: <em>folder structure is agent architecture.</em> Instead of writing application code to coordinate multiple AI agents, you organize the prompts, context files, and reference material into a hierarchical folder system. The folder structure does the work a multi-agent framework would otherwise do in code.</p>
+      <p>I install ICM-based architecture because it is the cleanest available method for translating an audited substrate into an operating system. The folder hierarchy mirrors the corrected structure of the business. Every file is plain markdown — readable, editable, and inspectable by any operator on the team.</p>
+
+      <div class="icm-preview">
+        <div class="icm-preview-eyebrow">The Underlying Paper · Preview</div>
+        <div class="icm-preview-title">Interpretable Context Methodology: Folder Structure as Agent Architecture</div>
+        <div class="icm-preview-authors">Jake Van Clief, David McDermott · Eduba, University of Edinburgh · arXiv:2603.16021</div>
+        <div class="icm-preview-body">
+          <p>The paper proposes a five-layer context hierarchy — workspace identity, task routing, stage contracts, reference material, and working artifacts — delivered through a numbered folder structure rather than orchestration code. The result is a system where one agent, reading the right files at the right moment, does the work that would otherwise require a multi-agent framework.</p>
+          <p>The methodology is open source under the MIT license. It is the architectural foundation of every install I do, calibrated per engagement to the substrate surfaced in the audit.</p>
+        </div>
+        <div class="icm-preview-cta">
+          <a href="ICM-paper.pdf" target="_blank" rel="noopener" class="icm-preview-link">Read the full paper →</a>
+          <div class="icm-preview-meta">PDF · 21 pages · MIT License</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § V — HOW I SEE -->
+<section>
+  <div class="section-header">
+    <div class="section-num">§ V — How I See</div>
+    <h2 class="section-title">What I am actually doing when I read a business.</h2>
+  </div>
+  <div class="body-grid">
+    <div class="section-num"></div>
+    <div class="body-content reveal">
+      <p>A business is not what it says it is. It is what it actually moves through the world. What it absorbs from the people who pay it. What it leaves behind in the team that runs it.</p>
+      <p>When I read a company, I am not looking at strategy, branding, or operational efficiency — those are downstream. I am looking for the gap between what the company claims and what the company does. The phrase the founder reaches for when pressed. The workaround three operators all share but nobody documents. The thing the customer actually pays for, which is often not the thing on the invoice.</p>
+      <p>What I am listening for is what the business <em>actually produces.</em> Marketing copy can lie. Pitch decks can lie. But the work the company is actually producing, the customer it is actually keeping, the team that is actually operating — those things cannot lie. They are the substrate expressing itself.</p>
+      <p>The relief most founders describe after the audit is not because they were told something flattering. It is because <em>somebody finally said the thing they had been carrying without language for.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- § VI — WHO THIS IS FOR -->
+<section>
+  <div class="section-header">
+    <div class="section-num">§ VI — Who This Is For</div>
+    <h2 class="section-title">This work fits a <em>specific state</em> — not a specific size, industry, or stage.</h2>
+  </div>
+  <div class="body-grid">
+    <div class="section-num"></div>
+    <div class="body-content reveal">
+      <p>The work does not require a particular revenue level, industry, team size, or business model to land. It requires a particular state:</p>
+      <p>You have built something real. The work is happening. And somewhere underneath all of it, you have felt the frame slip — the quiet recognition that the company you have built no longer matches what it was always actually about.</p>
+      <p>You are about to hire someone you privately know is not right. You are about to launch something that doesn't quite fit. You can tell the difference between a consultant selling you a service and someone bringing you a perception, and you want the second. <em>The price reflects what the correction is worth at the scale you are operating.</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- § VII — ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <div class="section-num">§ VII — About</div>
+    <h2 class="section-title">Who is doing this work.</h2>
+  </div>
+  <div class="body-grid">
+    <div class="section-num"></div>
+    <div style="max-width:940px;">
+      <div class="about-grid">
+        <div class="about-photo-col">
+          <div class="about-photo">
+            <img src="jayden.jpg" alt="Jayden Forshee, Founder of Substrate" />
+          </div>
+          <div class="about-caption">
+            Jayden Forshee<br>
+            Founder, Substrate<br>
+            Dallas, Texas · 2026
+          </div>
+        </div>
+        <div class="about-bio reveal">
+          <p>I am the founder of Substrate, a practice for reading businesses at their structural layer and installing the AI operating architecture that lets them run from what they actually are.</p>
+          <p>Before this practice, I spent two years building AI-native workspace architectures across multiple ventures — including ongoing engagements with founders developing operating systems for their own companies. The methodology I install is one I arrived at in my own work before encountering the published research that formalized it.</p>
+          <p>I came to this work through a convergence of contemplative practice, philosophical study, and direct technical building. Most people who can read frames cannot build the technical systems that materialize them. Most people who build technical systems do not work at the frame level. <em>Substrate is the practice where those two capacities meet.</em></p>
+          <h3>How I work</h3>
+          <p>A small number of engagements at any given time. Each one bespoke — the audit and architecture calibrated specifically to the company in front of me. The work scales by stakes, not by volume. <em>The price reflects what the correction is worth at the scale you operate.</em></p>
+          <h3>Where to find me</h3>
+          <div class="about-links">
+            <div class="about-links-label">— Substrate · Practitioner</div>
+            <ul class="about-links-list">
+              <li><a href="mailto:jaydiorforshee@gmail.com">Email →</a></li>
+              <li><a href="https://x.com/thejaydior" target="_blank" rel="noopener">X →</a></li>
+              <li><a href="https://instagram.com/thejaydior" target="_blank" rel="noopener">Instagram →</a></li>
+              <li><a href="https://youtube.com/@thejaydior" target="_blank" rel="noopener">YouTube →</a></li>
+              <li><a href="https://github.com/GriffainAI" target="_blank" rel="noopener">GitHub →</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- § VIII — READING ROOM -->
+<section id="reading-room">
+  <div class="section-header">
+    <div class="section-num">§ VIII — Reading Room</div>
+    <h2 class="section-title">The thinking behind the work.</h2>
+  </div>
+  <div class="body-grid">
+    <div class="section-num"></div>
+    <div class="body-content reveal">
+      <p>Long-form essays on the methodology, the structural questions that shape every engagement, and field notes from the architecture I am building inside my own companies. Updated cyclically as pieces become clear enough to publish.</p>
+
+      <div class="more-reading">
+        <div class="more-reading-eyebrow">— Essays</div>
+        <ul class="more-reading-list">
+          <li class="more-reading-item">
+            <a href="essays/01-the-ontology-of-a-business.html">The Ontology of a Business</a>
+            <span class="more-reading-item-meta">Edition 01 · 2026 · On what your company actually is, underneath what you have been telling yourself it is.</span>
           </li>
-          <li class="phase-item">
-            <div class="phase-num">Install</div>
-            <div class="phase-content">
-              <h4>I build the AI operating architecture that materializes the corrected picture.</h4>
-              <p>Once the audit is signed off, I install an operating architecture mapped to what the business actually is — not to the inherited org chart. The architecture is built on a published methodology called Interpretable Context Methodology, which uses folder structure as the orchestration layer for AI agents. Every workspace, every routing file, every reference document is calibrated to the structure surfaced in the audit.</p>
-              <p>The architecture is delivered as a Git repository the company owns outright. No proprietary platform. No license fees. No vendor lock-in. <em>Anyone on your team — technical or not — can read, edit, and operate it.</em></p>
-            </div>
+          <li class="more-reading-item">
+            <a href="essays/02-why-folder-structure-is-architecture.html">Why Folder Structure is Architecture</a>
+            <span class="more-reading-item-meta">Edition 02 · 2026 · On Interpretable Context Methodology, and why the cleanest AI system is one that does not look like an AI system.</span>
           </li>
-          <li class="phase-item">
-            <div class="phase-num">Handoff</div>
-            <div class="phase-content">
-              <h4>The architecture is built to be left.</h4>
-              <p>A live training session with the operators who will run the system. A written playbook documenting the architecture and the structural reasoning behind it. Seven days of post-install support while the team uses the system for the first time. After that, the architecture belongs to the company. The structural correction is encoded in the operating layer of the business itself, and the company runs from it forward.</p>
-              <p>I am not retained as ongoing infrastructure. If the install is correct, you do not need me afterward. That is the test of whether the work was real.</p>
-            </div>
+          <li class="more-reading-item">
+            <a href="essays/03-strategy-is-downstream.html">Strategy is Downstream</a>
+            <span class="more-reading-item-meta">Edition 03 · 2026 · On why most strategy fails, what it is downstream of, and the layer that has to be settled first.</span>
           </li>
-        </ol>
+          <li class="more-reading-item">
+            <a href="essays/05-the-three-layers-of-a-business.html">The Layer That Has No Name</a>
+            <span class="more-reading-item-meta">Edition 05 · 2026 · On why most strategy frameworks are missing the middle layer, and what changes when you name it.</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="more-reading">
+        <div class="more-reading-eyebrow">— Field Notes from the Build</div>
+        <ul class="more-reading-list">
+          <li class="more-reading-item">
+            <a href="essays/04-field-notes-on-duty.html">Installing the Architecture in a Co-Founded Company</a>
+            <span class="more-reading-item-meta">Edition 04 · 2026 · Build log from On Duty, the fleet safety platform I am building with my stepdad as co-founder.</span>
+          </li>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- IV. THE METHODOLOGY -->
-  <section>
-    <div class="section-header">
-      <div class="section-num">§ IV — The Methodology</div>
-      <h2 class="section-title">The architecture is built on <em>Interpretable Context Methodology.</em></h2>
-    </div>
-    <div class="body-grid">
-      <div class="section-num"></div>
-      <div class="body-content reveal">
-        <p>The technical foundation of the install comes from a published methodology called Interpretable Context Methodology — ICM. It is the work of Jake Van Clief and David McDermott at Eduba and the University of Edinburgh, formalized in a 2026 paper that applies fifty years of Unix engineering principles to the problem of orchestrating AI agents.</p>
-        <p>The methodology's central claim is structural: <em>folder structure is agent architecture.</em> Instead of writing application code to coordinate multiple AI agents, you organize the prompts, context files, and reference material into a hierarchical folder system. One agent reads the right files at the right moment. The folder structure does the work a multi-agent framework would otherwise do in code.</p>
-        <p>I install ICM-based architecture because it is the cleanest available method for translating an audited ontology into an operating system. The folder hierarchy mirrors the corrected structure of the business. Every file is plain markdown — readable, editable, and inspectable by any operator on the team. The architecture is portable, version-controlled, and runs locally. There is no platform to maintain and nothing proprietary to license.</p>
-        <p>If you want to understand what the install actually consists of, the paper is the most direct way to see it. The preview below is enough to know whether the methodology is interesting to you. The full paper is linked underneath.</p>
+<!-- § IX — CONTACT -->
+<section id="contact">
+  <div class="section-header">
+    <div class="section-num">§ IX — Contact</div>
+    <h2 class="section-title">If the work fits, the right next step is <em>a conversation.</em></h2>
+  </div>
+  <div class="body-grid">
+    <div class="section-num"></div>
+    <div class="contact-body reveal">
+      <p>I take a small number of engagements at any given time. If you have read this far and the work fits something you have been carrying, write to me. Tell me a little about your business in your own words — what it is, what it has become, where the friction is showing up. No deck, no proposal, no formal intake.</p>
 
-        <div class="icm-preview">
-          <div class="icm-preview-eyebrow">The Underlying Paper · Preview</div>
-          <div class="icm-preview-title">Interpretable Context Methodology: Folder Structure as Agent Architecture</div>
-          <div class="icm-preview-authors">Jake Van Clief, David McDermott · Eduba, University of Edinburgh · arXiv:2603.16021</div>
-          <div class="icm-preview-body">
-            <p>"Current approaches to AI agent orchestration typically involve building multi-agent frameworks that manage context passing, memory, error handling, and step coordination through code. These frameworks work well for complex, concurrent systems. But for sequential workflows where a human reviews output at each step, they introduce engineering overhead that the problem does not require."</p>
-            <p>The paper proposes a five-layer context hierarchy — workspace identity, task routing, stage contracts, reference material, and working artifacts — delivered through a numbered folder structure rather than orchestration code. The result is a system where one agent, reading the right files at the right moment, does the work that would otherwise require a multi-agent framework. Every intermediate output is a plain markdown file that a human can read, edit, and save before the next stage runs.</p>
-            <p>The methodology is open source under the MIT license. It is the architectural foundation of every install I do, calibrated per engagement to the substrate surfaced in the audit.</p>
+      <div class="contact-methods">
+        <div class="contact-method">
+          <div class="contact-method-label">Email</div>
+          <div class="contact-method-value">
+            <a href="mailto:jaydiorforshee@gmail.com?subject=Substrate%20—%20Conversation">jaydiorforshee@gmail.com</a>
+            <div class="contact-note">Best for first contact. Response within two business days.</div>
           </div>
-          <div class="icm-preview-cta">
-            <a href="ICM-paper.pdf" target="_blank" rel="noopener" class="icm-preview-link">
-              Read the full paper →
-            </a>
-            <div class="icm-preview-meta">PDF · 21 pages · MIT License</div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-label">X</div>
+          <div class="contact-method-value">
+            <a href="https://x.com/thejaydior" target="_blank" rel="noopener">@thejaydior</a>
+            <div class="contact-note">For shorter exchanges and public conversation.</div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-label">Instagram</div>
+          <div class="contact-method-value">
+            <a href="https://instagram.com/thejaydior" target="_blank" rel="noopener">@thejaydior</a>
+            <div class="contact-note">Behind-the-scenes notes from the work.</div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-label">YouTube</div>
+          <div class="contact-method-value">
+            <a href="https://youtube.com/@thejaydior" target="_blank" rel="noopener">@thejaydior</a>
+            <div class="contact-note">Long-form video on the methodology and practice.</div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-label">GitHub</div>
+          <div class="contact-method-value">
+            <a href="https://github.com/GriffainAI" target="_blank" rel="noopener">github.com/GriffainAI</a>
+            <div class="contact-note">Technical work and open repositories.</div>
+          </div>
+        </div>
+        <div class="contact-method">
+          <div class="contact-method-label">Currently</div>
+          <div class="contact-method-value">
+            Open to a limited number of engagements.
+            <div class="contact-note">Dallas, Texas · Working with founders globally.</div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- V. HOW I SEE -->
-  <section>
-    <div class="section-header">
-      <div class="section-num">§ V — How I See</div>
-      <h2 class="section-title">What I am actually doing when I read a business.</h2>
-    </div>
-    <div class="body-grid">
-      <div class="section-num"></div>
-      <div class="body-content reveal">
-        <p>A business is not what it says it is. It is what it actually moves through the world. What it absorbs from the people who pay it. What it leaves behind in the team that runs it.</p>
-        <p>When I read a company, I am not looking at strategy, branding, or operational efficiency — those are downstream. I am looking for the gap between what the company claims and what the company does. The phrase the founder reaches for when pressed. The workaround three operators all share but nobody documents. The thing the customer actually pays for, which is often not the thing on the invoice. Whatever the four surfaces — founder, team, customer, behavior under pressure — say when you put them next to each other and refuse to look away.</p>
-        <p>What I am listening for is what the business <em>actually produces.</em> Not what it announces. The output is the truth. Marketing copy can lie. Pitch decks can lie. Hires can be wrong. Strategies can be obsolete the day they are written. <em>But the work the company is actually producing, the customer it is actually keeping, the team that is actually operating — those things cannot lie.</em> They are the substrate expressing itself.</p>
-        <p>This kind of seeing is uncommon because it requires holding the company without flinching. Most consultants are paid to reinforce the founder's existing picture, because reinforcing the picture is what feels supportive in the moment. I am paid to read the picture against the company's actual behavior and surface the divergence — which is sometimes uncomfortable to hear, and always the most valuable thing I can deliver. The relief most founders describe after the audit is not because they were told something flattering. It is because <em>somebody finally said the thing they had been carrying without language for.</em></p>
-        <p>Once the substrate is named, the architecture follows. Every file, every routing decision, every reference document in the install is calibrated to it. The team begins operating inside the corrected frame daily, and the company stops working against itself.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- VI. WHO THIS IS FOR -->
-  <section>
-    <div class="section-header">
-      <div class="section-num">§ VI — Who This Is For</div>
-      <h2 class="section-title">This work fits a <em>specific state</em> — not a specific size, industry, or stage.</h2>
-    </div>
-    <div class="body-grid">
-      <div class="section-num"></div>
-      <div class="body-content reveal">
-        <p>The work does not require a particular revenue level, industry, team size, or business model to land. It requires a particular state. The state is this:</p>
-        <p>You have built something real. The work is happening. The team is there. The systems mostly work. And somewhere underneath all of that, you have felt the frame slip — the quiet recognition that the company you have built no longer matches the person you have become, or never matched what it was always actually about.</p>
-        <p>You are about to hire someone you privately know is not right. You are about to launch something that doesn't quite fit. You are sitting in meetings where you are performing a role that no longer maps to what you are doing. You can tell the difference between a consultant selling you a service and someone bringing you a perception, and you want the second. You are willing to have your assumptions about your own business examined, and you can hold that examination without getting defensive.</p>
-        <p>If that is the state, the work fits. The engagement scales with the stakes. What is bespoke for a solo operator at half a million is bespoke for a founder at thirty million. The seeing is the same. The architecture is the same. <em>The price reflects what the correction is worth at the scale you are operating.</em></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- VII. WHAT I HAVE BUILT -->
-  <section>
-    <div class="section-header">
-      <div class="section-num">§ VII — Standing</div>
-      <h2 class="section-title">What's behind the work.</h2>
-    </div>
-    <div class="body-grid">
-      <div class="section-num"></div>
-      <div class="body-content reveal">
-        <p>I have spent the last two years building AI-native workspace architectures across multiple ventures and ongoing engagements with founders developing operating systems for their own companies. The methodology is the architectural pattern I arrived at in practice before encountering the published research that formalized it. Every pattern I install for a client is one I have already built and refined inside my own work.</p>
-        <p>The folder-based architectural approach this practice uses was recently formalized as Interpretable Context Methodology. I arrived at the same pattern independently, then encountered the formalization and now work directly with it. The convergence is mentioned not as credentialing but because it speaks to how the work is done: by reasoning from first principles about how AI systems and human teams actually share context, rather than by following someone else's playbook.</p>
-        <p>The practice is structured to transfer, not to retain. The audit document, the architecture, and the working sessions are all designed so the founder leaves the engagement with the capacity to read their own business structurally going forward. <em>The engagement ends. The architecture remains. The way of seeing remains.</em></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- VIII. ABOUT -->
-  <section id="about">
-    <div class="section-header">
-      <div class="section-num">§ VIII — About</div>
-      <h2 class="section-title">Who is doing this work.</h2>
-    </div>
-    <div class="body-grid">
-      <div class="section-num"></div>
-      <div style="max-width: 940px;">
-        <div class="about-grid">
-          <div class="about-photo-col">
-            <div class="about-photo">
-              <img src="jayden.jpg" alt="Jayden Forshee, Founder of Substrate" />
-            </div>
-            <div class="about-caption">
-              Jayden Forshee<br>
-              Founder, Substrate<br>
-              Dallas, Texas · 2026
-            </div>
-          </div>
-
-          <div class="about-bio reveal">
-            <p>I am the founder of Substrate, a practice for reading businesses at their structural layer and installing the AI operating architecture that lets them run from what they actually are.</p>
-
-            <p>Before this practice, I spent two years building AI-native workspace architectures across multiple ventures — including ongoing engagements with founders developing operating systems for their own companies. The methodology I install is one I arrived at in my own work before encountering the published research that formalized it. I now build on top of that research, with an additional structural layer of my own.</p>
-
-            <p>I came to this work through a convergence of contemplative practice, philosophical study, and direct technical building. The combination is uncommon — most people who can read frames cannot build the technical systems that materialize them, and most people who build technical systems do not work at the frame level. Substrate is the practice where those two capacities meet.</p>
-
-            <p>Outside the practice, I am the technical co-founder of two AI-native projects currently in active development. I do not publish details on them — they are pre-launch and live in a separate workspace from this one. <em>What is on this site is the practice itself.</em></p>
-
-            <h3>How I work</h3>
-            <p>I take a small number of engagements at any given time. Each one is bespoke — the audit and architecture are calibrated specifically to the company in front of me. I do not run a productized service, and I am not building toward one. The work scales by stakes, not by volume. Same offer for a solo operator as for a thirty-million-dollar founder. <em>The price reflects what the correction is worth at the scale you operate.</em></p>
-
-            <h3>Where to find me</h3>
-            <div class="about-links">
-              <div class="about-links-label">— Substrate · Practitioner</div>
-              <ul class="about-links-list">
-                <li><a href="mailto:jaydiorforshee@gmail.com">Email →</a></li>
-                <li><a href="https://x.com/thejaydior" target="_blank" rel="noopener">X →</a></li>
-                <li><a href="https://instagram.com/thejaydior" target="_blank" rel="noopener">Instagram →</a></li>
-                <li><a href="https://youtube.com/@thejaydior" target="_blank" rel="noopener">YouTube →</a></li>
-                <li><a href="https://github.com/GriffainAI" target="_blank" rel="noopener">GitHub →</a></li>
-                <li><a href="https://www.linkedin.com/in/jaydenforshee" target="_blank" rel="noopener">LinkedIn →</a></li>
-              </ul>
-            </div>
-          </div>
+      <div class="case-study-offer">
+        <div class="case-study-offer-eyebrow">— Open call · Case study library</div>
+        <h3>I am taking the next three engagements at <em>zero fee</em> in exchange for documented case studies.</h3>
+        <p>Three founders. Three full engagements — audit, install, handoff. Real work, calibrated to your business, delivered to the same standard as a paid engagement. The architecture is yours to keep. The exchange is documentation rights.</p>
+        <p><strong>What you commit to:</strong></p>
+        <ul class="case-study-offer-list">
+          <li>The audit phase — four to six conversations over two to three weeks, plus access to the operators on your team.</li>
+          <li>The install phase — four to six weeks of structured work to install the operating architecture.</li>
+          <li>The handoff — a live training session and seven days of post-install support.</li>
+          <li>Documentation rights — an anonymized case study published in the Reading Room six months after the engagement closes.</li>
+        </ul>
+        <p><strong>What I am selecting for:</strong> founders who have built something real, who can articulate where the friction is showing up, and who are willing to have their assumptions examined honestly.</p>
+        <div class="case-study-offer-cta">
+          Write to <a href="mailto:jaydiorforshee@gmail.com?subject=Substrate%20—%20Case%20Study%20Engagement">jaydiorforshee@gmail.com</a> with the subject "Case Study Engagement" and a few paragraphs about your business.
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- IX. READING ROOM -->
-  <section id="reading-room">
-    <div class="section-header">
-      <div class="section-num">§ IX — Reading Room</div>
-      <h2 class="section-title">Field notes on the practice.</h2>
-    </div>
-    <div class="body-grid">
-      <div class="section-num"></div>
-      <div class="body-content reveal">
-        <p>Long-form essays on the work — the underlying methodology, the structural questions that shape every engagement, and reports from the architecture I am building inside my own companies. Updated cyclically as new pieces become clear enough to publish.</p>
+</main>
 
-        <div class="more-reading" style="margin-top: 32px;">
-          <div class="more-reading-eyebrow" style="margin-bottom: 18px;">— Essays</div>
-          <ul class="more-reading-list">
-            <li class="more-reading-item">
-              <a href="essays/01-the-ontology-of-a-business.html">The Ontology of a Business</a>
-              <span class="more-reading-item-meta">Edition 01 · 2026 · On what your company actually is, underneath what you have been telling yourself it is.</span>
-            </li>
-            <li class="more-reading-item">
-              <a href="essays/02-why-folder-structure-is-architecture.html">Why Folder Structure is Architecture</a>
-              <span class="more-reading-item-meta">Edition 02 · 2026 · On Interpretable Context Methodology, and why the cleanest AI system is one that does not look like an AI system.</span>
-            </li>
-            <li class="more-reading-item">
-              <a href="essays/03-strategy-is-downstream.html">Strategy is Downstream</a>
-              <span class="more-reading-item-meta">Edition 03 · 2026 · On why most strategy fails, what it is downstream of, and the layer that has to be settled first.</span>
-            </li>
-            <li class="more-reading-item">
-              <a href="essays/05-the-three-layers-of-a-business.html">The Layer That Has No Name</a>
-              <span class="more-reading-item-meta">Edition 05 · 2026 · On why most strategy frameworks are missing the middle layer, and what changes when you name it.</span>
-            </li>
-          </ul>
-        </div>
-
-        <div class="more-reading" style="margin-top: 28px;">
-          <div class="more-reading-eyebrow" style="margin-bottom: 18px;">— Field Notes from the Build</div>
-          <ul class="more-reading-list">
-            <li class="more-reading-item">
-              <a href="essays/04-field-notes-on-duty.html">Installing the Architecture in a Co-Founded Company</a>
-              <span class="more-reading-item-meta">Edition 04 · 2026 · Build log from On Duty, the fleet safety platform I am building with my stepdad as co-founder.</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- X. CONTACT -->
-  <section id="contact">
-    <div class="section-header">
-      <div class="section-num">§ X — Contact</div>
-      <h2 class="section-title">If the work fits, the right next step is <em>a conversation.</em></h2>
-    </div>
-    <div class="contact-grid">
-      <div class="section-num"></div>
-      <div class="contact-body reveal">
-        <p>I take a small number of engagements at any given time. If you have read this far and the work fits something you have been carrying, write to me. Tell me a little about your business in your own words — what it is, what it has become, where the friction is showing up. No deck, no proposal, no formal intake. The first conversation is thirty minutes, and by the end of it both of us will know whether an engagement makes sense.</p>
-
-        <div class="contact-methods">
-          <div class="contact-method">
-            <div class="contact-method-label">Email</div>
-            <div class="contact-method-value">
-              <a href="mailto:jaydiorforshee@gmail.com?subject=Substrate%20—%20Conversation">jaydiorforshee@gmail.com</a>
-              <div class="contact-note">Best for first contact. Response within two business days.</div>
-            </div>
-          </div>
-          <div class="contact-method">
-            <div class="contact-method-label">X</div>
-            <div class="contact-method-value">
-              <a href="https://x.com/thejaydior" target="_blank" rel="noopener">@thejaydior</a>
-              <div class="contact-note">For shorter exchanges and public conversation.</div>
-            </div>
-          </div>
-          <div class="contact-method">
-            <div class="contact-method-label">Instagram</div>
-            <div class="contact-method-value">
-              <a href="https://instagram.com/thejaydior" target="_blank" rel="noopener">@thejaydior</a>
-              <div class="contact-note">Behind-the-scenes notes from the work.</div>
-            </div>
-          </div>
-          <div class="contact-method">
-            <div class="contact-method-label">YouTube</div>
-            <div class="contact-method-value">
-              <a href="https://youtube.com/@thejaydior" target="_blank" rel="noopener">@thejaydior</a>
-              <div class="contact-note">Long-form video on the methodology and practice.</div>
-            </div>
-          </div>
-          <div class="contact-method">
-            <div class="contact-method-label">GitHub</div>
-            <div class="contact-method-value">
-              <a href="https://github.com/GriffainAI" target="_blank" rel="noopener">github.com/GriffainAI</a>
-              <div class="contact-note">Technical work and open repositories.</div>
-            </div>
-          </div>
-          <div class="contact-method">
-            <div class="contact-method-label">LinkedIn</div>
-            <div class="contact-method-value">
-              <a href="https://www.linkedin.com/in/jaydenforshee" target="_blank" rel="noopener">Jayden Forshee</a>
-              <div class="contact-note">Practice updates and professional work.</div>
-            </div>
-          </div>
-          <div class="contact-method">
-            <div class="contact-method-label">Currently</div>
-            <div class="contact-method-value">
-              Open to a limited number of engagements.
-              <div class="contact-note">Dallas, Texas · Working with founders globally.</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="case-study-offer">
-          <div class="case-study-offer-eyebrow">— Open call · Case study library</div>
-          <h3>I am taking the next three engagements at <em>zero fee</em> in exchange for documented case studies.</h3>
-          <p>This is how I am building the public evidence base for the practice. Three founders. Three full engagements — audit, install, handoff. Real work, calibrated to your business, delivered to the same standard as a paid engagement. The architecture is yours to keep. The exchange is documentation rights.</p>
-
-          <p><strong>What you commit to:</strong></p>
-          <ul class="case-study-offer-list">
-            <li>The audit phase — roughly four to six conversations over two to three weeks, plus access to the operators on your team and review of customer conversations where they exist.</li>
-            <li>The install phase — four to six weeks of structured work to install the operating architecture mapped to what the audit surfaces. Your team will need to engage with it as it is built.</li>
-            <li>The handoff — a live training session and seven days of post-install support, after which the architecture is yours to run.</li>
-            <li>Documentation rights — at minimum, an anonymized case study published in the Reading Room six months after the engagement closes. If you are willing to be named, even better. The architecture you keep either way.</li>
-          </ul>
-
-          <p><strong>What I am selecting for:</strong> founders who have built something real, who can articulate where the friction is showing up, and who are willing to have their assumptions about their own business examined honestly. Industry, size, and revenue do not matter. Fit does. I will read every inquiry carefully and pick the three engagements that I expect to learn the most from — which is what makes the case study valuable to both of us.</p>
-
-          <p><strong>What this is not:</strong> a free trial, a consultation, or a discovery call. It is a complete engagement at the same standard I will eventually charge market rate for, delivered at zero fee because the case studies are worth more to the practice right now than the revenue would be.</p>
-
-          <div class="case-study-offer-cta">
-            If you fit this description, write to me at <a href="mailto:jaydiorforshee@gmail.com?subject=Substrate%20—%20Case%20Study%20Engagement">jaydiorforshee@gmail.com</a> with the subject "Case Study Engagement" and a few paragraphs about your business in your own words.
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  </main>
-
-  <footer>
-    <div class="footer-inner">
-      <div>Substrate · Practice of Jayden Forshee · 2026</div>
-      <div>
-        <a href="mailto:jaydiorforshee@gmail.com">jaydiorforshee@gmail.com</a>
-        &ensp;·&ensp;
-        <a href="https://www.linkedin.com/in/jaydenforshee" target="_blank" rel="noopener">LinkedIn</a>
-      </div>
-    </div>
-  </footer>
+<footer>
+  <div class="footer-inner">
+    <div>Substrate · Practice of Jayden Forshee · Dallas, Texas · 2026</div>
+    <div><a href="mailto:jaydiorforshee@gmail.com">jaydiorforshee@gmail.com</a></div>
+  </div>
+</footer>
 
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+      if (entry.isIntersecting) entry.target.classList.add('visible');
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 
