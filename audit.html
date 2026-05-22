@@ -973,16 +973,44 @@
   function downloadPDF() {
     const element = document.getElementById('auditReport');
     const actions = document.querySelector('.report-cta-actions');
-    const opt = {
-      margin: [12, 14, 12, 14],
-      filename: 'substrate-audit.pdf',
-      image: { type: 'jpeg', quality: 0.97 },
-      html2canvas: { scale: 2, useCORS: true, letterRendering: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+    const btn = document.querySelector('.btn-secondary[onclick="downloadPDF()"]');
+    const origText = btn ? btn.textContent : '';
+    if (btn) btn.textContent = 'Generating…';
     actions.style.display = 'none';
+
+    const opt = {
+      margin: [12, 12, 12, 12],
+      filename: 'substrate-audit.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: {
+        scale: 2,
+        useCORS: true,
+        letterRendering: true,
+        scrollX: 0,
+        scrollY: 0,
+        windowWidth: 960,
+        onclone: function(doc) {
+          const el = doc.getElementById('auditReport');
+          el.style.padding = '0';
+          // Ensure all signal annotations are visible in clone
+          doc.querySelectorAll('.signal-annotation').forEach(function(s) {
+            if (s.classList.contains('visible')) s.style.display = 'block';
+          });
+          doc.querySelectorAll('.substrate-reading, .next-step-block, .urgency-row').forEach(function(s) {
+            if (s.classList.contains('visible')) s.style.display = s.classList.contains('urgency-row') ? 'flex' : 'block';
+          });
+        }
+      },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'], avoid: '.fracture-block, .surface-item, .implication-block' }
+    };
+
     html2pdf().set(opt).from(element).save().then(() => {
       actions.style.display = '';
+      if (btn) btn.textContent = origText;
+    }).catch(function() {
+      actions.style.display = '';
+      if (btn) btn.textContent = origText;
     });
   }
 
