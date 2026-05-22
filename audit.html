@@ -1154,10 +1154,66 @@
   }
 
   function downloadPDF() {
-    const prev = document.title;
-    document.title = 'substrate-audit';
-    window.print();
-    document.title = prev;
+    const element = document.getElementById('auditReport');
+    const btn = document.querySelector('.btn-secondary[onclick="downloadPDF()"]');
+    const actions = document.querySelector('.report-cta-actions');
+    const origText = btn ? btn.textContent : '';
+    if (btn) { btn.textContent = 'Generating…'; btn.disabled = true; }
+    if (actions) actions.style.display = 'none';
+
+    // Snapshot getComputedStyle BEFORE cloning — this resolves all CSS custom properties
+    // html2canvas cannot resolve var(--x) on its own; inline styles always work
+    const allEls = [element, ...element.querySelectorAll('*')];
+    const snapshots = allEls.map(function(el) {
+      const cs = window.getComputedStyle(el);
+      return {
+        bg: cs.backgroundColor,
+        color: cs.color,
+        borderLeftColor: cs.borderLeftColor,
+        borderRightColor: cs.borderRightColor,
+        borderTopColor: cs.borderTopColor,
+        borderBottomColor: cs.borderBottomColor,
+      };
+    });
+
+    const opt = {
+      margin: [12, 12, 12, 12],
+      filename: 'substrate-audit.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: {
+        scale: 2, useCORS: true,
+        scrollX: 0, scrollY: 0, windowWidth: 960,
+        onclone: function(doc) {
+          const clonedEl = doc.getElementById('auditReport');
+          const clonedEls = [clonedEl, ...clonedEl.querySelectorAll('*')];
+          clonedEls.forEach(function(el, i) {
+            const s = snapshots[i]; if (!s) return;
+            el.style.backgroundColor = s.bg;
+            el.style.color = s.color;
+            el.style.borderLeftColor = s.borderLeftColor;
+            el.style.borderRightColor = s.borderRightColor;
+            el.style.borderTopColor = s.borderTopColor;
+            el.style.borderBottomColor = s.borderBottomColor;
+          });
+          // Ensure visibility-toggled elements render correctly
+          clonedEl.querySelectorAll('.signal-annotation.visible').forEach(function(s) { s.style.display = 'block'; });
+          clonedEl.querySelectorAll('.substrate-reading.visible, .next-step-block.visible').forEach(function(s) { s.style.display = 'block'; });
+          clonedEl.querySelectorAll('.urgency-row.visible').forEach(function(s) { s.style.display = 'flex'; });
+          const acts = clonedEl.querySelector('.report-cta-actions');
+          if (acts) acts.style.display = 'none';
+        }
+      },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+      pagebreak: { mode: ['css', 'legacy'], avoid: '.fracture-block, .surface-item, .implication-block' }
+    };
+
+    html2pdf().set(opt).from(element).save().then(function() {
+      if (actions) actions.style.display = '';
+      if (btn) { btn.textContent = origText; btn.disabled = false; }
+    }).catch(function() {
+      if (actions) actions.style.display = '';
+      if (btn) { btn.textContent = origText; btn.disabled = false; }
+    });
   }
 
   // Init

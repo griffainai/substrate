@@ -551,6 +551,88 @@
     .body-grid { grid-template-columns: 220px 1fr; gap: 80px; }
     .masthead { padding: 160px 0 140px; }
   }
+
+  /* CONTACT MODAL */
+  .btn-email {
+    display: inline-flex; align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 12px 24px;
+    background: var(--accent); color: var(--paper);
+    border: none; border-radius: 2px; cursor: pointer;
+    text-decoration: none; transition: opacity 0.18s;
+  }
+  .btn-email:hover { opacity: 0.85; }
+  .contact-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(26,24,21,0.65);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.22s;
+  }
+  .contact-overlay.open { opacity: 1; pointer-events: all; }
+  .contact-modal {
+    background: var(--paper); max-width: 520px; width: 100%;
+    border-radius: 3px; padding: 48px;
+    position: relative;
+    transform: translateY(16px);
+    transition: transform 0.22s;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .contact-overlay.open .contact-modal { transform: translateY(0); }
+  .contact-modal-close {
+    position: absolute; top: 16px; right: 20px;
+    background: none; border: none; cursor: pointer;
+    font-size: 22px; color: var(--ink-muted); line-height: 1;
+    padding: 4px 8px; transition: color 0.15s;
+  }
+  .contact-modal-close:hover { color: var(--ink); }
+  .contact-modal-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .contact-modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400; line-height: 1.15;
+    color: var(--ink); margin-bottom: 28px;
+  }
+  .contact-intents { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+  .contact-intent {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 16px; border: 1px solid var(--rule);
+    border-radius: 2px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  }
+  .contact-intent:has(input:checked) { border-color: var(--accent); background: var(--paper-warm); }
+  .contact-intent input { margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
+  .contact-intent-label {
+    display: block; font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; color: var(--ink); line-height: 1.2; margin-bottom: 4px;
+  }
+  .contact-intent-desc {
+    display: block; font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted); letter-spacing: 0.05em;
+  }
+  .contact-modal-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .btn-secondary-modal {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-muted); background: none;
+    border: 1px solid var(--rule); border-radius: 2px;
+    padding: 12px 20px; cursor: pointer; transition: all 0.18s;
+  }
+  .btn-secondary-modal:hover { border-color: var(--ink-muted); color: var(--ink); }
+  .contact-modal-fallback {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-muted); letter-spacing: 0.05em;
+  }
+  .contact-email-addr {
+    color: var(--accent); cursor: pointer;
+    border-bottom: 1px solid var(--accent-soft); transition: opacity 0.15s;
+  }
+  .contact-email-addr:hover { opacity: 0.7; }
 </style>
 </head>
 <body>
@@ -882,8 +964,8 @@
         <div class="contact-method">
           <div class="contact-method-label">Email</div>
           <div class="contact-method-value">
-            <a href="mailto:jaydiorforshee@gmail.com?subject=Substrate%20—%20Conversation">jaydiorforshee@gmail.com</a>
-            <div class="contact-note">Best for first contact. Response within two business days.</div>
+            <button class="btn-email" onclick="openContactModal('engage')">Write to Jayden →</button>
+            <div class="contact-note" style="margin-top:12px;">Best for first contact. Response within two business days.</div>
           </div>
         </div>
         <div class="contact-method">
@@ -936,7 +1018,7 @@
         </ul>
         <p><strong>What I am selecting for:</strong> founders who have built something real, who can articulate where the friction is showing up, and who are willing to have their assumptions examined honestly.</p>
         <div class="case-study-offer-cta">
-          Write to <a href="mailto:jaydiorforshee@gmail.com?subject=Substrate%20—%20Case%20Study%20Engagement">jaydiorforshee@gmail.com</a> with the subject "Case Study Engagement" and a few paragraphs about your business.
+          <button class="btn-email" onclick="openContactModal('casestudy')">Apply for the case study →</button>
         </div>
       </div>
     </div>
@@ -952,6 +1034,45 @@
   </div>
 </footer>
 
+<!-- CONTACT MODAL -->
+<div class="contact-overlay" id="contactOverlay" onclick="handleContactOverlayClick(event)">
+  <div class="contact-modal" role="dialog" aria-modal="true" aria-label="Write to Jayden">
+    <button class="contact-modal-close" onclick="closeContactModal()" aria-label="Close">&times;</button>
+    <div class="contact-modal-eyebrow">— Write to Jayden</div>
+    <div class="contact-modal-title">What brings you here?</div>
+    <div class="contact-intents">
+      <label class="contact-intent">
+        <input type="radio" name="contactIntent" value="engage" checked>
+        <span>
+          <span class="contact-intent-label">I want to start an engagement.</span>
+          <span class="contact-intent-desc">I've read the work. I want to bring Substrate into my company.</span>
+        </span>
+      </label>
+      <label class="contact-intent">
+        <input type="radio" name="contactIntent" value="casestudy">
+        <span>
+          <span class="contact-intent-label">I'm applying for the case study offer.</span>
+          <span class="contact-intent-desc">Zero fee in exchange for documentation rights.</span>
+        </span>
+      </label>
+      <label class="contact-intent">
+        <input type="radio" name="contactIntent" value="question">
+        <span>
+          <span class="contact-intent-label">I have a question about the work.</span>
+          <span class="contact-intent-desc">Not ready to engage yet — something from the reading landed.</span>
+        </span>
+      </label>
+    </div>
+    <div class="contact-modal-actions">
+      <button class="btn-email" onclick="openContactGmail()">Open in Gmail →</button>
+      <button class="btn-secondary-modal" onclick="openContactMailClient()">Open email client</button>
+    </div>
+    <div class="contact-modal-fallback">
+      Or write directly to <span class="contact-email-addr" onclick="copyContactAddr(this)">jaydiorforshee@gmail.com</span>
+    </div>
+  </div>
+</div>
+
 <script>
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -959,6 +1080,53 @@
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* Contact modal */
+  function openContactModal(defaultIntent) {
+    if (defaultIntent) {
+      const radio = document.querySelector('input[name="contactIntent"][value="' + defaultIntent + '"]');
+      if (radio) radio.checked = true;
+    }
+    document.getElementById('contactOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeContactModal() {
+    document.getElementById('contactOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function handleContactOverlayClick(e) {
+    if (e.target === document.getElementById('contactOverlay')) closeContactModal();
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeContactModal();
+  });
+  function getContactEmailParts() {
+    const intent = document.querySelector('input[name="contactIntent"]:checked')?.value || 'engage';
+    const subjects = {
+      engage: 'Substrate — Conversation',
+      casestudy: 'Substrate — Case Study Engagement',
+      question: 'Substrate — A question'
+    };
+    return { subject: subjects[intent] || subjects.engage };
+  }
+  function openContactGmail() {
+    const { subject } = getContactEmailParts();
+    const url = 'https://mail.google.com/mail/?view=cm&fs=1'
+      + '&to=' + encodeURIComponent('jaydiorforshee@gmail.com')
+      + '&su=' + encodeURIComponent(subject);
+    window.open(url, '_blank');
+  }
+  function openContactMailClient() {
+    const { subject } = getContactEmailParts();
+    window.location.href = 'mailto:jaydiorforshee@gmail.com?subject=' + encodeURIComponent(subject);
+  }
+  function copyContactAddr(el) {
+    navigator.clipboard.writeText('jaydiorforshee@gmail.com').then(function() {
+      const orig = el.textContent;
+      el.textContent = 'Copied!';
+      setTimeout(function() { el.textContent = orig; }, 2000);
+    });
+  }
 </script>
 
 </body>
