@@ -489,13 +489,81 @@
   }
 
   @media print {
-    .nav, .audit-hero, .audit-steps, .audit-footer,
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    .nav, .audit-hero, .audit-steps, .audit-loading,
+    .audit-footer, #progressWrap,
     .btn-secondary, .btn-email, .report-cta-actions { display: none !important; }
-    .audit-report { padding: 0; }
-    .fracture-block { background: #f3efe7 !important; color: #1a1815 !important; -webkit-print-color-adjust: exact; }
-    .fracture-name, .fracture-desc { color: #1a1815 !important; }
+
+    body { background: #fff !important; font-size: 13px; margin: 0; }
+    .audit-wrap { max-width: 100%; padding: 0 24px; }
+    .audit-report { display: block !important; padding: 32px 0 48px; }
+    .audit-report.visible { animation: none !important; }
+
+    /* Header */
+    .report-header { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid #d4cfc3; }
+    .report-eyebrow { color: #6e685e !important; }
+    .report-title { color: #1a1815 !important; font-size: 36px !important; }
+    .report-meta { color: #6e685e !important; }
+
+    /* Fracture block */
+    .fracture-block {
+      background: #f0ece3 !important; color: #1a1815 !important;
+      border: 1px solid #d4cfc3 !important;
+      border-left: 4px solid #8b3a1f !important;
+      page-break-inside: avoid; border-radius: 0 !important;
+    }
     .fracture-label { color: #8b3a1f !important; }
-    body { font-size: 14px; }
+    .fracture-name { color: #8b3a1f !important; font-size: 28px !important; }
+    .fracture-desc { color: #3a3631 !important; }
+
+    /* Substrate reading */
+    .substrate-reading { display: block !important; color: #3a3631 !important; border-top: 1px solid #d4cfc3 !important; }
+    .substrate-reading-label { color: #8b3a1f !important; }
+
+    /* Surfaces */
+    .report-surfaces-title { color: #6e685e !important; }
+    .surface-label { color: #8b3a1f !important; }
+    .surface-q { color: #6e685e !important; }
+    .surface-a { color: #3a3631 !important; }
+    .surface-item { page-break-inside: avoid; border-bottom: 1px solid #e6e2d8 !important; }
+
+    /* Signal annotations — show all visible ones */
+    .signal-annotation.visible {
+      display: block !important;
+      background: #f3efe7 !important;
+      border-left: 2px solid #c9a47e !important;
+      color: #3a3631 !important;
+    }
+    .signal-annotation-label { color: #8b3a1f !important; }
+
+    /* Implication */
+    .implication-block {
+      background: #f3efe7 !important;
+      border: 1px solid #d4cfc3 !important;
+      border-left: 3px solid #8b3a1f !important;
+      page-break-inside: avoid; border-radius: 0 !important;
+    }
+    .implication-label { color: #8b3a1f !important; }
+    .implication-text { color: #3a3631 !important; }
+    .implication-text em { color: #1a1815 !important; }
+
+    /* Urgency */
+    .urgency-row.visible { display: flex !important; border-top: 1px solid #e6e2d8 !important; }
+    .urgency-label-text { color: #6e685e !important; }
+    .urgency-chip { border: 1px solid #8b3a1f !important; color: #8b3a1f !important; background: #fff !important; }
+    .urgency-chip.high, .urgency-chip.critical { background: #8b3a1f !important; color: #fff !important; }
+
+    /* Next step */
+    .next-step-block.visible { display: block !important; background: #f0ece3 !important; border-radius: 0 !important; }
+    .next-step-label { color: #8b3a1f !important; }
+    .next-step-text { color: #1a1815 !important; }
+
+    /* CTA — keep the written text, hide buttons */
+    .report-cta { border-top: 1px solid #d4cfc3 !important; }
+    .report-cta-eyebrow { color: #6e685e !important; }
+    .report-cta-title { color: #1a1815 !important; }
+    .report-cta-body { color: #3a3631 !important; }
   }
 </style>
 </head>
@@ -971,47 +1039,10 @@
   }
 
   function downloadPDF() {
-    const element = document.getElementById('auditReport');
-    const actions = document.querySelector('.report-cta-actions');
-    const btn = document.querySelector('.btn-secondary[onclick="downloadPDF()"]');
-    const origText = btn ? btn.textContent : '';
-    if (btn) btn.textContent = 'Generating…';
-    actions.style.display = 'none';
-
-    const opt = {
-      margin: [12, 12, 12, 12],
-      filename: 'substrate-audit.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-        letterRendering: true,
-        scrollX: 0,
-        scrollY: 0,
-        windowWidth: 960,
-        onclone: function(doc) {
-          const el = doc.getElementById('auditReport');
-          el.style.padding = '0';
-          // Ensure all signal annotations are visible in clone
-          doc.querySelectorAll('.signal-annotation').forEach(function(s) {
-            if (s.classList.contains('visible')) s.style.display = 'block';
-          });
-          doc.querySelectorAll('.substrate-reading, .next-step-block, .urgency-row').forEach(function(s) {
-            if (s.classList.contains('visible')) s.style.display = s.classList.contains('urgency-row') ? 'flex' : 'block';
-          });
-        }
-      },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-      pagebreak: { mode: ['css', 'legacy'], avoid: '.fracture-block, .surface-item, .implication-block' }
-    };
-
-    html2pdf().set(opt).from(element).save().then(() => {
-      actions.style.display = '';
-      if (btn) btn.textContent = origText;
-    }).catch(function() {
-      actions.style.display = '';
-      if (btn) btn.textContent = origText;
-    });
+    const prev = document.title;
+    document.title = 'substrate-audit';
+    window.print();
+    document.title = prev;
   }
 
   // Init
