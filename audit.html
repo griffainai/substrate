@@ -363,6 +363,87 @@
   }
   .btn-secondary:hover { border-color: var(--ink-muted); color: var(--ink); }
 
+  /* WRITE MODAL */
+  .write-overlay {
+    position: fixed; inset: 0; z-index: 1000;
+    background: rgba(26,24,21,0.65);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.22s;
+  }
+  .write-overlay.open { opacity: 1; pointer-events: all; }
+  .write-modal {
+    background: var(--paper); max-width: 520px; width: 100%;
+    border-radius: 3px; padding: 48px;
+    position: relative;
+    transform: translateY(16px);
+    transition: transform 0.22s;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .write-overlay.open .write-modal { transform: translateY(0); }
+  .write-close {
+    position: absolute; top: 16px; right: 20px;
+    background: none; border: none; cursor: pointer;
+    font-size: 22px; color: var(--ink-muted); line-height: 1;
+    padding: 4px 8px; transition: color 0.15s;
+  }
+  .write-close:hover { color: var(--ink); }
+  .write-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted);
+    letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 20px;
+  }
+  .write-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400; line-height: 1.15;
+    color: var(--ink); margin-bottom: 28px;
+  }
+  .write-intents { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .write-intent {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 16px; border: 1px solid var(--rule);
+    border-radius: 2px; cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  }
+  .write-intent:has(input:checked) { border-color: var(--accent); background: var(--paper-warm); }
+  .write-intent input { margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
+  .write-intent-label {
+    display: block; font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; color: var(--ink); line-height: 1.2; margin-bottom: 4px;
+  }
+  .write-intent-desc {
+    display: block; font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--ink-muted); letter-spacing: 0.05em;
+  }
+  .write-attach {
+    display: flex; gap: 14px; align-items: flex-start;
+    margin-bottom: 32px; cursor: pointer;
+    padding: 14px; background: var(--paper-warm); border-radius: 2px;
+    border: 1px solid transparent; transition: border-color 0.15s;
+  }
+  .write-attach:has(input:checked) { border-color: var(--rule); }
+  .write-attach input { margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
+  .write-attach-label {
+    display: block; font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .write-attach-desc {
+    display: block; font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 15px; color: var(--ink-muted); line-height: 1.4;
+  }
+  .write-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .write-fallback {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-muted); letter-spacing: 0.05em;
+  }
+  .write-email-addr {
+    color: var(--accent); cursor: pointer;
+    border-bottom: 1px solid var(--accent-soft); transition: opacity 0.15s;
+  }
+  .write-email-addr:hover { opacity: 0.7; }
+
   /* LOADING STATE */
   .audit-loading { padding: 80px 0 100px; }
   .loading-eyebrow {
@@ -492,7 +573,7 @@
     * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
 
     .nav, .audit-hero, .audit-steps, .audit-loading,
-    .audit-footer, #progressWrap,
+    .audit-footer, #progressWrap, .write-overlay,
     .btn-secondary, .btn-email, .report-cta-actions { display: none !important; }
 
     body { background: #fff !important; font-size: 13px; margin: 0; }
@@ -767,8 +848,7 @@
       <div class="report-cta-title">This is what a <em>self-conducted audit</em> surfaces. The things you already knew but hadn't named yet.</div>
       <p class="report-cta-body">The full ontological audit is different. It surfaces what you don't know you don't know — the places where the company's actual behavior contradicts your theory of it, in ways you can't see because you're inside the system. That takes three or four conversations and an outside eye. If reading your audit above has surfaced something you've been carrying without language for, the right next step is a short conversation.</p>
       <div class="report-cta-actions">
-        <a href="#" onclick="writeToMe(); return false;" class="btn-email">Write to me →</a>
-        <button class="btn-secondary" id="btnCopy" onclick="copyReport()">Copy report</button>
+        <button class="btn-email" onclick="openWriteModal()">Write to Jayden →</button>
         <button class="btn-secondary" onclick="downloadPDF()">Download PDF</button>
       </div>
     </div>
@@ -981,60 +1061,95 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  function writeToMe() {
-    window.location.href = 'mailto:jaydiorforshee@gmail.com?subject=Substrate%20Audit%20%E2%80%94%20Conversation';
+  /* ── Write-to-Jayden modal ── */
+  function openWriteModal() {
+    document.getElementById('writeOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
+  function closeWriteModal() {
+    document.getElementById('writeOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('writeOverlay')) closeWriteModal();
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeWriteModal();
+  });
 
-  function copyReport() {
-    const fractureName = document.getElementById('fractureName').textContent;
-    const fractureDesc = document.getElementById('fractureDesc').textContent;
-    const r1 = document.getElementById('r1').textContent;
-    const r2 = document.getElementById('r2').textContent;
-    const r3 = document.getElementById('r3').textContent;
-    const r4 = document.getElementById('r4').textContent;
-    const r5 = document.getElementById('r5').textContent;
+  function buildAuditText() {
+    const fractureName = document.getElementById('fractureName')?.textContent || '';
+    const fractureDesc = document.getElementById('fractureDesc')?.textContent || '';
+    const r1 = document.getElementById('r1')?.textContent || '';
+    const r2 = document.getElementById('r2')?.textContent || '';
+    const r3 = document.getElementById('r3')?.textContent || '';
+    const r4 = document.getElementById('r4')?.textContent || '';
+    const r5 = document.getElementById('r5')?.textContent || '';
     const r6wrap = document.getElementById('r6wrap');
-    const implication = document.getElementById('implicationText').innerText;
-    const reportMeta = document.getElementById('reportMeta').textContent;
-
+    const implication = document.getElementById('implicationText')?.innerText || '';
+    const reportMeta = document.getElementById('reportMeta')?.textContent || '';
     const sigText = (id) => {
       const el = document.getElementById(id);
       return el && el.classList.contains('visible') ? '\nReading: ' + document.getElementById(id + 'text').textContent : '';
     };
     const substrateEl = document.getElementById('substrateReading');
     const substrateText = substrateEl && substrateEl.classList.contains('visible')
-      ? '\nACTUAL SUBSTRATE\n' + substrateEl.innerText.replace('— What is actually running\n','') + '\n\n'
-      : '';
+      ? '\nACTUAL SUBSTRATE\n' + substrateEl.innerText.replace('— What is actually running\n','') + '\n\n' : '';
     const urgencyEl = document.getElementById('urgencyValue');
-    const urgencyText = urgencyEl && urgencyEl.textContent ? '\nCorrection urgency: ' + urgencyEl.textContent + '\n' : '';
+    const urgencyText = urgencyEl?.textContent ? '\nCorrection urgency: ' + urgencyEl.textContent + '\n' : '';
     const nsEl = document.getElementById('nextStepText');
-    const nextStepText = nsEl && nsEl.textContent ? '\nFIRST ACTION\n' + nsEl.textContent + '\n' : '';
-
-    let text = 'SUBSTRATE AUDIT — YOUR READING\n' + reportMeta + '\n\n';
+    const nextStepText = nsEl?.textContent ? '\nFIRST ACTION\n' + nsEl.textContent + '\n' : '';
+    let text = 'SUBSTRATE AUDIT — MY READING\n' + reportMeta + '\n\n';
     text += 'PRIMARY FRACTURE PATTERN: ' + fractureName + '\n';
     text += fractureDesc + '\n';
     text += substrateText;
-    text += '— What you surfaced, by layer\n\n';
-    text += 'FOUNDER SURFACE — What the business is\n' + r1 + sigText('sig1') + '\n\n';
-    text += 'IDENTITY SURFACE — The drift\n' + r2 + sigText('sig2') + '\n\n';
-    text += 'CUSTOMER SURFACE — What they\'re actually buying\n' + r3 + sigText('sig3') + '\n\n';
-    text += 'DECISION SURFACE — Where the frame slips\n' + r4 + sigText('sig4') + '\n\n';
-    text += 'HIDDEN SURFACE — The unnamed weight\n' + r5 + sigText('sig5') + '\n\n';
-    if (r6wrap.style.display !== 'none') {
-      const r6 = document.getElementById('r6').textContent;
-      text += 'OBSERVER SURFACE — The outside eye\n' + r6 + sigText('sig6') + '\n\n';
+    text += '— What I surfaced, by layer\n\n';
+    text += 'FOUNDER SURFACE\n' + r1 + sigText('sig1') + '\n\n';
+    text += 'IDENTITY SURFACE\n' + r2 + sigText('sig2') + '\n\n';
+    text += 'CUSTOMER SURFACE\n' + r3 + sigText('sig3') + '\n\n';
+    text += 'DECISION SURFACE\n' + r4 + sigText('sig4') + '\n\n';
+    text += 'HIDDEN SURFACE\n' + r5 + sigText('sig5') + '\n\n';
+    if (r6wrap && r6wrap.style.display !== 'none') {
+      const r6 = document.getElementById('r6')?.textContent || '';
+      text += 'OBSERVER SURFACE\n' + r6 + sigText('sig6') + '\n\n';
     }
     text += 'STRUCTURAL IMPLICATION\n' + implication;
     text += urgencyText + nextStepText;
     text += '\n---\nGenerated by Substrate Audit · jaydenforshee.com';
+    return text;
+  }
 
-    navigator.clipboard.writeText(text).then(() => {
-      const btn = document.getElementById('btnCopy');
-      const orig = btn.textContent;
-      btn.textContent = 'Copied ✓';
-      setTimeout(() => { btn.textContent = orig; }, 2500);
-    }).catch(() => {
-      alert('Copy failed — please select and copy the report manually.');
+  function buildEmailParts() {
+    const intent = document.querySelector('input[name="writeIntent"]:checked')?.value || 'engage';
+    const attach = document.getElementById('attachAudit')?.checked;
+    const subject = intent === 'engage'
+      ? 'Substrate Audit — Ready to engage'
+      : 'Substrate Audit — A question from the reading';
+    const body = attach ? buildAuditText() + '\n\n---\n\n[Your message here]' : '';
+    return { subject, body };
+  }
+
+  function openGmail() {
+    const { subject, body } = buildEmailParts();
+    const url = 'https://mail.google.com/mail/?view=cm&fs=1'
+      + '&to=' + encodeURIComponent('jaydiorforshee@gmail.com')
+      + '&su=' + encodeURIComponent(subject)
+      + (body ? '&body=' + encodeURIComponent(body) : '');
+    window.open(url, '_blank');
+  }
+
+  function openMailClient() {
+    const { subject, body } = buildEmailParts();
+    window.location.href = 'mailto:jaydiorforshee@gmail.com'
+      + '?subject=' + encodeURIComponent(subject)
+      + (body ? '&body=' + encodeURIComponent(body) : '');
+  }
+
+  function copyEmailAddr(el) {
+    navigator.clipboard.writeText('jaydiorforshee@gmail.com').then(() => {
+      const orig = el.textContent;
+      el.textContent = 'Copied!';
+      setTimeout(() => { el.textContent = orig; }, 2000);
     });
   }
 
@@ -1048,6 +1163,45 @@
   // Init
   showStep(0);
 </script>
+
+<!-- WRITE TO JAYDEN MODAL -->
+<div class="write-overlay" id="writeOverlay" onclick="handleOverlayClick(event)">
+  <div class="write-modal" role="dialog" aria-modal="true" aria-label="Write to Jayden">
+    <button class="write-close" onclick="closeWriteModal()" aria-label="Close">&times;</button>
+    <div class="write-eyebrow">— Write to Jayden</div>
+    <div class="write-title">What brings you here?</div>
+    <div class="write-intents">
+      <label class="write-intent">
+        <input type="radio" name="writeIntent" value="engage" checked>
+        <span>
+          <span class="write-intent-label">I'm ready to engage a real audit.</span>
+          <span class="write-intent-desc">I want to bring Substrate into my company.</span>
+        </span>
+      </label>
+      <label class="write-intent">
+        <input type="radio" name="writeIntent" value="question">
+        <span>
+          <span class="write-intent-label">Something from the reading landed.</span>
+          <span class="write-intent-desc">I have a question before I decide.</span>
+        </span>
+      </label>
+    </div>
+    <label class="write-attach">
+      <input type="checkbox" id="attachAudit" checked>
+      <span>
+        <span class="write-attach-label">Attach my audit report</span>
+        <span class="write-attach-desc">Jayden will read it before responding.</span>
+      </span>
+    </label>
+    <div class="write-actions">
+      <button class="btn-email" onclick="openGmail()">Open in Gmail →</button>
+      <button class="btn-secondary" onclick="openMailClient()">Open email client</button>
+    </div>
+    <div class="write-fallback">
+      Or write directly to <span class="write-email-addr" onclick="copyEmailAddr(this)">jaydiorforshee@gmail.com</span>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
