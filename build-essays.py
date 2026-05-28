@@ -6,6 +6,7 @@ Run this whenever you edit an essay's markdown file.
 
 import os
 import re
+from datetime import date
 
 # Essay metadata - edit here to add/reorder essays
 ESSAYS = [
@@ -191,27 +192,65 @@ def build_essay_html(essay, body_html, more_reading_html, css_content):
 '''
 
 
+SITE_ROOT = "https://jaydenforshee.com"
+
+
+def build_sitemap():
+    """Regenerate /sitemap.xml from current ESSAYS list + the static top-level pages."""
+    site_dir = os.path.dirname(os.path.abspath(__file__))
+
+    def lastmod_for(rel_path):
+        full = os.path.join(site_dir, rel_path)
+        if os.path.exists(full):
+            return date.fromtimestamp(os.path.getmtime(full)).isoformat()
+        return date.today().isoformat()
+
+    entries = [
+        (f"{SITE_ROOT}/", lastmod_for("index.html"), "weekly", "1.0"),
+        (f"{SITE_ROOT}/audit.html", lastmod_for("audit.html"), "monthly", "0.8"),
+    ]
+    for essay in ESSAYS:
+        rel = f"essays/{essay['slug']}.html"
+        entries.append((f"{SITE_ROOT}/{rel}", lastmod_for(rel), "yearly", "0.7"))
+
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>',
+             '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for loc, lastmod, changefreq, priority in entries:
+        lines.append("  <url>")
+        lines.append(f"    <loc>{loc}</loc>")
+        lines.append(f"    <lastmod>{lastmod}</lastmod>")
+        lines.append(f"    <changefreq>{changefreq}</changefreq>")
+        lines.append(f"    <priority>{priority}</priority>")
+        lines.append("  </url>")
+    lines.append("</urlset>")
+
+    out = os.path.join(site_dir, "sitemap.xml")
+    with open(out, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+    print(f"Built: {out}")
+
+
 def build_all():
     """Build all essays."""
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
     # Read the shared stylesheet so we can inline it
     css_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "styles.css")
-    with open(css_path, "r") as f:
+    with open(css_path, "r", encoding="utf-8") as f:
         css_content = f.read()
 
     for essay in ESSAYS:
         md_path = os.path.join(SOURCE_DIR, f"{essay['slug']}.md")
         html_path = os.path.join(OUTPUT_DIR, f"{essay['slug']}.html")
 
-        with open(md_path, "r") as f:
+        with open(md_path, "r", encoding="utf-8") as f:
             md_text = f.read()
 
         body_html = markdown_to_html_paragraphs(md_text)
         more_reading_html = build_more_reading_html(essay["slug"])
         full_html = build_essay_html(essay, body_html, more_reading_html, css_content)
 
-        with open(html_path, "w") as f:
+        with open(html_path, "w", encoding="utf-8") as f:
             f.write(full_html)
 
         print(f"Built: {html_path}")
@@ -219,4 +258,5 @@ def build_all():
 
 if __name__ == "__main__":
     build_all()
+    build_sitemap()
     print("\nAll essays built. Open them in /home/claude/site/essays/")
