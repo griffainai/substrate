@@ -90,6 +90,29 @@ def markdown_to_html_paragraphs(md_text):
             i += 1
             continue
 
+        # Sub-header (### )
+        if line.startswith("### "):
+            if current_para:
+                html_parts.append(format_paragraph("\n".join(current_para)))
+                current_para = []
+            heading = line[4:].strip()
+            html_parts.append(f"<h3>{heading}</h3>")
+            i += 1
+            continue
+
+        # Bullet list (consume contiguous "- " lines)
+        if line.startswith("- "):
+            if current_para:
+                html_parts.append(format_paragraph("\n".join(current_para)))
+                current_para = []
+            items = []
+            while i < len(lines) and lines[i].rstrip().startswith("- "):
+                item_text = lines[i].rstrip()[2:]
+                items.append(f"      <li>{format_inline(item_text)}</li>")
+                i += 1
+            html_parts.append("<ul>\n" + "\n".join(items) + "\n    </ul>")
+            continue
+
         # Empty line = paragraph break
         if line.strip() == "":
             if current_para:
@@ -109,15 +132,17 @@ def markdown_to_html_paragraphs(md_text):
     return "\n\n    ".join(html_parts)
 
 
+def format_inline(text):
+    """Apply inline markdown (bold/italic) and collapse whitespace."""
+    text = re.sub(r"\*\*([^\*]+)\*\*", r"<strong>\1</strong>", text)
+    text = re.sub(r"(?<!\*)\*([^\*\n]+)\*(?!\*)", r"<em>\1</em>", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
 def format_paragraph(text):
     """Convert one paragraph's markdown to inline HTML."""
-    # Bold: **text** -> <strong>text</strong>
-    text = re.sub(r"\*\*([^\*]+)\*\*", r"<strong>\1</strong>", text)
-    # Italic: *text* -> <em>text</em>  (avoid matching ** which is already gone)
-    text = re.sub(r"(?<!\*)\*([^\*\n]+)\*(?!\*)", r"<em>\1</em>", text)
-    # Collapse internal whitespace/newlines to single space
-    text = re.sub(r"\s+", " ", text).strip()
-    return f"<p>{text}</p>"
+    return f"<p>{format_inline(text)}</p>"
 
 
 def build_more_reading_html(current_slug):
@@ -207,6 +232,7 @@ def build_sitemap():
 
     entries = [
         (f"{SITE_ROOT}/", lastmod_for("index.html"), "weekly", "1.0"),
+        (f"{SITE_ROOT}/practice.html", lastmod_for("practice.html"), "monthly", "0.9"),
         (f"{SITE_ROOT}/audit.html", lastmod_for("audit.html"), "monthly", "0.8"),
     ]
     for essay in ESSAYS:
@@ -227,6 +253,74 @@ def build_sitemap():
     out = os.path.join(site_dir, "sitemap.xml")
     with open(out, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
+    print(f"Built: {out}")
+
+
+def build_practice(css_content):
+    """Build /practice.html from 00_root/website/practice.md (the canonical offer doc)."""
+    site_dir = os.path.dirname(os.path.abspath(__file__))
+    # practice.md lives in the workspace at 00_root/website/practice.md
+    workspace_root = os.path.abspath(os.path.join(site_dir, "..", ".."))
+    src = os.path.join(workspace_root, "00_root", "website", "practice.md")
+    out = os.path.join(site_dir, "practice.html")
+
+    if not os.path.exists(src):
+        print(f"Skipped practice page — source not found at {src}")
+        return
+
+    with open(src, "r", encoding="utf-8") as f:
+        md_text = f.read()
+
+    body_html = markdown_to_html_paragraphs(md_text)
+
+    html = f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light only" />
+<meta name="supported-color-schemes" content="light" />
+<meta name="theme-color" content="#faf8f4" />
+<title>The Practice — Substrate</title>
+<meta name="description" content="A working document on what I do, how I do it, and what an engagement looks like. The practice of Jayden Forshee." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+{css_content}
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner-narrow">
+      <a href="index.html" class="nav-mark">Substrate <span class="nav-mark-sub">Practice of Jayden Forshee</span></a>
+      <a href="index.html" class="nav-back">← Home</a>
+    </div>
+  </nav>
+
+  <article>
+    <div class="essay-meta">The Practice · A Working Document · 2026</div>
+    <h1 class="essay-title">Substrate</h1>
+    <p class="essay-subtitle">A working document on what I do, how I do it, and what an engagement looks like. A practice — and a teaching.</p>
+    <div class="essay-divider"></div>
+
+    {body_html}
+  </article>
+
+  <footer>
+    <div class="footer-inner footer-inner-narrow">
+      <div>Substrate · Practice of Jayden Forshee · 2026</div>
+      <div><a href="mailto:jaydiorforshee@gmail.com">jaydiorforshee@gmail.com</a></div>
+    </div>
+  </footer>
+
+</body>
+</html>
+'''
+
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(html)
     print(f"Built: {out}")
 
 
@@ -258,5 +352,10 @@ def build_all():
 
 if __name__ == "__main__":
     build_all()
+    # Build the practice page using the same shared CSS as essays
+    css_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "styles.css")
+    with open(css_path, "r", encoding="utf-8") as f:
+        css_content = f.read()
+    build_practice(css_content)
     build_sitemap()
     print("\nAll essays built. Open them in /home/claude/site/essays/")
