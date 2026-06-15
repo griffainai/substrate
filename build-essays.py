@@ -184,6 +184,10 @@ def build_essay_html(essay, body_html, more_reading_html, css_content):
 <meta name="color-scheme" content="light only" />
 <meta name="supported-color-schemes" content="light" />
 <meta name="theme-color" content="#faf8f4" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <title>{essay["title"]} — Substrate</title>
 <meta name="description" content="{essay["subtitle"]} Reading Room, Edition {essay["edition"]}." />
 <link rel="canonical" href="{SITE_ROOT}/essays/{essay["slug"]}.html" />
@@ -301,6 +305,10 @@ def build_practice(css_content):
 <meta name="color-scheme" content="light only" />
 <meta name="supported-color-schemes" content="light" />
 <meta name="theme-color" content="#faf8f4" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <title>The Practice — Substrate</title>
 <meta name="description" content="A working document on what I do, how I do it, and what an engagement looks like. The practice of Jayden Forshee." />
 <link rel="canonical" href="{SITE_ROOT}/practice.html" />
