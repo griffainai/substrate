@@ -237,7 +237,7 @@ def build_essay_html(essay, body_html, more_reading_html, css_content):
 '''
 
 
-SITE_ROOT = "https://jaydenforshee.com"
+SITE_ROOT = "https://www.jaydenforshee.com"
 
 
 def build_sitemap():
