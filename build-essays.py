@@ -45,6 +45,13 @@ ESSAYS = [
         "subtitle": "On why most strategy frameworks are missing the middle layer, and what changes when you name it.",
         "date": "2026",
     },
+    {
+        "slug": "06-the-layer-above-the-architecture",
+        "edition": "06",
+        "title": "The Layer Above the Architecture",
+        "subtitle": "On the ontological audit — the layer that has to be read before any AI architecture goes in.",
+        "date": "2026",
+    },
 ]
 
 SOURCE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "writing")
@@ -179,6 +186,19 @@ def build_essay_html(essay, body_html, more_reading_html, css_content):
 <meta name="theme-color" content="#faf8f4" />
 <title>{essay["title"]} — Substrate</title>
 <meta name="description" content="{essay["subtitle"]} Reading Room, Edition {essay["edition"]}." />
+<link rel="canonical" href="{SITE_ROOT}/essays/{essay["slug"]}.html" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Substrate" />
+<meta property="og:title" content="{essay["title"]} — Substrate" />
+<meta property="og:description" content="{essay["subtitle"]}" />
+<meta property="og:url" content="{SITE_ROOT}/essays/{essay["slug"]}.html" />
+<meta property="og:image" content="{SITE_ROOT}/og/{essay["slug"]}.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{essay["title"]} — Substrate" />
+<meta name="twitter:description" content="{essay["subtitle"]}" />
+<meta name="twitter:image" content="{SITE_ROOT}/og/{essay["slug"]}.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -283,6 +303,17 @@ def build_practice(css_content):
 <meta name="theme-color" content="#faf8f4" />
 <title>The Practice — Substrate</title>
 <meta name="description" content="A working document on what I do, how I do it, and what an engagement looks like. The practice of Jayden Forshee." />
+<link rel="canonical" href="{SITE_ROOT}/practice.html" />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Substrate" />
+<meta property="og:title" content="The Practice — Substrate" />
+<meta property="og:description" content="A working document on what I do, how I do it, and what an engagement looks like." />
+<meta property="og:url" content="{SITE_ROOT}/practice.html" />
+<meta property="og:image" content="{SITE_ROOT}/og/substrate-default.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="{SITE_ROOT}/og/substrate-default.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
