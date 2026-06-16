@@ -188,6 +188,7 @@ def build_essay_html(essay, body_html, more_reading_html, css_content):
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="alternate" type="application/rss+xml" title="Substrate — Reading Room" href="/feed.xml" />
 <title>{essay["title"]} — Substrate</title>
 <meta name="description" content="{essay["subtitle"]} Reading Room, Edition {essay["edition"]}." />
 <link rel="canonical" href="{SITE_ROOT}/essays/{essay["slug"]}.html" />
@@ -227,6 +228,11 @@ def build_essay_html(essay, body_html, more_reading_html, css_content):
 
     {body_html}
     {more_reading_html}
+    <div style="margin-top:52px;padding-top:30px;border-top:1px solid var(--rule-soft);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px;">— The Reading Room</div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink-soft);margin:0 0 14px;line-height:1.5;">New essays, sent to your inbox when they publish. No cadence, no filler.</p>
+      <a href="/#subscribe" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);text-decoration:none;">Subscribe →</a>
+    </div>
   </article>
 
   <footer>
@@ -280,6 +286,56 @@ def build_sitemap():
     print(f"Built: {out}")
 
 
+def build_rss():
+    """Regenerate /feed.xml — the Reading Room feed that drives RSS-to-email.
+    Newest essay first; guid = permalink so a newsletter service fires once per new piece."""
+    import html
+    from email.utils import formatdate
+    site_dir = os.path.dirname(os.path.abspath(__file__))
+
+    items = []
+    for essay in sorted(ESSAYS, key=lambda e: e["edition"], reverse=True):
+        rel = f"essays/{essay['slug']}.html"
+        full = os.path.join(site_dir, rel)
+        ts = os.path.getmtime(full) if os.path.exists(full) else None
+        pub = formatdate(ts, usegmt=True)
+        url = f"{SITE_ROOT}/{rel}"
+        md_path = os.path.join(SOURCE_DIR, f"{essay['slug']}.md")
+        body = ""
+        if os.path.exists(md_path):
+            with open(md_path, encoding="utf-8") as mf:
+                body = markdown_to_html_paragraphs(mf.read())
+        items.append(
+            "    <item>\n"
+            f"      <title>{html.escape(essay['title'])}</title>\n"
+            f"      <link>{url}</link>\n"
+            f'      <guid isPermaLink="true">{url}</guid>\n'
+            f"      <description>{html.escape(essay['subtitle'])}</description>\n"
+            f"      <pubDate>{pub}</pubDate>\n"
+            f"      <content:encoded><![CDATA[{body}]]></content:encoded>\n"
+            "    </item>"
+        )
+
+    rss = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">\n'
+        "  <channel>\n"
+        "    <title>Substrate — Reading Room</title>\n"
+        f"    <link>{SITE_ROOT}/</link>\n"
+        f'    <atom:link href="{SITE_ROOT}/feed.xml" rel="self" type="application/rss+xml"/>\n'
+        "    <description>Essays on reading businesses at their structural layer, "
+        "and the AI operating architecture that materializes the corrected picture.</description>\n"
+        "    <language>en-us</language>\n"
+        + "\n".join(items) + "\n"
+        "  </channel>\n"
+        "</rss>\n"
+    )
+    out = os.path.join(site_dir, "feed.xml")
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(rss)
+    print(f"Built: {out}")
+
+
 def build_practice(css_content):
     """Build /practice.html from 00_root/website/practice.md (the canonical offer doc)."""
     site_dir = os.path.dirname(os.path.abspath(__file__))
@@ -309,6 +365,7 @@ def build_practice(css_content):
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="alternate" type="application/rss+xml" title="Substrate — Reading Room" href="/feed.xml" />
 <title>The Practice — Substrate</title>
 <meta name="description" content="A working document on what I do, how I do it, and what an engagement looks like. The practice of Jayden Forshee." />
 <link rel="canonical" href="{SITE_ROOT}/practice.html" />
@@ -397,4 +454,5 @@ if __name__ == "__main__":
         css_content = f.read()
     build_practice(css_content)
     build_sitemap()
+    build_rss()
     print("\nAll essays built. Open them in /home/claude/site/essays/")
