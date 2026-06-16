@@ -23,8 +23,8 @@ if (!edition) {
 
 const KEY = process.env.RESEND_API_KEY;
 const AUD = process.env.RESEND_AUDIENCE_ID;
-const FROM = process.env.RESEND_FROM || 'Substrate — Jayden Forshee <jayden@jaydenforshee.com>';
-const REPLY = process.env.RESEND_REPLY_TO || 'jayden@jaydenforshee.com';
+const FROM = process.env.RESEND_FROM || 'Substrate — Jayden Forshee <hello@jaydenforshee.com>';
+const REPLY = process.env.RESEND_REPLY_TO || 'hello@jaydenforshee.com';
 if (!KEY || !AUD) {
   console.error('Set RESEND_API_KEY and RESEND_AUDIENCE_ID in your environment first.');
   process.exit(1);
