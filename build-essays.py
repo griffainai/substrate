@@ -120,6 +120,20 @@ def markdown_to_html_paragraphs(md_text):
             html_parts.append("<ul>\n" + "\n".join(items) + "\n    </ul>")
             continue
 
+        # Blockquote -> pull-quote (consume contiguous "> " lines)
+        if line.startswith(">"):
+            if current_para:
+                html_parts.append(format_paragraph("\n".join(current_para)))
+                current_para = []
+            quote_lines = []
+            while i < len(lines) and lines[i].rstrip().startswith(">"):
+                q = lines[i].rstrip()
+                q = q[2:] if q.startswith("> ") else q[1:]
+                quote_lines.append(q)
+                i += 1
+            html_parts.append('<blockquote class="pullquote"><p>' + format_inline(" ".join(quote_lines)) + "</p></blockquote>")
+            continue
+
         # Empty line = paragraph break
         if line.strip() == "":
             if current_para:
@@ -221,7 +235,11 @@ def build_essay_html(essay, body_html, more_reading_html, css_content):
   </nav>
 
   <article>
-    <div class="essay-meta">Reading Room · Edition {essay["edition"]} · {essay["date"]}</div>
+    <div class="chip-row">
+      <span class="chip chip--accent chip--dot">Reading Room</span>
+      <span class="chip">Edition {essay["edition"]}</span>
+      <span class="chip">{essay["date"]}</span>
+    </div>
     <h1 class="essay-title">{essay["title"]}</h1>
     <p class="essay-subtitle">{essay["subtitle"]}</p>
     <div class="essay-divider"></div>
