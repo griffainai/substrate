@@ -214,7 +214,7 @@ def build_essay_html(essay, body_html, more_reading_html, css_content):
 
   <nav class="nav">
     <div class="nav-inner-narrow">
-      <a href="../index.html" class="nav-mark">Substrate <span class="nav-mark-sub">Practice of Jayden Forshee</span></a>
+      <a href="../index.html" class="nav-mark"><svg width="21" height="21" viewBox="0 0 100 100" style="vertical-align:-4px;margin-right:9px" aria-hidden="true"><clipPath id="nv"><circle cx="50" cy="50" r="33"/></clipPath><g clip-path="url(#nv)" fill="currentColor"><rect x="15" y="60" width="70" height="30"/><rect x="15" y="43" width="70" height="2.6"/><rect x="15" y="52" width="70" height="2.6"/></g><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="3"/></svg>Substrate <span class="nav-mark-sub">Practice of Jayden Forshee</span></a>
       <a href="../index.html#reading-room" class="nav-back">← Reading Room</a>
     </div>
   </nav>
@@ -333,7 +333,7 @@ def build_practice(css_content):
 
   <nav class="nav">
     <div class="nav-inner-narrow">
-      <a href="index.html" class="nav-mark">Substrate <span class="nav-mark-sub">Practice of Jayden Forshee</span></a>
+      <a href="index.html" class="nav-mark"><svg width="21" height="21" viewBox="0 0 100 100" style="vertical-align:-4px;margin-right:9px" aria-hidden="true"><clipPath id="nv"><circle cx="50" cy="50" r="33"/></clipPath><g clip-path="url(#nv)" fill="currentColor"><rect x="15" y="60" width="70" height="30"/><rect x="15" y="43" width="70" height="2.6"/><rect x="15" y="52" width="70" height="2.6"/></g><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="3"/></svg>Substrate <span class="nav-mark-sub">Practice of Jayden Forshee</span></a>
       <a href="index.html" class="nav-back">← Home</a>
     </div>
   </nav>

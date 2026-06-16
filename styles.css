@@ -10,8 +10,8 @@
   --ink-muted: #6e685e;
   --rule: #d4cfc3;
   --rule-soft: #e6e2d8;
-  --accent: #8b3a1f;
-  --accent-soft: #c9a47e;
+  --accent: #2c5545;
+  --accent-soft: #7e9b8c;
 }
 @media (prefers-color-scheme: dark) { :root { color-scheme: light only; } }
 
@@ -26,7 +26,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
-::selection { background: rgba(139, 58, 31, 0.18); color: #1a1815; }
+::selection { background: rgba(44, 85, 69, 0.18); color: #1a1815; }
 
 /* NAV (shared) */
 .nav {
