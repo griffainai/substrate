@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="color-scheme" content="light only" />
+<meta name="supported-color-schemes" content="light" />
+<meta name="theme-color" content="#faf8f4" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+<link rel="alternate" type="application/rss+xml" title="Substrate — Reading Room" href="/feed.xml" />
+<title>How to Build an AI System for Free — Using Nothing but Folders — Substrate</title>
+<meta name="description" content="The setup people pay $20,000–$200,000 for, built with nothing but folders — the whole blueprint, step by step. Reading Room, Edition 07." />
+<link rel="canonical" href="https://www.jaydenforshee.com/essays/07-how-to-build-an-ai-system-for-free.html" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="Substrate" />
+<meta property="og:title" content="How to Build an AI System for Free — Using Nothing but Folders — Substrate" />
+<meta property="og:description" content="The setup people pay $20,000–$200,000 for, built with nothing but folders — the whole blueprint, step by step." />
+<meta property="og:url" content="https://www.jaydenforshee.com/essays/07-how-to-build-an-ai-system-for-free.html" />
+<meta property="og:image" content="https://www.jaydenforshee.com/og/07-how-to-build-an-ai-system-for-free.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="How to Build an AI System for Free — Using Nothing but Folders — Substrate" />
+<meta name="twitter:description" content="The setup people pay $20,000–$200,000 for, built with nothing but folders — the whole blueprint, step by step." />
+<meta name="twitter:image" content="https://www.jaydenforshee.com/og/07-how-to-build-an-ai-system-for-free.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Substrate · Shared stylesheet · 2026 */
+
+:root {
+  color-scheme: light only;
+  --paper: #faf8f4;
+  --paper-warm: #f3efe7;
+  --paper-deep: #ebe6da;
+  --ink: #1a1815;
+  --ink-soft: #3a3631;
+  --ink-muted: #6e685e;
+  --rule: #d4cfc3;
+  --rule-soft: #e6e2d8;
+  --accent: #8b3a1f;
+  --accent-soft: #c9a47e;
+}
+@media (prefers-color-scheme: dark) { :root { color-scheme: light only; } }
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; background: #faf8f4; }
+body {
+  background: #faf8f4 !important;
+  color: #1a1815 !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 400; font-size: 17px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+::selection { background: rgba(139, 58, 31, 0.18); color: #1a1815; }
+
+/* NAV (shared) */
+.nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(250, 248, 244, 0.92);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--rule-soft);
+}
+.nav-inner-wide {
+  max-width: 1100px; margin: 0 auto;
+  padding: 18px 40px;
+  display: flex; align-items: baseline; justify-content: space-between;
+}
+.nav-inner-narrow {
+  max-width: 760px; margin: 0 auto;
+  padding: 18px 40px;
+  display: flex; align-items: baseline; justify-content: space-between;
+}
+.nav-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 24px; font-weight: 500;
+  letter-spacing: -0.01em; color: var(--accent);
+  text-decoration: none;
+}
+.nav-mark-sub {
+  font-family: 'Inter', sans-serif; font-style: normal;
+  font-size: 13px; color: var(--ink-muted); font-weight: 400;
+  margin-left: 8px; letter-spacing: 0;
+}
+.nav-meta, .nav-back {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--ink-muted);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  text-decoration: none; transition: color 0.18s;
+}
+.nav-back:hover { color: var(--accent); }
+
+/* FOOTER (shared) */
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 40px; background: var(--paper-warm);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--ink-muted);
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+.footer-inner-narrow { max-width: 760px; }
+.footer-inner a {
+  color: var(--ink-muted); text-decoration: none;
+  transition: color 0.18s;
+}
+.footer-inner a:hover { color: var(--accent); }
+
+/* ESSAY-SPECIFIC (single-column reading) */
+article { max-width: 760px; margin: 0 auto; padding: 96px 40px 60px; }
+.essay-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; color: var(--ink-muted);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.essay-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-style: italic;
+  font-size: clamp(44px, 6vw, 68px);
+  line-height: 1.04; letter-spacing: -0.022em;
+  color: var(--ink); margin-bottom: 28px;
+}
+.essay-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 2.4vw, 26px);
+  font-style: italic; line-height: 1.45;
+  color: var(--ink-muted); margin-bottom: 56px;
+}
+.essay-divider {
+  border-top: 1px solid var(--rule);
+  margin-bottom: 48px;
+}
+article p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px; font-weight: 400; line-height: 1.65;
+  color: var(--ink-soft); margin-bottom: 24px;
+  letter-spacing: -0.002em;
+}
+article em { font-style: italic; color: var(--ink); }
+article strong { font-weight: 500; color: var(--ink); font-style: normal; }
+article h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400; font-style: italic;
+  font-size: clamp(28px, 3.4vw, 36px);
+  line-height: 1.2; letter-spacing: -0.015em;
+  color: var(--ink);
+  margin-top: 60px; margin-bottom: 24px;
+}
+article hr { border: none; border-top: 1px solid var(--rule-soft); margin: 48px 0; }
+article h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500; font-style: normal;
+  font-size: clamp(22px, 2.6vw, 26px);
+  line-height: 1.25; letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-top: 44px; margin-bottom: 18px;
+}
+article ul {
+  list-style: none; padding: 0; margin: 0 0 28px 0;
+}
+article ul li {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px; line-height: 1.55;
+  color: var(--ink-soft);
+  padding-left: 24px; position: relative;
+  margin-bottom: 14px;
+}
+article ul li::before {
+  content: "—"; position: absolute; left: 0;
+  color: var(--accent); font-style: italic;
+}
+
+.more-reading {
+  margin-top: 80px; padding: 44px;
+  background: var(--paper-warm);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.more-reading-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--ink-muted);
+  letter-spacing: 0.2em; text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.more-reading-list { list-style: none; }
+.more-reading-item {
+  padding: 20px 0; border-bottom: 1px solid var(--rule-soft);
+}
+.more-reading-item:last-child { border-bottom: none; padding-bottom: 0; }
+.more-reading-item a {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 24px;
+  color: var(--ink); text-decoration: none;
+  line-height: 1.25;
+  transition: color 0.18s;
+}
+.more-reading-item a:hover { color: var(--accent); }
+.more-reading-item-meta {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal; font-size: 10px;
+  color: var(--ink-muted); letter-spacing: 0.15em;
+  text-transform: uppercase; margin-top: 8px;
+}
+
+@media (max-width: 800px) {
+  .nav-inner-wide, .nav-inner-narrow { padding: 16px 24px; }
+  .nav-mark-sub { display: none; }
+  article { padding: 56px 24px 40px; }
+  article p { font-size: 19px; }
+  .essay-title { font-size: 38px; }
+  .essay-subtitle { font-size: 20px; }
+  .more-reading { padding: 28px; }
+  .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+}
+
+/* ============================================================
+   EDITORIAL DESIGN LAYER — Substrate
+   The article system: chips, drop cap, accent rule, pull-quotes,
+   callouts, numbered lists, stat cards. One ochre accent does the
+   emphasis — no gradient, mechanical not decorative.
+   ============================================================ */
+
+/* Eyebrow chip row (top-matter, replaces the plain meta line) */
+.chip-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 30px; }
+.chip {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-muted);
+  padding: 5px 12px; border: 1px solid var(--rule);
+  border-radius: 999px; white-space: nowrap;
+}
+.chip--accent { color: var(--accent); border-color: var(--accent-soft); }
+.chip--dot::before {
+  content: ""; display: inline-block; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--accent);
+  margin-right: 8px; vertical-align: middle; transform: translateY(-1px);
+}
+
+/* Accent rule — short ochre bar replacing the plain full-width divider */
+.essay-divider {
+  border-top: none; height: 2px; width: 60px;
+  background: var(--accent); margin: 0 0 46px;
+}
+
+/* Lead paragraph + drop cap — the opening body paragraph (first <p> after the rule) */
+.essay-divider + p { font-size: 23px; color: var(--ink-soft); }
+.essay-divider + p::first-letter {
+  font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 500;
+  float: left; font-size: 5.2em; line-height: 0.70;
+  padding: 10px 14px 0 2px; color: var(--accent);
+}
+
+/* Pull-quote — rendered from `> ` blockquotes in markdown */
+.pullquote {
+  margin: 46px 0; padding: 6px 0 6px 30px;
+  border-left: 2px solid var(--accent);
+}
+.pullquote p {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 27px; line-height: 1.4; letter-spacing: -0.01em;
+  color: var(--ink); margin: 0 0 10px;
+}
+.pullquote p:last-child { margin-bottom: 0; }
+
+/* Callout card */
+.callout {
+  margin: 38px 0; padding: 26px 30px;
+  background: var(--paper-warm); border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent); border-radius: 4px;
+}
+.callout-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px;
+}
+.callout p { font-size: 19px; margin-bottom: 12px; }
+.callout p:last-child { margin-bottom: 0; }
+
+/* Numbered list with ochre serif numerals */
+.numbered-list { list-style: none; counter-reset: item; padding: 0; margin: 38px 0; }
+.numbered-list li {
+  display: grid; grid-template-columns: 60px 1fr; gap: 22px;
+  align-items: baseline; padding: 22px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.numbered-list li:last-child { border-bottom: 0; }
+.numbered-list li::before {
+  content: counter(item); counter-increment: item;
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: 46px; line-height: 1; color: var(--accent);
+}
+
+/* Stat row — a row of mini metric cards */
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 38px 0; }
+.stat-card { border: 1px solid var(--rule); border-radius: 6px; padding: 18px 20px; background: var(--paper-warm); }
+.stat-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 9px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink-muted); margin-bottom: 8px;
+}
+.stat-value { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 38px; line-height: 1; color: var(--accent); }
+
+/* Premium ribbon — marks subscriber-only pieces */
+.premium-tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--paper); background: var(--accent);
+  padding: 5px 12px; border-radius: 999px;
+}
+
+@media (max-width: 800px) {
+  .essay-divider + p { font-size: 20px; }
+  .essay-divider + p::first-letter { font-size: 4.4em; }
+  .pullquote p { font-size: 23px; }
+  .numbered-list li { grid-template-columns: 44px 1fr; gap: 16px; }
+  .numbered-list li::before { font-size: 36px; }
+  .stat-row { grid-template-columns: 1fr; }
+}
+
+/* — Figures (essay diagrams / images) — */
+.essay-figure { margin: 42px 0; }
+.essay-figure img {
+  width: 100%; height: auto; display: block;
+  border: 1px solid var(--rule); border-radius: 6px;
+}
+
+/* — Code blocks & inline code — */
+article pre {
+  background: var(--paper-warm); border: 1px solid var(--rule);
+  border-radius: 6px; padding: 18px 22px; margin: 30px 0; overflow-x: auto;
+}
+article pre code {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  line-height: 1.65; color: var(--ink-soft); white-space: pre; background: none;
+}
+article p code, article li code {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.84em;
+  background: var(--paper-warm); border: 1px solid var(--rule-soft);
+  padding: 1px 6px; border-radius: 4px; color: var(--accent);
+}
+
+/* — Ordered list — */
+.essay-ol { margin: 30px 0; padding-left: 28px; }
+.essay-ol li { margin-bottom: 12px; line-height: 1.6; padding-left: 4px; }
+.essay-ol li::marker { color: var(--accent); }
+
+@media (max-width: 800px) {
+  article pre code { font-size: 11.5px; }
+  .essay-figure { margin: 32px 0; }
+}
+
+</style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner-narrow">
+      <a href="../index.html" class="nav-mark"><svg width="21" height="21" viewBox="0 0 100 100" style="vertical-align:-4px;margin-right:9px" aria-hidden="true"><clipPath id="nv"><circle cx="50" cy="50" r="33"/></clipPath><g clip-path="url(#nv)" fill="currentColor"><rect x="15" y="60" width="70" height="30"/><rect x="15" y="43" width="70" height="2.6"/><rect x="15" y="52" width="70" height="2.6"/></g><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="3"/></svg>Substrate <span class="nav-mark-sub">Practice of Jayden Forshee</span></a>
+      <a href="../index.html#reading-room" class="nav-back">← Reading Room</a>
+    </div>
+  </nav>
+
+  <article>
+    <div class="chip-row">
+      <span class="chip chip--accent chip--dot">Reading Room</span>
+      <span class="chip">Edition 07</span>
+      <span class="chip">2026</span>
+    </div>
+    <h1 class="essay-title">How to Build an AI System for Free — Using Nothing but Folders</h1>
+    <p class="essay-subtitle">The setup people pay $20,000–$200,000 for, built with nothing but folders — the whole blueprint, step by step.</p>
+    <div class="essay-divider"></div>
+
+    <p>Most "AI systems" sold to businesses are overbuilt on purpose.</p>
+
+    <p>A developer or agency builds you something on a framework — LangChain, CrewAI, AutoGen. Code that wires a bunch of AI agents together. A server. Dashboards. They charge you $20,000 to $200,000. And when it breaks, only they can fix it — because only they understand it.</p>
+
+    <p>For 95% of what a business actually needs, that isn't sophistication. It's a moat around your wallet.</p>
+
+    <p>Here's what none of them want you to know: you can build the same thing yourself. For free. In an afternoon. Using folders.</p>
+
+    <p>Not a metaphor. Actual folders, on your computer, with plain text files inside them.</p>
+
+    <p>This is the whole foundation, start to finish. It runs long because it's complete — the idea, the reason it works, the history it's borrowed from, and the exact files to copy. Read it twice. Build as you go.</p>
+
+    <h2>The one idea</h2>
+
+    <blockquote class="pullquote"><p>Folder structure is the architecture.</p></blockquote>
+
+    <p>That's the whole secret. Instead of writing code to coordinate AI agents, you organize your instructions and context into a folder tree. The AI reads the right file at the right moment and does the work. The folders do the job the expensive framework was doing in code.</p>
+
+    <figure class="essay-figure"><img src="/figures/essay-fig1-two-architectures.png" alt="Two ways to build the same thing: a closed framework stack versus an open folder tree" loading="lazy"></figure>
+
+    <p>When you first hear it, it sounds like a downgrade. Folders are old. Text files are old. Surely a real AI system needs something more sophisticated. The simplicity is the point. Here's what a folder gets you that a $50,000 framework can't:</p>
+
+    <ol class="essay-ol">
+      <li><strong>You can read it.</strong> Every instruction is a plain text file. Open it. Read it. No black box.</li>
+      <li><strong>You can change it.</strong> Need a new step? Add a folder. Wrong tone? Edit a file. No developer. No deployment.</li>
+      <li><strong>You can move it.</strong> The whole system is one folder. Copy it, back it up, email it. No server.</li>
+      <li><strong>You can see inside it.</strong> Every step writes a file you can open and check. The files ARE the dashboard.</li>
+    </ol>
+
+    <blockquote class="pullquote"><p>You lose nothing. You gain everything you were paying to not have.</p></blockquote>
+
+    <h2>Why most people get nothing out of AI</h2>
+
+    <p>Most people open Claude or ChatGPT, type a question, get an answer, and start over. Next time, they re-explain who they are and what they're working on. They paste the same context again. They hit a limit and open a new chat from zero.</p>
+
+    <p>That's fine for quick questions. It falls apart the moment you try to do real, ongoing work. You burn the AI's attention re-explaining yourself. You can't edit what it produces at each step. Every session starts cold.</p>
+
+    <p>The folder structure fixes all of it. But to see why, you need to understand one thing first.</p>
+
+    <h2>Tokens — the thing that decides everything</h2>
+
+    <p>A token is roughly three-quarters of a word. Short words are one token. Long ones — "hamburger" — can be three. It's the smallest chunk of text an AI reads at a time.</p>
+
+    <p>The word is borrowed. Language researchers in the 1990s needed a unit smaller than "a word," because not every language breaks into words the same way. They took "token" from linguistics, which took it from old English — a token was a sign, a small thing that stands for something. That's exactly what it is here: the smallest meaningful piece of a sentence.</p>
+
+    <p>Here's why it matters. An AI can only hold so many tokens at once before it starts to slip. That ceiling is the context window — everything the AI is "thinking about" right now: your instructions, your files, the conversation so far. It's finite.</p>
+
+    <figure class="essay-figure"><img src="/figures/essay-fig-tokens.png" alt="One endless chat fills the context window with everything; one workspace loads only the task" loading="lazy"></figure>
+
+    <p>So if you dump everything into one endless conversation, the AI writing your blog post is also carrying your video production notes, last week's client email, and Tuesday's half-finished spec. It spends its limited attention on things that have nothing to do with the task — and quietly gets worse at the one you asked for.</p>
+
+    <p>The folder structure fixes this by separating your work into areas and loading only what the task in front of it needs. Clean attention, every time. That alone is most of the gap between people who get magic out of AI and people who get mush.</p>
+
+    <h2>The three layers</h2>
+
+    <p>This is the core of the whole system. Three layers, each with one job.</p>
+
+    <figure class="essay-figure"><img src="/figures/essay-fig-layers.png" alt="The three-layer routing system: the map (CLAUDE.md), the rooms (CONTEXT.md), the tools (skills)" loading="lazy"></figure>
+
+    <p><strong>Layer 1 — the map (CLAUDE.md).</strong> One file at the top of your project. The AI reads it first, every time. Think of it as the floor plan by the door: what this project is, what the workspaces are, where things go, and a short routing table that says "for this kind of task, go here, read this." Without the map, the AI reads everything (wasting tokens) or guesses (getting it wrong). It's the single most important file in the system.</p>
+
+    <p><strong>Layer 2 — the rooms (a CONTEXT.md in each workspace).</strong> Each area of your work gets its own folder and its own context file. Tell the AI to work in the writing room and it reads the writing room's context — your voice, your process, what good looks like there — and nothing from the other rooms. No bleed. You walk in; it already knows where it is.</p>
+
+    <p><strong>Layer 3 — the tools (skills).</strong> Skills are packaged processes — make a slide deck, humanize a draft, review code — wired into the rooms that need them. You don't load every tool everywhere. The production room gets the build tools; the writing room gets the writing tools. Plug them in where they belong, leave them out where they don't.</p>
+
+    <p>Map routes. Rooms hold context. Tools plug in. That's the engine.</p>
+
+    <h2>Why every file is plain text</h2>
+
+    <p>Every file in this system is markdown — a plain text file with a few light symbols. Dashes make bullets. Hash signs make headers. Asterisks make bold. That's basically it.</p>
+
+    <p>A writer named John Gruber created markdown in 2004. The goal was simple: write something that reads fine as plain text but can also render into a clean document — the readability of a note, without the tags of HTML.</p>
+
+    <p>You're already using it without knowing. When Claude answers with headers and bold text, it's writing markdown underneath. Copy its reply into a plain text file and you'll see the little symbols. That's why we use it for everything: the AI reads and writes it natively, and you can open any file in any text editor on any computer made in the last forty years.</p>
+
+    <p>You don't need special software for any of this. Your normal file explorer and Notepad are enough. Tools like VS Code — or Claude's own folder mode — just make it tidier to move between a lot of files. Skip them until you want them.</p>
+
+    <h2>Build one right now</h2>
+
+    <p>Steal this exactly.</p>
+
+    <p><strong>Step 1 — Make these folders and empty files:</strong></p>
+
+    <pre><code>my-workflow/
+├── CLAUDE.md
+├── stages/
+│   └── 01_do-the-thing/
+│       ├── CONTEXT.md
+│       └── output/
+└── _config/
+    └── standards.md</code></pre>
+
+    <p><strong>Step 2 — Put this in CLAUDE.md.</strong> This is the map. It says what the thing is and routes every task:</p>
+
+    <pre><code># [Name it — e.g. "Weekly competitor brief"]
+This workspace produces [the one thing it makes].
+Run it one stage at a time, in numbered order.
+
+## Routing — for each task, go here and read this
+| Task        | Go to         | Read       |
+| ----------- | ------------- | ---------- |
+| Do the work | stages/01_... | CONTEXT.md |
+
+## Rules
+- Before working in a stage, read that stage's CONTEXT.md first.
+- Write every result into that stage's output/ folder.
+- Follow _config/standards.md for tone, format, and quality.
+- Don't skip a stage — each stage's output feeds the next.</code></pre>
+
+    <p><strong>Step 3 — Put this in stages/01_do-the-thing/CONTEXT.md.</strong> This is one room — one job:</p>
+
+    <pre><code># Stage 01 — [what this step does]
+GOAL: [the single outcome this step produces]
+INPUT: [what to read — a URL, a file, a prompt you paste]
+DO:
+  1. [first action]
+  2. [second action]
+  3. [check it against _config/standards.md]
+OUTPUT: write the result to ./output/ as [filename].md</code></pre>
+
+    <p><strong>Step 4 — Run it.</strong> Open the folder in any agentic AI tool — Claude Code, Cursor, whatever you use. Point it at CLAUDE.md. Tell it to run stage 01.</p>
+
+    <p>Done. That's a working AI system. Want a second step? Make a folder called 02_. Want to reorder the work? Renumber the folders. Want a different voice? Edit one text file.</p>
+
+    <figure class="essay-figure"><img src="/figures/essay-fig2-the-workspace.png" alt="The whole system is the folder tree — no application code anywhere" loading="lazy"></figure>
+
+    <blockquote class="pullquote"><p>You just built the thing they quote five figures for.</p></blockquote>
+
+    <h2>Naming conventions: a database without a database</h2>
+
+    <p>One more piece that makes this work with zero code. In your CLAUDE.md, you set naming rules.</p>
+
+    <p>A blog draft becomes <code>api-auth-guide_draft.md</code>. A newsletter becomes <code>2026-03-launch-week.md</code>. Version two of a demo script becomes <code>demo_v2.md</code>.</p>
+
+    <p>Now the names carry the information. You can say "pull my demo v2 and turn it into a spec" and the AI knows exactly what to find, where it lives, and what to do next. No database. No search index. No code. The filename is the lookup.</p>
+
+    <h2>Make it yours: three real setups</h2>
+
+    <p>The folder names above are placeholders. The layers never change — the labels do. Here are three real shapes. Find the one closest to your work, then build your own.</p>
+
+    <figure class="essay-figure"><img src="/figures/essay-fig-usecases.png" alt="One structure, three shapes: content creator, freelancer, developer" loading="lazy"></figure>
+
+    <p><strong>If you make content.</strong> Three rooms: a script lab (ideas to drafts to final), a production room (briefs, specs, builds), a distribution room (per-platform formatting, scheduling, repurposing). The script lab's context holds your voice and audience, so the AI writes like you from the first line.</p>
+
+    <p><strong>If you're a freelancer or consultant.</strong> One room per client, each with its own context — who they are, the engagement, the phase, their terminology — plus a templates room and a business-dev room. Say "let's work on Alpha" and it reads Alpha's context and nothing from Beta. Land a new client? Copy the structure, write one new context file, add one line to the map.</p>
+
+    <p><strong>If you build software.</strong> Rooms for planning, source, docs, and ops — each with a context file describing the stack, the conventions, the standards. This is where Layer 3 earns its keep: wire a testing skill into the source room, a doc skill into the docs room, so each loads only where it's relevant.</p>
+
+    <p>Same three layers every time. You change the labels and the context. The architecture holds.</p>
+
+    <h2>Why this works: fifty years of one idea</h2>
+
+    <p>This isn't new. It's the oldest principle in software, pointed at AI.</p>
+
+    <figure class="essay-figure"><img src="/figures/essay-fig3-borrowed.png" alt="Borrowed, not invented: separation of concerns 1972, Unix, compilers, infra-as-code, now folder-based AI" loading="lazy"></figure>
+
+    <p>In 1972, a computer scientist named David Parnas wrote a short, famous paper arguing that systems should be split into parts that each hide their own complexity and connect through clean, simple interfaces. Separation of concerns. It became one of the load-bearing ideas of all software.</p>
+
+    <p>Everything good that followed is a version of it:</p>
+
+    <ul>
+      <li><strong>Unix, 1970s</strong> — small programs that each do one thing, connected by plain text. Still running today.</li>
+      <li><strong>Compilers, 1980s</strong> — break a hard transformation into stages, each reading the last one's output.</li>
+      <li><strong>Infrastructure-as-code, 2010s</strong> — stop configuring servers by hand; put the whole system in plain files in a folder, and the files <em>are</em> the source of truth.</li>
+    </ul>
+
+    <p>Each of those beat the smarter, more complicated alternative of its day. Folders-for-AI is the same bet: each room does one thing, the map routes between them, plain text is the interface. Simple things you can read and change beat complex things you can't. Fifty years of evidence say so.</p>
+
+    <p>The full lineage — 1972 through to AI — and the deeper five-layer version of this architecture are written up in a 2026 research paper I'll point you to at the end. Hand it to your AI and have it walk you through whatever part you want to go deeper on.</p>
+
+    <h2>Now here's how you make money with it</h2>
+
+    <p>Two ways.</p>
+
+    <p><strong>Use it.</strong> Build the repetitive, boring work in your own business as folder workflows — content, outreach, reporting. You stop paying for tools, and you stop doing the same work twice.</p>
+
+    <p><strong>Sell it.</strong> This is the part people are sleeping on. Businesses are being quoted $30,000 for systems they can't even operate. You can build them a folder workspace they own — readable, editable, no lock-in — and charge for it. They pay happily, because it's the opposite of everything else on the market. One folder. One handoff. Theirs forever.</p>
+
+    <p>The cost of building just fell to almost nothing. The people who win now aren't the ones with the fanciest stack. They're the ones who know what to point it at, and who can hand someone a thing that works — then walk away.</p>
+
+    <blockquote class="pullquote"><p>That's the whole game.</p></blockquote>
+
+    <h2>This is just the foundation</h2>
+
+    <p>Everything above is the ground floor. It's enough to change how you work this week — but it's the beginning, not the whole building.</p>
+
+    <p>What you just learned is three layers. The full architecture has more: skills built and chained in depth, external tools and live data wired in, several workspaces orchestrated together, the five-layer version laid out in the research. It gets more capable — and yes, more complex.</p>
+
+    <p>Don't reach for that yet. Get this working first. Build one workspace. Run it until the three layers are second nature — until you can feel where a task belongs before you've finished reading it. When that clicks, you're ready for what's next.</p>
+
+    <p>Because this is the start of a series. I'm going to build this all the way up, one piece at a time, in plain language, exactly like this. If you can build the foundation in this post, you're ready for every layer that comes after it.</p>
+
+    <hr>
+
+    <p>If this was useful, subscribe — I give the whole playbook away, one piece at a time. No upsell, ever. The next one goes deeper.</p>
+
+    <p><em>(Credit: the full history and the five-layer architecture are formalized in a 2026 paper by Van Clief & McDermott — arxiv.org/abs/2603.16021. I landed on the same shape building my own systems before I read it.)</em></p>
+
+    <hr>
+
+    <h2>Take this with you</h2>
+
+    <p>The fastest possible start — three files, five minutes. Make a folder. Put these inside.</p>
+
+    <p><strong>CLAUDE.md</strong> — who you are, what this is, where things go:</p>
+
+    <pre><code># Identity
+You are helping [YOUR NAME] with [WHAT YOU DO].
+
+# Folders
+- /drafts      — work in progress
+- /final       — finished outputs
+- /references  — background material
+
+# Rules
+- Read this file first on every new task.
+- Ask before creating files outside /drafts.
+- When unsure, ask.</code></pre>
+
+    <p><strong>CONTEXT.md</strong> — the current project:</p>
+
+    <pre><code># Current project
+[What you're building. 2–3 sentences.]
+
+# What good looks like
+[What a successful output looks like.]
+
+# What to avoid
+[Common mistakes or things you don't want.]</code></pre>
+
+    <p><strong>REFERENCES.md</strong> — background the AI should know but not act on:</p>
+
+    <pre><code># References
+[Examples, links, style guides, notes — anything the AI
+should have access to but doesn't need to act on directly.]</code></pre>
+
+    <p>Point your AI at the folder — Claude Code, or upload the three files to a project, or paste them into your first message — and give it a task. You'll feel the difference on the first reply.</p>
+
+    <p>And if you'd rather learn it cold than just read it: copy this entire post, paste it into your AI, and say "Teach me this. Quiz me until I've got it, then walk me through building my first workspace." You'll own it by the end of the day.</p>
+    
+    <div class="more-reading">
+      <div class="more-reading-eyebrow">— More from the Reading Room</div>
+      <ul class="more-reading-list">
+      <li class="more-reading-item">
+        <a href="01-the-ontology-of-a-business.html">The Ontology of a Business</a>
+        <span class="more-reading-item-meta">Edition 01 · On what your company actually is, underneath what you have been telling yourself it is.</span>
+      </li>
+      <li class="more-reading-item">
+        <a href="02-why-folder-structure-is-architecture.html">Why Folder Structure is Architecture</a>
+        <span class="more-reading-item-meta">Edition 02 · On Interpretable Context Methodology, and why the cleanest AI system is one that does not look like an AI system.</span>
+      </li>
+      <li class="more-reading-item">
+        <a href="03-strategy-is-downstream.html">Strategy is Downstream</a>
+        <span class="more-reading-item-meta">Edition 03 · On why most strategy fails, what it is downstream of, and the layer that has to be settled first.</span>
+      </li>
+      <li class="more-reading-item">
+        <a href="04-field-notes-on-duty.html">Field Notes — Installing the Architecture in a Co-Founded Company</a>
+        <span class="more-reading-item-meta">Edition 04 · Build log from On Duty, the fleet safety platform I am building with my stepdad as co-founder.</span>
+      </li>
+      <li class="more-reading-item">
+        <a href="05-the-three-layers-of-a-business.html">The Three Layers of a Business</a>
+        <span class="more-reading-item-meta">Edition 05 · On why most strategy frameworks are missing the middle layer, and what changes when you name it.</span>
+      </li>
+      <li class="more-reading-item">
+        <a href="06-the-layer-above-the-architecture.html">The Layer Above the Architecture</a>
+        <span class="more-reading-item-meta">Edition 06 · On the ontological audit — the layer that has to be read before any AI architecture goes in.</span>
+      </li>
+      </ul>
+    </div>
+    <div style="margin-top:52px;padding-top:30px;border-top:1px solid var(--rule-soft);">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:10px;">— The Reading Room</div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink-soft);margin:0 0 14px;line-height:1.5;">New essays, sent to your inbox when they publish. No cadence, no filler.</p>
+      <a href="/#subscribe" style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);text-decoration:none;">Subscribe →</a>
+    </div>
+  </article>
+
+  <footer>
+    <div class="footer-inner footer-inner-narrow">
+      <div>Substrate · Practice of Jayden Forshee · 2026</div>
+      <div><a href="mailto:jaydiorforshee@gmail.com">jaydiorforshee@gmail.com</a></div>
+    </div>
+  </footer>
+
+</body>
+</html>

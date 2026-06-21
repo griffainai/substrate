@@ -52,6 +52,13 @@ ESSAYS = [
         "subtitle": "On the ontological audit — the layer that has to be read before any AI architecture goes in.",
         "date": "2026",
     },
+    {
+        "slug": "07-how-to-build-an-ai-system-for-free",
+        "edition": "07",
+        "title": "How to Build an AI System for Free — Using Nothing but Folders",
+        "subtitle": "The setup people pay $20,000–$200,000 for, built with nothing but folders — the whole blueprint, step by step.",
+        "date": "2026",
+    },
 ]
 
 SOURCE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "writing")
@@ -77,6 +84,34 @@ def markdown_to_html_paragraphs(md_text):
     i = 0
     while i < len(lines):
         line = lines[i].rstrip()
+
+        # Fenced code block (``` ... ```) — content kept verbatim
+        if line.strip().startswith("```"):
+            if current_para:
+                html_parts.append(format_paragraph("\n".join(current_para)))
+                current_para = []
+            code_lines = []
+            i += 1
+            while i < len(lines) and not lines[i].rstrip().startswith("```"):
+                code_lines.append(lines[i])
+                i += 1
+            i += 1  # skip closing fence
+            code_html = "\n".join(code_lines).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+            html_parts.append(f"<pre><code>{code_html}</code></pre>")
+            continue
+
+        # Standalone image: ![alt](url)
+        img_match = re.match(r"^!\[([^\]]*)\]\(([^)]+)\)\s*$", line.strip())
+        if img_match:
+            if current_para:
+                html_parts.append(format_paragraph("\n".join(current_para)))
+                current_para = []
+            alt, src = img_match.group(1), img_match.group(2)
+            html_parts.append(
+                f'<figure class="essay-figure"><img src="{src}" alt="{alt}" loading="lazy"></figure>'
+            )
+            i += 1
+            continue
 
         # Horizontal rule
         if line.strip() == "---":
@@ -120,6 +155,19 @@ def markdown_to_html_paragraphs(md_text):
             html_parts.append("<ul>\n" + "\n".join(items) + "\n    </ul>")
             continue
 
+        # Ordered list (consume contiguous "N. " lines)
+        if re.match(r"^\d+\.\s", line):
+            if current_para:
+                html_parts.append(format_paragraph("\n".join(current_para)))
+                current_para = []
+            items = []
+            while i < len(lines) and re.match(r"^\d+\.\s", lines[i].rstrip()):
+                item_text = re.sub(r"^\d+\.\s", "", lines[i].rstrip())
+                items.append(f"      <li>{format_inline(item_text)}</li>")
+                i += 1
+            html_parts.append('<ol class="essay-ol">\n' + "\n".join(items) + "\n    </ol>")
+            continue
+
         # Blockquote -> pull-quote (consume contiguous "> " lines)
         if line.startswith(">"):
             if current_para:
@@ -154,7 +202,8 @@ def markdown_to_html_paragraphs(md_text):
 
 
 def format_inline(text):
-    """Apply inline markdown (bold/italic) and collapse whitespace."""
+    """Apply inline markdown (code/bold/italic) and collapse whitespace."""
+    text = re.sub(r"`([^`]+)`", r"<code>\1</code>", text)
     text = re.sub(r"\*\*([^\*]+)\*\*", r"<strong>\1</strong>", text)
     text = re.sub(r"(?<!\*)\*([^\*\n]+)\*(?!\*)", r"<em>\1</em>", text)
     text = re.sub(r"\s+", " ", text).strip()

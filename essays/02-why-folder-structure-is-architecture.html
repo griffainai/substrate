@@ -330,6 +330,38 @@ article ul li::before {
   .stat-row { grid-template-columns: 1fr; }
 }
 
+/* — Figures (essay diagrams / images) — */
+.essay-figure { margin: 42px 0; }
+.essay-figure img {
+  width: 100%; height: auto; display: block;
+  border: 1px solid var(--rule); border-radius: 6px;
+}
+
+/* — Code blocks & inline code — */
+article pre {
+  background: var(--paper-warm); border: 1px solid var(--rule);
+  border-radius: 6px; padding: 18px 22px; margin: 30px 0; overflow-x: auto;
+}
+article pre code {
+  font-family: 'JetBrains Mono', monospace; font-size: 13px;
+  line-height: 1.65; color: var(--ink-soft); white-space: pre; background: none;
+}
+article p code, article li code {
+  font-family: 'JetBrains Mono', monospace; font-size: 0.84em;
+  background: var(--paper-warm); border: 1px solid var(--rule-soft);
+  padding: 1px 6px; border-radius: 4px; color: var(--accent);
+}
+
+/* — Ordered list — */
+.essay-ol { margin: 30px 0; padding-left: 28px; }
+.essay-ol li { margin-bottom: 12px; line-height: 1.6; padding-left: 4px; }
+.essay-ol li::marker { color: var(--accent); }
+
+@media (max-width: 800px) {
+  article pre code { font-size: 11.5px; }
+  .essay-figure { margin: 32px 0; }
+}
+
 </style>
 </head>
 <body>
@@ -383,7 +415,7 @@ article ul li::before {
 
     <p>This is not new architecture. It is borrowed architecture, applied to a new problem.</p>
 
-    <p>The Unix designers in the 1970s figured out that small programs connected through plain text were more powerful than large programs that tried to do everything. The principle was: each program does one thing well, the output of one program becomes the input to another, and plain text is the universal interface. Pipelines like `find | grep | sort | uniq` are still in daily use fifty years later, because the architecture is fundamentally sound.</p>
+    <p>The Unix designers in the 1970s figured out that small programs connected through plain text were more powerful than large programs that tried to do everything. The principle was: each program does one thing well, the output of one program becomes the input to another, and plain text is the universal interface. Pipelines like <code>find | grep | sort | uniq</code> are still in daily use fifty years later, because the architecture is fundamentally sound.</p>
 
     <p>The compiler engineers of the 1980s figured out that complex transformations were more reliable when broken into stages, with each stage reading the output of the previous one and writing its own intermediate representation. A modern compiler has lexing, parsing, semantic analysis, optimization, and code generation as separate passes, and each pass is independently inspectable and replaceable.</p>
 
@@ -399,13 +431,31 @@ article ul li::before {
 
     <p>A workspace for a content production pipeline might look like this:</p>
 
-    <p>``` my-business/ ├── CLAUDE.md ├── CONTEXT.md ├── stages/ │ ├── 01_research/ │ │ ├── CONTEXT.md │ │ ├── references/ │ │ └── output/ │ ├── 02_draft/ │ │ ├── CONTEXT.md │ │ ├── references/ │ │ └── output/ │ └── 03_publish/ │ ├── CONTEXT.md │ ├── references/ │ └── output/ └── _config/ ├── voice.md └── conventions.md ```</p>
+    <pre><code>my-business/
+├── CLAUDE.md
+├── CONTEXT.md
+├── stages/
+│   ├── 01_research/
+│   │   ├── CONTEXT.md
+│   │   ├── references/
+│   │   └── output/
+│   ├── 02_draft/
+│   │   ├── CONTEXT.md
+│   │   ├── references/
+│   │   └── output/
+│   └── 03_publish/
+│       ├── CONTEXT.md
+│       ├── references/
+│       └── output/
+└── _config/
+    ├── voice.md
+    └── conventions.md</code></pre>
 
-    <p>That is the entire system. There is no application code anywhere. The numbered folders represent the stages of the workflow. Each stage's `CONTEXT.md` is a markdown file that tells the AI what to do at that step — what inputs to read, what process to follow, what outputs to produce. The `references/` folders hold the company-specific knowledge each stage needs: voice guidelines, design conventions, domain knowledge. The `output/` folders are where the agent writes its work, and where the next stage reads from. The `_config/` folder holds the company's reference material that every stage might need to access.</p>
+    <p>That is the entire system. There is no application code anywhere. The numbered folders represent the stages of the workflow. Each stage's <code>CONTEXT.md</code> is a markdown file that tells the AI what to do at that step — what inputs to read, what process to follow, what outputs to produce. The <code>references/</code> folders hold the company-specific knowledge each stage needs: voice guidelines, design conventions, domain knowledge. The <code>output/</code> folders are where the agent writes its work, and where the next stage reads from. The <code>_config/</code> folder holds the company's reference material that every stage might need to access.</p>
 
-    <p>When the agent runs, it reads the workspace's `CLAUDE.md` to understand the overall structure, then navigates to whichever stage it is currently executing, reads that stage's `CONTEXT.md`, loads the relevant references, and produces output to the `output/` folder. The next stage reads from there, and the cycle continues.</p>
+    <p>When the agent runs, it reads the workspace's <code>CLAUDE.md</code> to understand the overall structure, then navigates to whichever stage it is currently executing, reads that stage's <code>CONTEXT.md</code>, loads the relevant references, and produces output to the <code>output/</code> folder. The next stage reads from there, and the cycle continues.</p>
 
-    <p>A non-technical operator who wants to change how the system writes can open `_config/voice.md` and edit the voice guidelines directly. The next time the workflow runs, the new guidelines are in effect. There is no deployment, no compile step, no developer needed. The text file <em>is</em> the configuration.</p>
+    <p>A non-technical operator who wants to change how the system writes can open <code>_config/voice.md</code> and edit the voice guidelines directly. The next time the workflow runs, the new guidelines are in effect. There is no deployment, no compile step, no developer needed. The text file <em>is</em> the configuration.</p>
 
     <p>This is what I install for every client. The exact folder structure differs based on what the audit surfaced — every business has a different ontology, and the architecture has to mirror the specific structure of each business — but the underlying methodology is the same. <strong>Folders for stages. Markdown for context. Plain text everywhere. Git for version control. No server. No proprietary platform. No vendor lock-in.</strong></p>
 
@@ -457,6 +507,10 @@ article ul li::before {
       <li class="more-reading-item">
         <a href="06-the-layer-above-the-architecture.html">The Layer Above the Architecture</a>
         <span class="more-reading-item-meta">Edition 06 · On the ontological audit — the layer that has to be read before any AI architecture goes in.</span>
+      </li>
+      <li class="more-reading-item">
+        <a href="07-how-to-build-an-ai-system-for-free.html">How to Build an AI System for Free — Using Nothing but Folders</a>
+        <span class="more-reading-item-meta">Edition 07 · The setup people pay $20,000–$200,000 for, built with nothing but folders — the whole blueprint, step by step.</span>
       </li>
       </ul>
     </div>
