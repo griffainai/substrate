@@ -42,21 +42,18 @@
 .a2 .b{letter-spacing:.1em}
 .a2 .it{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:30px}
 .a2 .serb{font-family:'Cormorant Garamond',Georgia,serif;font-size:36px;font-weight:600}
-.a2 .r{opacity:0}
-.a2 .arr,.a2 .hd{opacity:0}
-.a2.go .row1{animation:a2rise .7s .2s ease forwards}
-.a2.go .row2{animation:a2rise .7s .8s ease forwards}
-.a2.go .row3{animation:a2rise .7s 1.4s ease forwards}
-.a2.go .row1 .arr{animation:a2draw .5s .7s ease forwards}
-.a2.go .row2 .arr{animation:a2draw .5s 1.3s ease forwards}
-.a2.go .row3 .arr{animation:a2draw .5s 1.9s ease forwards}
-.a2.go .row1 .hd{animation:a2fade .3s 1.1s ease forwards}
-.a2.go .row2 .hd{animation:a2fade .3s 1.7s ease forwards}
-.a2.go .row3 .hd{animation:a2fade .3s 2.3s ease forwards}
+.a2 .row1{animation:a2rise .7s .3s ease both}
+.a2 .row2{animation:a2rise .7s .9s ease both}
+.a2 .row3{animation:a2rise .7s 1.5s ease both}
+.a2 .row1 .arr{animation:a2draw .5s .8s ease both}
+.a2 .row2 .arr{animation:a2draw .5s 1.4s ease both}
+.a2 .row3 .arr{animation:a2draw .5s 2.0s ease both}
+.a2 .row1 .hd{animation:a2fade .3s 1.2s ease both}
+.a2 .row2 .hd{animation:a2fade .3s 1.8s ease both}
+.a2 .row3 .hd{animation:a2fade .3s 2.4s ease both}
 @keyframes a2rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes a2draw{from{opacity:1;stroke-dashoffset:56}to{opacity:1;stroke-dashoffset:0}}
-@keyframes a2fade{to{opacity:1}}
-@media(prefers-reduced-motion:reduce){.a2 .r,.a2 .arr,.a2 .hd{opacity:1}.a2 .arr{stroke-dashoffset:0}}
+@keyframes a2fade{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.a2 .row1,.a2 .row2,.a2 .row3,.a2 .arr,.a2 .hd{animation:none;opacity:1}.a2 .arr{stroke-dashoffset:0}}
 </style>
-<script>(function(){var e=document.currentScript.parentNode;var o=new IntersectionObserver(function(n){n.forEach(function(x){if(x.isIntersecting){e.classList.add('go');o.disconnect()}})},{threshold:.2});o.observe(e)})();</script>
 </div>

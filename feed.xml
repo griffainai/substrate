@@ -11,7 +11,7 @@
       <link>https://www.jaydenforshee.com/essays/08-what-your-company-actually-is.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/08-what-your-company-actually-is.html</guid>
       <description>Every company runs two businesses at once — the one it describes and the one it&#x27;s actually paid for. Reading the gap between them.</description>
-      <pubDate>Sat, 27 Jun 2026 09:19:40 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
       <content:encoded><![CDATA[<p>A fleet-safety company I looked at sells, on its website, <em>fewer accidents</em>. Safer drivers. Peace of mind. Lower insurance premiums. That is the story, and it is a good one — the founder believes every word, the deck closes on it, the sales team leads with it.</p>
 
     <p>Then you follow the money instead of the pitch.</p>
@@ -67,18 +67,16 @@
 .a1 .it{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:24px}
 .a1 .it.big{font-size:27px}
 .a1 .cap{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:25px}
-.a1 .r{opacity:0}
-.a1.go .s1{animation:a1rise .8s .15s ease forwards}
-.a1.go .s2{animation:a1rise .8s 1.0s ease forwards}
-.a1.go .s3{animation:a1rise .9s 1.7s ease forwards}
-.a1.go .accent{animation:a1draw 1.0s 1.1s ease forwards}
-.a1.go .pulse{animation:a1pulse 3.6s 3.0s ease-in-out infinite}
+.a1 .s1{animation:a1rise .8s .3s ease both}
+.a1 .s2{animation:a1rise .8s 1.1s ease both}
+.a1 .s3{animation:a1rise .9s 1.8s ease both}
+.a1 .accent{animation:a1draw 1.0s 1.2s ease both}
+.a1 .pulse{animation:a1pulse 3.6s 3.2s ease-in-out infinite}
 @keyframes a1rise{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
 @keyframes a1draw{to{stroke-dashoffset:0}}
 @keyframes a1pulse{0%,100%{opacity:1}50%{opacity:.82}}
-@media(prefers-reduced-motion:reduce){.a1 .r{opacity:1}.a1 .accent{stroke-dashoffset:0}.a1 .pulse{animation:none}}
+@media(prefers-reduced-motion:reduce){.a1 .s1,.a1 .s2,.a1 .s3,.a1 .accent,.a1 .pulse{animation:none}.a1 .accent{stroke-dashoffset:0}}
 </style>
-<script>(function(){var e=document.currentScript.parentNode;var o=new IntersectionObserver(function(n){n.forEach(function(x){if(x.isIntersecting){e.classList.add('go');o.disconnect()}})},{threshold:.25});o.observe(e)})();</script>
 </div>
 </div>
 
@@ -154,23 +152,20 @@
 .a2 .b{letter-spacing:.1em}
 .a2 .it{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:30px}
 .a2 .serb{font-family:'Cormorant Garamond',Georgia,serif;font-size:36px;font-weight:600}
-.a2 .r{opacity:0}
-.a2 .arr,.a2 .hd{opacity:0}
-.a2.go .row1{animation:a2rise .7s .2s ease forwards}
-.a2.go .row2{animation:a2rise .7s .8s ease forwards}
-.a2.go .row3{animation:a2rise .7s 1.4s ease forwards}
-.a2.go .row1 .arr{animation:a2draw .5s .7s ease forwards}
-.a2.go .row2 .arr{animation:a2draw .5s 1.3s ease forwards}
-.a2.go .row3 .arr{animation:a2draw .5s 1.9s ease forwards}
-.a2.go .row1 .hd{animation:a2fade .3s 1.1s ease forwards}
-.a2.go .row2 .hd{animation:a2fade .3s 1.7s ease forwards}
-.a2.go .row3 .hd{animation:a2fade .3s 2.3s ease forwards}
+.a2 .row1{animation:a2rise .7s .3s ease both}
+.a2 .row2{animation:a2rise .7s .9s ease both}
+.a2 .row3{animation:a2rise .7s 1.5s ease both}
+.a2 .row1 .arr{animation:a2draw .5s .8s ease both}
+.a2 .row2 .arr{animation:a2draw .5s 1.4s ease both}
+.a2 .row3 .arr{animation:a2draw .5s 2.0s ease both}
+.a2 .row1 .hd{animation:a2fade .3s 1.2s ease both}
+.a2 .row2 .hd{animation:a2fade .3s 1.8s ease both}
+.a2 .row3 .hd{animation:a2fade .3s 2.4s ease both}
 @keyframes a2rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes a2draw{from{opacity:1;stroke-dashoffset:56}to{opacity:1;stroke-dashoffset:0}}
-@keyframes a2fade{to{opacity:1}}
-@media(prefers-reduced-motion:reduce){.a2 .r,.a2 .arr,.a2 .hd{opacity:1}.a2 .arr{stroke-dashoffset:0}}
+@keyframes a2fade{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.a2 .row1,.a2 .row2,.a2 .row3,.a2 .arr,.a2 .hd{animation:none;opacity:1}.a2 .arr{stroke-dashoffset:0}}
 </style>
-<script>(function(){var e=document.currentScript.parentNode;var o=new IntersectionObserver(function(n){n.forEach(function(x){if(x.isIntersecting){e.classList.add('go');o.disconnect()}})},{threshold:.2});o.observe(e)})();</script>
 </div>
 </div>
 
@@ -247,28 +242,26 @@
 .a3 .it{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:23px}
 .a3 .serb{font-family:'Cormorant Garamond',Georgia,serif;font-size:28px;font-weight:600}
 .a3 .cap{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:23px}
-.a3 .r{opacity:0}
-.a3 .arr,.a3 .hd,.a3 .arr2,.a3 .hd2,.a3 .accent{opacity:0}
-.a3.go .chips{animation:a3rise .7s .2s ease forwards}
-.a3.go .down{animation:a3rise .5s .7s ease forwards}
-.a3.go .down .arr{animation:a3draw .5s .8s ease forwards}
-.a3.go .down .hd{animation:a3fade .3s 1.2s ease forwards}
-.a3.go .stated{animation:a3rise .7s 1.1s ease forwards}
-.a3.go .gap{animation:a3rise .5s 1.7s ease forwards}
-.a3.go .gap .accent{animation:a3drawx .8s 1.9s ease forwards}
-.a3.go .operating{animation:a3rise .7s 2.2s ease forwards}
-.a3.go .ai{animation:a3rise .7s 2.8s ease forwards}
-.a3.go .ai .arr2{animation:a3draw .4s 3.1s ease forwards}
-.a3.go .ai .hd2{animation:a3fade .3s 3.4s ease forwards}
-.a3.go .ai .aibox{animation:a3pulse 3.4s 3.6s ease-in-out infinite}
+.a3 .arr,.a3 .hd,.a3 .arr2,.a3 .hd2{opacity:0}
+.a3 .chips{animation:a3rise .7s .3s ease both}
+.a3 .down{animation:a3rise .5s .8s ease both}
+.a3 .down .arr{animation:a3draw .5s .9s ease both}
+.a3 .down .hd{animation:a3fade .3s 1.3s ease both}
+.a3 .stated{animation:a3rise .7s 1.2s ease both}
+.a3 .gap{animation:a3rise .5s 1.8s ease both}
+.a3 .gap .accent{animation:a3drawx .8s 2.0s ease both}
+.a3 .operating{animation:a3rise .7s 2.3s ease both}
+.a3 .ai{animation:a3rise .7s 2.9s ease both}
+.a3 .ai .arr2{animation:a3draw .4s 3.2s ease both}
+.a3 .ai .hd2{animation:a3fade .3s 3.5s ease both}
+.a3 .ai .aibox{animation:a3pulse 3.4s 3.7s ease-in-out infinite}
 @keyframes a3rise{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
 @keyframes a3draw{from{opacity:1;stroke-dashoffset:54}to{opacity:1;stroke-dashoffset:0}}
 @keyframes a3drawx{from{opacity:1;stroke-dashoffset:462}to{opacity:1;stroke-dashoffset:0}}
-@keyframes a3fade{to{opacity:1}}
+@keyframes a3fade{from{opacity:0}to{opacity:1}}
 @keyframes a3pulse{0%,100%{stroke:#8b3a1f}50%{stroke:#c9783c}}
-@media(prefers-reduced-motion:reduce){.a3 .r,.a3 .arr,.a3 .hd,.a3 .arr2,.a3 .hd2,.a3 .accent{opacity:1}.a3 .accent,.a3 .arr,.a3 .arr2{stroke-dashoffset:0}}
+@media(prefers-reduced-motion:reduce){.a3 .chips,.a3 .down,.a3 .stated,.a3 .gap,.a3 .operating,.a3 .ai,.a3 .arr,.a3 .hd,.a3 .arr2,.a3 .hd2,.a3 .accent{animation:none;opacity:1}.a3 .accent,.a3 .arr,.a3 .arr2{stroke-dashoffset:0}}
 </style>
-<script>(function(){var e=document.currentScript.parentNode;var o=new IntersectionObserver(function(n){n.forEach(function(x){if(x.isIntersecting){e.classList.add('go');o.disconnect()}})},{threshold:.2});o.observe(e)})();</script>
 </div>
 </div>
 
@@ -309,7 +302,7 @@
       <link>https://www.jaydenforshee.com/essays/07-how-to-build-an-ai-system-for-free.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/07-how-to-build-an-ai-system-for-free.html</guid>
       <description>The setup people pay $20,000–$200,000 for, built with nothing but folders — the whole blueprint, step by step.</description>
-      <pubDate>Sat, 27 Jun 2026 09:19:40 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
       <content:encoded><![CDATA[<p>Most "AI systems" sold to businesses are overbuilt on purpose.</p>
 
     <p>A developer or agency builds you something on a framework — LangChain, CrewAI, AutoGen. Code that wires a bunch of AI agents together. A server. Dashboards. They charge you $20,000 to $200,000. And when it breaks, only they can fix it — because only they understand it.</p>
@@ -555,7 +548,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/06-the-layer-above-the-architecture.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/06-the-layer-above-the-architecture.html</guid>
       <description>On the ontological audit — the layer that has to be read before any AI architecture goes in.</description>
-      <pubDate>Sat, 27 Jun 2026 09:19:40 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
       <content:encoded><![CDATA[<p>Most AI installations into operating businesses fail at the wrong layer.</p>
 
     <p>The technical work is fine. The workspace is correctly structured, the models are credible, the agents do the work they were instructed to do. The architecture is sound. And the company gets less out of it than the architecture should be able to deliver.</p>
@@ -643,7 +636,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/05-the-three-layers-of-a-business.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/05-the-three-layers-of-a-business.html</guid>
       <description>On why most strategy frameworks are missing the middle layer, and what changes when you name it.</description>
-      <pubDate>Sat, 27 Jun 2026 09:19:40 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
       <content:encoded><![CDATA[<p>Most of the way businesses get described, in books and frameworks and consulting work, treats the company as a single thing operating on a single layer. The questions are tactical — <em>what should we do, who should we hire, what should we build, where should we focus.</em> The questions are answered with strategy. The strategy is supposed to make the company successful.</p>
 
     <p>This is incomplete. A business is not one layer; it is three. Confusing them produces most of the frustration that founders feel when they cannot explain why smart advice does not produce the results it promises.</p>
@@ -729,7 +722,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/04-field-notes-on-duty.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/04-field-notes-on-duty.html</guid>
       <description>Build log from On Duty, the fleet safety platform I am building with my stepdad as co-founder.</description>
-      <pubDate>Sat, 27 Jun 2026 09:19:40 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
       <content:encoded><![CDATA[<p>On Duty is a B2B SaaS platform for fleet driver safety — coaching, compliance, and retention for companies that operate commercial vehicles. I co-founded it with my stepdad. He owns the sales and client side; I own the technical and architectural side. The company is in active development with mock data, four active tenants, and a pilot in progress with a commercial concrete operator running roughly ten drivers through the system.</p>
 
     <p>This is a build log from the operating architecture I have been installing inside it for the last year. The methodology is the same one I install for clients. The reason I am publishing the build log in the Reading Room is that the question of <em>whether the methodology works in a real business environment with a real non-technical operator running it daily</em> has to be answered somewhere, and the most direct way to answer it is to show what the architecture looks like and what it has produced.</p>
@@ -805,7 +798,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/03-strategy-is-downstream.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/03-strategy-is-downstream.html</guid>
       <description>On why most strategy fails, what it is downstream of, and the layer that has to be settled first.</description>
-      <pubDate>Sat, 27 Jun 2026 09:19:40 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
       <content:encoded><![CDATA[<p>There is a moment that happens in almost every advisory engagement I have observed, mine or someone else's, where the founder asks the strategic question that brought them to the table — <em>should we expand into this market, should we hire this role, should we launch this product</em> — and the advisor gives a clean, well-reasoned answer, and the founder nods and writes it down, and three months later nothing has happened.</p>
 
     <p>The advice was sound. The reasoning was solid. The founder agreed in the room. And yet the company did not move.</p>
@@ -909,7 +902,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/02-why-folder-structure-is-architecture.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/02-why-folder-structure-is-architecture.html</guid>
       <description>On Interpretable Context Methodology, and why the cleanest AI system is one that does not look like an AI system.</description>
-      <pubDate>Sat, 27 Jun 2026 09:19:38 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
       <content:encoded><![CDATA[<p>Most AI systems being sold to companies right now are too complicated for what they actually need to do.</p>
 
     <p>The standard picture goes like this: you hire a developer or a consulting firm to build you an AI system. They use a framework — LangChain, CrewAI, AutoGen, something similar. They write Python code that orchestrates multiple AI agents talking to each other. They deploy it on a server. They build dashboards to monitor it. They charge you anywhere from twenty thousand to several hundred thousand dollars depending on the scope. When something goes wrong, only they can fix it, because only they understand the code that holds the whole thing together.</p>
@@ -1017,7 +1010,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/01-the-ontology-of-a-business.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/01-the-ontology-of-a-business.html</guid>
       <description>On what your company actually is, underneath what you have been telling yourself it is.</description>
-      <pubDate>Sat, 27 Jun 2026 09:19:38 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
       <content:encoded><![CDATA[<p>Every business runs on an answer to a question almost nobody asks: <strong>what is this company, structurally, underneath the way I describe it?</strong></p>
 
     <p>The founder usually doesn't ask this because they think the question is settled. They wrote the pitch deck. They have a tagline. They know what they sell. The question feels rhetorical. <em>This is a software company. This is a fleet operator. This is an agency.</em> The category seems obvious, and the obviousness of the category is exactly why the question stops getting asked.</p>
