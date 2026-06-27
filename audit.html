@@ -24,7 +24,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <style>
@@ -660,6 +660,11 @@
     .report-cta-eyebrow { color: #6e685e !important; }
     .report-cta-title { color: #1a1815 !important; }
     .report-cta-body { color: #3a3631 !important; }
+  }
+  /* Readability: reading prose -> Newsreader; display headings stay Cormorant */
+  .audit-hero-body, .step-hint, .fracture-desc, .surface-a, .implication-text,
+  .report-cta-body, .write-intent-label, .write-attach-desc, .loading-body, .next-step-text {
+    font-family: 'Newsreader', Georgia, serif;
   }
 </style>
 </head>

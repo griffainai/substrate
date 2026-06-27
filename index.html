@@ -28,7 +28,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
   :root {
@@ -651,6 +651,11 @@
     border-bottom: 1px solid var(--accent-soft); transition: opacity 0.15s;
   }
   .contact-email-addr:hover { opacity: 0.7; }
+  /* Readability: reading prose -> Newsreader; display headings stay Cormorant */
+  .body-content p, .process-folder-content p, .icm-preview-body p,
+  .about-bio p, .contact-body p, .work-item-desc {
+    font-family: 'Newsreader', Georgia, serif;
+  }
 </style>
 </head>
 <body>
