@@ -1,20 +1,18 @@
-# What Your Company Actually Is
+# The Company Underneath Your Company
 
-*Every company runs two businesses at once — the one it describes, and the one it's actually paid for. The distance between them is the most expensive thing you can't see.*
+*You're running two companies — the one you describe, and the one your customers actually pay for. The distance between them is the most expensive thing you can't see.*
 
 **Substrate · Reading Room · Edition 08**
 
 ---
 
-A fleet-safety company I looked at sells, on its website, *fewer accidents*. Safer drivers. Peace of mind. Lower insurance premiums. That is the story, and it is a good one — the founder believes every word, the deck closes on it, the sales team leads with it.
+You are running two companies.
 
-Then you follow the money instead of the pitch.
+One is the company you'd describe if I asked — the one on your site, in your deck, in the story you tell new hires. The other is the company your customers actually pay for. They're not the same. They drift further apart every year you operate. And you almost certainly can't see the second one — because you're standing inside the first.
 
-You look at what customers actually renew for. You read the churn interviews. You watch which feature, when you threaten to remove it, makes a calm operations director suddenly very alert. And a different company comes into focus. The thing they will not give up is the dashcam footage — not because it prevents the crash, but because when the crash happens anyway and the plaintiff's lawyer shows up, the footage is the evidence that *their* driver wasn't at fault. A single exonerating clip is worth more than a year of subscription. They are not buying safer drivers. They are buying **litigation defense**.
+A fleet-safety company sells *fewer accidents*. Follow the renewals, though, and a different business appears: customers stay for the dashcam footage — the clip that proves *their* driver wasn't at fault when the lawyer shows up. One exonerating video is worth more than a year of subscription. They're not buying safer drivers. They're buying **litigation defense**. Same company. Two businesses. Only one is on the marketing site.
 
-Same company. Two completely different businesses. One is written on the marketing site. The other is the one customers actually pay for. And the founder — sincere, smart, close to the work — cannot see the second one, because he is standing inside the first.
-
-Almost every company has this gap. It is not a marketing problem, and it is not a lie. It is a structural condition, it forms predictably, it has a cost that compounds, and right now — as everyone races to install AI on top of it — it is about to get a great deal more expensive. So it is worth learning to read.
+That gap is the most expensive thing you can't see. It forms predictably, compounds quietly, and — as everyone races to bolt AI onto the company they describe — it's about to get far more expensive. So it's worth learning to read.
 
 ## The stated company and the operating company
 

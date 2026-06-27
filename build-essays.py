@@ -62,8 +62,8 @@ ESSAYS = [
     {
         "slug": "08-what-your-company-actually-is",
         "edition": "08",
-        "title": "What Your Company Actually Is",
-        "subtitle": "Every company runs two businesses at once — the one it describes and the one it's actually paid for. Reading the gap between them.",
+        "title": "The Company Underneath Your Company",
+        "subtitle": "You're running two companies — the one you describe and the one your customers actually pay for. Reading the gap between them.",
         "date": "2026",
     },
 ]
