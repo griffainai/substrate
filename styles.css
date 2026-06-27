@@ -305,6 +305,10 @@ article ul li::before {
   border: 1px solid var(--rule); border-radius: 6px;
 }
 
+/* — Animated inline artifacts (site only) — */
+.essay-embed { margin: 46px 0; }
+.essay-embed svg { width: 100%; height: auto; display: block; }
+
 /* — Code blocks & inline code — */
 article pre {
   background: var(--paper-warm); border: 1px solid var(--rule);

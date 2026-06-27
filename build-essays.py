@@ -59,6 +59,13 @@ ESSAYS = [
         "subtitle": "The setup people pay $20,000–$200,000 for, built with nothing but folders — the whole blueprint, step by step.",
         "date": "2026",
     },
+    {
+        "slug": "08-what-your-company-actually-is",
+        "edition": "08",
+        "title": "What Your Company Actually Is",
+        "subtitle": "Every company runs two businesses at once — the one it describes and the one it's actually paid for. Reading the gap between them.",
+        "date": "2026",
+    },
 ]
 
 SOURCE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "writing")
@@ -110,6 +117,19 @@ def markdown_to_html_paragraphs(md_text):
             html_parts.append(
                 f'<figure class="essay-figure"><img src="{src}" alt="{alt}" loading="lazy"></figure>'
             )
+            i += 1
+            continue
+
+        # Raw embed: [[EMBED: filename]] — injected inline from site/embeds/ (animated SVG artifacts)
+        emb = re.match(r"^\[\[EMBED:\s*(.+?)\]\]\s*$", line.strip())
+        if emb:
+            if current_para:
+                html_parts.append(format_paragraph("\n".join(current_para)))
+                current_para = []
+            ep = os.path.join(os.path.dirname(os.path.abspath(__file__)), "embeds", emb.group(1).strip())
+            if os.path.exists(ep):
+                with open(ep, encoding="utf-8") as ef:
+                    html_parts.append('<div class="essay-embed">' + ef.read() + "</div>")
             i += 1
             continue
 

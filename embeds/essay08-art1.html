@@ -1,0 +1,50 @@
+<div class="a1">
+<svg viewBox="0 0 1000 520" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The stated company (fewer accidents, safer drivers, peace of mind) and, beneath the gap, the operating company it is actually paid for: litigation defense.">
+  <rect x="1" y="1" width="998" height="518" rx="14" fill="#f3efe7" stroke="#d4cfc3"/>
+  <text class="mono" x="48" y="54" fill="#6e685e">FIGURE · THE STATED COMPANY VS THE OPERATING COMPANY</text>
+  <line x1="48" y1="76" x2="952" y2="76" stroke="#d4cfc3"/>
+  <g class="r s1">
+    <text class="mono b" x="48" y="134" fill="#1a1815">STATED COMPANY</text>
+    <text class="it" x="244" y="134" fill="#6e685e">— what the website says</text>
+    <text class="ser" x="48" y="190" fill="#1a1815">Fewer accidents. Safer drivers. Peace of mind.</text>
+    <text class="it" x="48" y="230" fill="#6e685e">the story the founder tells</text>
+  </g>
+  <g class="r s2">
+    <line x1="48" y1="284" x2="952" y2="284" stroke="#c9a47e" stroke-width="2" stroke-dasharray="14 10"/>
+    <line class="accent" x1="48" y1="284" x2="952" y2="284" stroke="#8b3a1f" stroke-width="2" stroke-dasharray="904" stroke-dashoffset="904"/>
+    <rect x="450" y="270" width="100" height="28" fill="#f3efe7"/>
+    <text class="mono b" x="468" y="289" fill="#8b3a1f">THE GAP</text>
+  </g>
+  <g class="r s3">
+    <rect x="48" y="316" width="904" height="156" rx="8" fill="#ece5d8" stroke="#8b3a1f" stroke-width="2"/>
+    <rect x="48" y="316" width="7" height="156" fill="#8b3a1f"/>
+    <text class="mono b" x="80" y="360" fill="#8b3a1f">OPERATING COMPANY</text>
+    <text class="it" x="316" y="360" fill="#3a3631">— what customers actually pay for</text>
+    <text class="serb pulse" x="80" y="422" fill="#8b3a1f">Litigation defense.</text>
+    <text class="it big" x="80" y="456" fill="#3a3631">The footage proves the driver wasn't at fault.</text>
+  </g>
+  <text class="cap" x="48" y="506" fill="#8b3a1f">Same company. Two businesses. Only one of them is on the marketing site.</text>
+</svg>
+<style>
+.a1{margin:0}
+.a1 text{font-family:'Inter',sans-serif}
+.a1 .mono{font-family:'JetBrains Mono',monospace;font-size:15px;letter-spacing:.08em}
+.a1 .b{letter-spacing:.1em}
+.a1 .ser{font-family:'Cormorant Garamond',Georgia,serif;font-size:43px}
+.a1 .serb{font-family:'Cormorant Garamond',Georgia,serif;font-size:50px;font-weight:600}
+.a1 .it{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:24px}
+.a1 .it.big{font-size:27px}
+.a1 .cap{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:25px}
+.a1 .r{opacity:0}
+.a1.go .s1{animation:a1rise .8s .15s ease forwards}
+.a1.go .s2{animation:a1rise .8s 1.0s ease forwards}
+.a1.go .s3{animation:a1rise .9s 1.7s ease forwards}
+.a1.go .accent{animation:a1draw 1.0s 1.1s ease forwards}
+.a1.go .pulse{animation:a1pulse 3.6s 3.0s ease-in-out infinite}
+@keyframes a1rise{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
+@keyframes a1draw{to{stroke-dashoffset:0}}
+@keyframes a1pulse{0%,100%{opacity:1}50%{opacity:.82}}
+@media(prefers-reduced-motion:reduce){.a1 .r{opacity:1}.a1 .accent{stroke-dashoffset:0}.a1 .pulse{animation:none}}
+</style>
+<script>(function(){var e=document.currentScript.parentNode;var o=new IntersectionObserver(function(n){n.forEach(function(x){if(x.isIntersecting){e.classList.add('go');o.disconnect()}})},{threshold:.25});o.observe(e)})();</script>
+</div>
