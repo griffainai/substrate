@@ -109,10 +109,10 @@ article { max-width: 760px; margin: 0 auto; padding: 96px 40px 60px; }
   margin-bottom: 48px;
 }
 article p {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 21px; font-weight: 400; line-height: 1.65;
-  color: var(--ink-soft); margin-bottom: 24px;
-  letter-spacing: -0.002em;
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 20px; font-weight: 400; line-height: 1.74;
+  color: var(--ink); margin-bottom: 26px;
+  letter-spacing: 0;
 }
 article em { font-style: italic; color: var(--ink); }
 article strong { font-weight: 500; color: var(--ink); font-style: normal; }
@@ -137,9 +137,9 @@ article ul {
   list-style: none; padding: 0; margin: 0 0 28px 0;
 }
 article ul li {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; line-height: 1.55;
-  color: var(--ink-soft);
+  font-family: 'Newsreader', Georgia, serif;
+  font-size: 19px; line-height: 1.66;
+  color: var(--ink);
   padding-left: 24px; position: relative;
   margin-bottom: 14px;
 }
@@ -326,8 +326,8 @@ article p code, article li code {
 
 /* — Ordered list — */
 .essay-ol { margin: 30px 0; padding-left: 28px; }
-.essay-ol li { margin-bottom: 12px; line-height: 1.6; padding-left: 4px; }
-.essay-ol li::marker { color: var(--accent); }
+.essay-ol li { font-family: 'Newsreader', Georgia, serif; font-size: 19px; color: var(--ink); margin-bottom: 16px; line-height: 1.66; padding-left: 6px; }
+.essay-ol li::marker { color: var(--accent); font-weight: 500; }
 
 @media (max-width: 800px) {
   article pre code { font-size: 11.5px; }

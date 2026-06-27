@@ -11,7 +11,7 @@
       <link>https://www.jaydenforshee.com/essays/08-what-your-company-actually-is.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/08-what-your-company-actually-is.html</guid>
       <description>Every company runs two businesses at once — the one it describes and the one it&#x27;s actually paid for. Reading the gap between them.</description>
-      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:37:44 GMT</pubDate>
       <content:encoded><![CDATA[<p>A fleet-safety company I looked at sells, on its website, <em>fewer accidents</em>. Safer drivers. Peace of mind. Lower insurance premiums. That is the story, and it is a good one — the founder believes every word, the deck closes on it, the sales team leads with it.</p>
 
     <p>Then you follow the money instead of the pitch.</p>
@@ -302,7 +302,7 @@
       <link>https://www.jaydenforshee.com/essays/07-how-to-build-an-ai-system-for-free.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/07-how-to-build-an-ai-system-for-free.html</guid>
       <description>The setup people pay $20,000–$200,000 for, built with nothing but folders — the whole blueprint, step by step.</description>
-      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:37:44 GMT</pubDate>
       <content:encoded><![CDATA[<p>Most "AI systems" sold to businesses are overbuilt on purpose.</p>
 
     <p>A developer or agency builds you something on a framework — LangChain, CrewAI, AutoGen. Code that wires a bunch of AI agents together. A server. Dashboards. They charge you $20,000 to $200,000. And when it breaks, only they can fix it — because only they understand it.</p>
@@ -548,7 +548,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/06-the-layer-above-the-architecture.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/06-the-layer-above-the-architecture.html</guid>
       <description>On the ontological audit — the layer that has to be read before any AI architecture goes in.</description>
-      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:37:42 GMT</pubDate>
       <content:encoded><![CDATA[<p>Most AI installations into operating businesses fail at the wrong layer.</p>
 
     <p>The technical work is fine. The workspace is correctly structured, the models are credible, the agents do the work they were instructed to do. The architecture is sound. And the company gets less out of it than the architecture should be able to deliver.</p>
@@ -636,7 +636,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/05-the-three-layers-of-a-business.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/05-the-three-layers-of-a-business.html</guid>
       <description>On why most strategy frameworks are missing the middle layer, and what changes when you name it.</description>
-      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:37:42 GMT</pubDate>
       <content:encoded><![CDATA[<p>Most of the way businesses get described, in books and frameworks and consulting work, treats the company as a single thing operating on a single layer. The questions are tactical — <em>what should we do, who should we hire, what should we build, where should we focus.</em> The questions are answered with strategy. The strategy is supposed to make the company successful.</p>
 
     <p>This is incomplete. A business is not one layer; it is three. Confusing them produces most of the frustration that founders feel when they cannot explain why smart advice does not produce the results it promises.</p>
@@ -722,7 +722,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/04-field-notes-on-duty.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/04-field-notes-on-duty.html</guid>
       <description>Build log from On Duty, the fleet safety platform I am building with my stepdad as co-founder.</description>
-      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:37:42 GMT</pubDate>
       <content:encoded><![CDATA[<p>On Duty is a B2B SaaS platform for fleet driver safety — coaching, compliance, and retention for companies that operate commercial vehicles. I co-founded it with my stepdad. He owns the sales and client side; I own the technical and architectural side. The company is in active development with mock data, four active tenants, and a pilot in progress with a commercial concrete operator running roughly ten drivers through the system.</p>
 
     <p>This is a build log from the operating architecture I have been installing inside it for the last year. The methodology is the same one I install for clients. The reason I am publishing the build log in the Reading Room is that the question of <em>whether the methodology works in a real business environment with a real non-technical operator running it daily</em> has to be answered somewhere, and the most direct way to answer it is to show what the architecture looks like and what it has produced.</p>
@@ -798,7 +798,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/03-strategy-is-downstream.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/03-strategy-is-downstream.html</guid>
       <description>On why most strategy fails, what it is downstream of, and the layer that has to be settled first.</description>
-      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:37:42 GMT</pubDate>
       <content:encoded><![CDATA[<p>There is a moment that happens in almost every advisory engagement I have observed, mine or someone else's, where the founder asks the strategic question that brought them to the table — <em>should we expand into this market, should we hire this role, should we launch this product</em> — and the advisor gives a clean, well-reasoned answer, and the founder nods and writes it down, and three months later nothing has happened.</p>
 
     <p>The advice was sound. The reasoning was solid. The founder agreed in the room. And yet the company did not move.</p>
@@ -902,7 +902,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/02-why-folder-structure-is-architecture.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/02-why-folder-structure-is-architecture.html</guid>
       <description>On Interpretable Context Methodology, and why the cleanest AI system is one that does not look like an AI system.</description>
-      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:37:42 GMT</pubDate>
       <content:encoded><![CDATA[<p>Most AI systems being sold to companies right now are too complicated for what they actually need to do.</p>
 
     <p>The standard picture goes like this: you hire a developer or a consulting firm to build you an AI system. They use a framework — LangChain, CrewAI, AutoGen, something similar. They write Python code that orchestrates multiple AI agents talking to each other. They deploy it on a server. They build dashboards to monitor it. They charge you anywhere from twenty thousand to several hundred thousand dollars depending on the scope. When something goes wrong, only they can fix it, because only they understand the code that holds the whole thing together.</p>
@@ -1010,7 +1010,7 @@ should have access to but doesn't need to act on directly.]</code></pre>
       <link>https://www.jaydenforshee.com/essays/01-the-ontology-of-a-business.html</link>
       <guid isPermaLink="true">https://www.jaydenforshee.com/essays/01-the-ontology-of-a-business.html</guid>
       <description>On what your company actually is, underneath what you have been telling yourself it is.</description>
-      <pubDate>Sat, 27 Jun 2026 09:28:30 GMT</pubDate>
+      <pubDate>Sat, 27 Jun 2026 09:37:42 GMT</pubDate>
       <content:encoded><![CDATA[<p>Every business runs on an answer to a question almost nobody asks: <strong>what is this company, structurally, underneath the way I describe it?</strong></p>
 
     <p>The founder usually doesn't ask this because they think the question is settled. They wrote the pitch deck. They have a tagline. They know what they sell. The question feels rhetorical. <em>This is a software company. This is a fleet operator. This is an agency.</em> The category seems obvious, and the obviousness of the category is exactly why the question stops getting asked.</p>
