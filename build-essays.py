@@ -66,6 +66,13 @@ ESSAYS = [
         "subtitle": "You're running two companies — the one you describe and the one your customers actually pay for. Reading the gap between them.",
         "date": "2026",
     },
+    {
+        "slug": "09-the-water-you-swim-in",
+        "edition": "09",
+        "title": "The Water You Swim In",
+        "subtitle": "You can't see your own company — you're standing inside it. The method for finally looking at the business that's actually there.",
+        "date": "2026",
+    },
 ]
 
 SOURCE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "writing")
